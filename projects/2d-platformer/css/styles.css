@@ -1,0 +1,50 @@
+:root {
+    --banner-img: url("../images/banner.png");
+    --timeline-offset: 10vw;
+}
+
+#HeaderWrapper {
+    overflow: hidden;
+}
+
+#HeaderWrapper::before, #HeaderWrapper::after {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: var(--banner-img);
+    background-position: center;
+    background-size: contain;
+}
+
+#HeaderWrapper::before {
+    content: "";
+    background-repeat: repeat-x;
+    filter: blur(48px);
+}
+
+#HeaderWrapper::after {
+    content: "";
+    background-repeat: no-repeat;
+    filter: brightness(125%);
+    z-index: 1;
+}
+
+@media (max-width: 1230px) {
+    #HeaderWrapper::after {
+        background-size: cover;
+    }
+}
+
+.side-image {
+    display: flex;
+    flex-direction: column;
+
+    height: 10vw;
+    font-size: min(1vw, 12px);
+    gap: 10px;
+}
+
+.side-image > img {
+    height: 10vw;
+}

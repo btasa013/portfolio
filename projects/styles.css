@@ -1,83 +1,71 @@
-html, body
-{
+:root {
+    --black: #000;
+    --white: #ffffec;
+}
+
+html, body {
     height: 100vh;
     width: 100vw;
     margin: 0;
-    font-family: sans-serif;
+    font-family: Verdana, Tahoma, sans-serif;
 }
 
-#PageWrapper
-{
+#PageWrapper {
     width: 100%;
     height: 100%;
 }
-#HeaderWrapper
-{
-    /* Korkeus 20% ja taustaväriksi joku erottuva */
-    height: 200px;
-    animation: bgfade 30s infinite;
-    background-size:cover;
-    background-position:center fixed;
-    background-color:#000;
-    position:relative;
 
-    
+#HeaderWrapper {
+    height: 300px;
+    background-size: contain;
+    background-position: center;
+    background-color: var(--black);
+    position: relative;    
 }
-@keyframes bgfade {
-    0% {
-    background-image: url(../IMG/BG1.jpeg);
-    }
-    25% {
-    background-image: url(../IMG/BG2.jpeg);
-    }
-    50% {
-    background-image: url(../IMG/BG3.jpeg);
-    }
-    75% {
-    background-image: url(../IMG/BG4.JPG);
-    }
-    100% {
-    background-image: url(../IMG/BG1.jpeg);
-    }
-}
-#ContentWrapper
-{
-    /* Korkeus 70% ja taustalle joku mikä erottuu */
+
+#ContentWrapper {
     display: flex;
     align-items: flex-start;
+    background-color: var(--black);
+    color: var(--white);
 }
-#Sidebar
-{
-    /* Leveys 20%  ja margin 20px. sijainti vasen*/
+
+#Sidebar {
     width: 20%;
     margin: 20px;
-    
+    padding-left: 1rem;
 }
-#DevTeam
-{
-    background-color: aliceblue;
-    padding: 20px;
-    margin-bottom: 20px;
+
+.memberName {
+    font-size: 24px;
+    margin: 10px 0;
 }
-.title
-{
-    
+
+.memberRole {
     font-variant-caps: unicase;
     font-style: oblique;
-}
-#ProjImages
-{
-     background-color: aliceblue;
-    padding: 20px;
+    font-size: 12px;
+    margin: 10px 0;
+    width: 80%;
 }
 
-
-#Article
-{
-    /* leveys 80% ja padding 50px. sijainti oikein*/
-    margin:20px;
-    
+#ProjImages {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    row-gap: 4rem;
 }
-#FooterWrapper{
-    /* korkeus10% */
+
+#Article {
+    margin: 1rem;
+}
+
+.vline {
+    border-left: 2px solid var(--white);
+    padding: 0 0.5rem;
+}
+
+#Team {
+    display: flex;
+    margin-bottom: 2rem;
 }
