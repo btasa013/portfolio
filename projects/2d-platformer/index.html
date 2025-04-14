@@ -47,8 +47,9 @@
                     <h2>Projektin kuvaus</h2>
                     <p class="content-block">
                         Toteutettu peli on 2D tasohyppelypeli, joka on tehty Unity pelimoottorilla.
-                        Pelin tavoitteena on liikkua huoneesta toiseen, välttää kuolemista ja päästä
-                        taso läpi.
+                        Pelin tavoitteena on suorittaa tasot ja kerätä keräilyesineitä, joita löytyy
+                        pelimaailmasta. Peli on jaettu huoneisiin, joissa pelaajan pitää hyppiä, kiivetä ja
+                        liitää päästäkseen esteiden ohi ja edistyä pelissä eteenpäin.
                     </p>
                     <hr>
                     <ul>
@@ -442,8 +443,27 @@ public class RoomManager : MonoBehaviour
                                     <span class="details-title">Kollisiot</span>
                                 </summary>
                                 <p>
-                                    Ehkä suurin ongelma pelin kehittämisessä oli pelaajan kollisioiden havaimisessa.
-                                    
+                                    Yksi suurimmista ongelmista, johon törmäsin pelin aikana, oli pelaajan kollisio ja sitä
+                                    käyttävät toiminnot, kuten seinähyppääminen.
+                                    <br><br>
+                                    Projektin alussa aloitin käyttämällä Tilemap-komponenttia, jolla pystyin luoda pelin tasoja. Ensimmäinen
+                                    ideani oli käyttää prefab-objekteja, joissa oli scripti, joka havaitsi, kun pelaaja osui siihen.
+                                    Löysin, että tämä lähestymistapa aiheutti ongelmia, koska pelin maaperä on tehty useammasta objektista,
+                                    joka seurasi siihen, että funktiota kutsuttiin monta kertaa vaikka pelaaja oli maassa.
+                                    <br><br>
+                                    Käytin scriptiä myös selvittääkseni pystyykö pelaaja käyttämään joitain kykyjään, kuten hypätä tai liitää.
+                                    Koska maaperä oli tehty useammassa prefab-objektista, joilla oli oma kollideri, niiden välillä liikkuminen aiheutti
+                                    pienen aikavälin, jonka aikana pelaajaa ei rekisteröity olevan kummankaan objektin päällä, eikä pelaaja pystynyt
+                                    silloin hyppäämään. Ongelma aiheutti myös sen, että pelaaja jäi usein jumiin seiniin.
+                                    <br><br>
+                                    Kollisioiden kanssa tappelun jälkeen löysin, että Tilemap-komponentissa voi käyttää Tilemap Collider ja Composite Collider
+                                    yhdistelmää luodakseen yhtenäiset kolliderit pelin maalle ja seinille. Tämä tuotti kuitenkin omia reunatapauksiaan, kuten
+                                    ongelman, jossa pelaaja ei pystynyt hyppäämään vaikka olisi maassa, jos hän hyppäsi maan reunan ohi oikealla tavalla.
+                                    <br><br>
+                                    Lopuksi päädyin käyttämään Tilemap Collider ja Composite Collider yhdistelmää perusliikkumiseen, mutta
+                                    raycastia nähdäkseen missä suunnassa pelaajalla on kollisioita. Suurin osa liikkumiseen liittyvistä
+                                    ongelmista ratkaistiin tällä ja pystyin myös lisäämään raycastien etäisyyttä, jotta pelaaja pystyy
+                                    hyppäämään vaikka olisikin juuri astunut reunan ohi, joka teki pelistä enemmän anteeksiantavan.
                                 </p>
                             </details>
                             <details open="" class="detail-block">
@@ -451,7 +471,12 @@ public class RoomManager : MonoBehaviour
                                     <span class="details-title">Kamera & resoluutio</span>
                                 </summary>
                                 <p>
-                                    This is test text.
+                                    Tämä peli ottaa inspiraatiota Celeste tasohyppely- ja seikkailupelistä, jonka resoluutio on 320x180.
+                                    Pelini käyttää 8x8 pikseligrafiikkaa, joka tekisi näytöstä 40x22.5 laattaa, joka teki pelistä oudon
+                                    näköisen, koska se ei pystysuorasti mennyt tasan ja yhdestä laatasta jäi näkyviin vain puolet.
+                                    Lopuksi päädyin muuttamaan pelin resoluution 640x360 eli 80x45 laattaa, joka teki pelin tasoista
+                                    paljon isompia.
+                                    <br><br>
                                 </p>
                             </details>
                         </div>
