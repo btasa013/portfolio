@@ -193,6 +193,10 @@ hr {
     width: fit-content;
 }
 
+.detail-block[open] {
+    width: 100%;
+}
+
 .hljs-title-inv {
     background-color: #61aeee;
     color: #282c34;
