@@ -26,11 +26,11 @@
                             <div class="vline"></div>
                             <div>
                                 <p class="memberName">Daniel Sarin</p>
-                                <p class="memberRole">Koodari, suunnittelija, muuta</p>
+                                <p class="memberRole">Koodari, mallintaja</p>
                             </div>
                             <div>
                                 <p class="memberName">Tuomas Leppälahti</p>
-                                <p class="memberRole">Koodari, suunnittelija, muuta</p>
+                                <p class="memberRole">Koodari, mallintaja</p>
                             </div>
                         </div>
                     </div>
@@ -38,25 +38,28 @@
                     <div id="ProjImages">
                         <div class="side-image">
                             <img src="images/image0.png">
-                            <span>Kuva projektista.</span>
+                            <span>Kuva pelin avaruusaluksesta.</span>
                         </div>                            
                     </div>
                 </div>
                 <div id="Article">
-                    <h1 id="Title">Spaceship // WIP</h1>
+                    <h1 id="Title">Spaceship</h1>
                     <h2>Projektin kuvaus</h2>
+                    <hr>
                     <p class="content-block">
                         Projekti on Unityssä toteutettu peli, jossa pelaaja liikkuu avaruudessa. Projektin ideana oli luoda todenmukainen
                         nollapainovoimainen ympäristö, jossa pelaaja voi liikkua avaruusaluksella, mutta oikean maailman mukainen fysiikka
                         ei lopulta toteutettu sen vaikeuden ja luoman pelikokemuksen vuoksi.
-
                         <br><br>
-                        
                         Projektiin on saatu valmiiksi avaruusympäristö sekä asteroidien spawnaaminen ja liikkuminen ympäristössä. Lisäksi peliin
-                        on implementoitu pelaajan liikkuminen eteenpäin ja taaksepäin W/S näppäimillä sekä kääntyminen käyttämällä A/D näppäimiä tai hiirtä.
-                        Suurin osa projektiin käytetystä ajasta kului avaruusaluksen mallintamiseen.
+                        on implementoitu pelaajan liikkuminen eteenpäin ja taaksepäin W/S näppäimillä sekä kääntyminen käyttämällä A/D näppäimiä ja hiirtä.
+                        <br><br>
+                        Suurin osa projektiin käytetystä ajasta kului avaruusaluksen mallintamiseen ja teksturointiin.
+                        <br>
+                        Pelissä käytetään ilmaisia skybox ja asteroidi assetteja.
                     </p>
-                    <ul>
+                    <hr>
+                    <!--<ul>
                         <li>Toteutettiinko peli, sovellus vai mikä?</li>
                         <li>Mitä oli tarkoitus toteuttaa ja kenelle?</li>
                         <li>Miten suunniteltiin?</li>
@@ -65,24 +68,240 @@
                         <li>Miten työ jakautui?</li>
                         <li>Millaisella aikataululla työtä toteutettiin?</li>
                     </ul>
+                    <hr>-->
+                    <div>
+                        <h3>Funktioiden kuvaus</h3>
+                        <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Liikkuminen</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+private void Move(float horizontal)
+{
+    if (horizontal == 0.0f)
+        return;
 
-                    <h3>Funktioiden kuvaukset</h3>
-                    <p>Tässä kohdassa kuvataan projektin KESKEISET funktiot, eli lyhyt kuvaus keskeisistä funktioista. Jos kyseessä muu kuin ohjelmointitehtävä, kuvataan keskeiset työt.</p>
-                    <p>
+    Vector3 forward = transform.TransformDirection(Vector3.forward);
+    Vector3 force = speed * Time.deltaTime * horizontal * forward;
+
+    rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, force, 1.0f);
+    rb.AddForce(force, ForceMode.VelocityChange);
+}
+
+                                        </code></pre>
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+private void Steer(float horizontal, float vertical, float roll)
+{
+    float deltaRotationSpeed = rotationSpeed * Time.deltaTime;
+
+    Vector3 x = -vertical  * transform.TransformDirection(Vector3.right);
+    Vector3 y = horizontal * transform.TransformDirection(Vector3.up);
+    Vector3 z = roll       * transform.TransformDirection(Vector3.forward);
+    
+    Vector3 rotation = x + y + z;
+
+    rb.AddTorque(deltaRotationSpeed * rotation, ForceMode.VelocityChange);
+}
+                                    </code></pre>
+                                </div>
+                                <p class="content-block">Pelaajalla on kolme liikkumiseen liittyviä kontrolleja:</p>
+                                <ul>
+                                    <li>Pelaaja pystyy kasvattamaan nopeutta eteenpäin ja taaksepäin W/S näppäimillä.</li>
+                                    <li>Pelaaja pystyy kallistumaan sivulleen A/D näppäimillä.</li>
+                                    <li>Lisäksi avaruusalus kääntyy pelaajan hiiren suuntaan.</li>
+                                </ul>
+                                <p class="content-block">
+                                    Pelissä kuului aluksi olla todenmukaiset fysiikat, josta liikkuminen syntyisi, mutta lopulta päädyin käyttämään
+                                    yksinkertaisempaa liikkumis-systeemiä.
+                                    <hr>
+                                    Lentodynaamiikan (pitch, yaw, roll) implementointiin käytin tutoriaalia
+                                    <a href="https://www.youtube.com/watch?v=hXColAuMx-I">Unity Spacegame Tutorial - Movement</a>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelaajan seuraaminen</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+[ExecuteInEditMode]
+public class FollowCamera : MonoBehaviour
+{
+    [SerializeField] private Transform target;
+    [SerializeField] private float speed;
+
+    [SerializeField] private Vector3 positionOffset;
+    [SerializeField] private Vector3 rotationOffset;
+
+    private void FixedUpdate()
+    {
+        Vector3 targetPosition = target.position + target.rotation * positionOffset;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, speed);
+
+        Quaternion targetRotation = target.rotation * Quaternion.Euler(rotationOffset);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, speed);
+    }
+}
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        Projekti käyttää scriptiä, joka seuraa pelaajaa tietyllä nopeudella. Halusin, että kameralla on tietyt
+                                        offsetit, jotta pelaaja pystyy nähdä koko avaruusaluksen. Scripti käyttää offset arvoja, jotka lisätään
+                                        pelaajan positio ja rotaatioa arvoihin, josta saadaan kameran uudet arvot, joita päin se liikkuu. Scripti
+                                        suoritetaan joka frame, myös editorissa, koska scripti käyttää ExecuteInEditMode attribuuttia.
+                                        <hr>
+                                        Käytin apuna scriptin kanssa StackOverflowsta löytämääni
+                                        <a href="https://stackoverflow.com/a/73330649">vastausta</a>,
+                                        joka liittyy aiheeseen.
+                                    </p>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Stabilisaatio</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+private void Stabilize()
+{
+    rb.angularVelocity = Vector3.zero;
+    rb.linearDamping = 5.0f;
+    Invoke(nameof(ResetDamping), 2.0f);
+}
+
+private void ResetDamping()
+{
+    rb.linearDamping = 0.0f;
+}
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        Lisäsin pelaajan avaruusaluksen stabilisaatiomekaniikan, jonka voi aktivoida Q näppäimellä. Kun pelaaja törmää objekteja päin,
+                                        avaruusalus alkaa pyöriä hallitsemattomasti ja sitä on vaikea saada takaisin haltuun. Stabilisaatio poistaa avaruusaluksen
+                                        rotaatiovoimat ja vähentää liikkumisnopeutta hetkellisesti, jotta alus saadaan takaisin hallintaan.
+                                    </p>
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
                         <h3>Ongelmat ja ratkaisut</h3>
-                        <h4>Avaruusaluksen liikkuminen</h4>
-                        <h4>Avaruusaluksen mallintaminen</h4>
-                        <h4>Koordinaatio ja kommunikaatio</h4>
-                    </p>
+                        <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Liikkuminen / Fysiikka</span>
+                                </summary>
+                                <p class="content-block">
+                                    Avaruusaluksen liikkumisen implementointi oli haasteellista, koska projektin tavoitteena oli luoda oikean maailman mukainen fysiikkaa simuloiva
+                                    ympäristö. Ensimmäiseksi yritin asettaa jokaiselle aluksen moottorille oman komponentin, jonka avulla ne voivat antaa alukselle nopeutta, mutta
+                                    toimia myös itsenäisesti.
+                                    <br><br>
+                                    Minulle tuli vastaan ongelmia, kun halusin ottaa huomioon moottorien position, jotta niiden tuottamat voimat liikuttaisivat
+                                    alusta oikeaan suuntaan. Projektin aikana en osannut tehdä tätä hyvin ja koodini alkoi muuttua hyvin monimutkaiseksi, joten päätin jättää todenmukaisen
+                                    fysiikan pois sen monimutkaisuuden ja pelin pelattavuuden takia.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Mallintaminen</span>
+                                </summary>
+                                <p class="content-block">
+                                    Avaruusalus mallinnettiin oikean avaruusraketin mukaan, joka oli Soviet Unionin Soyuz-malli. Mallintamisen ohessa tuli vastaan
+                                    monia ongelmia, jotka pitkittivät mallintamista. Etenkin turhaittavaa oli pienien virheiden löytäminen mallista, joka aiheutti
+                                    sen, että koko malli pitää UV-unwrapata uudelleen ja mallin tekstuurit pitää asetella uuteen järjestykseen.
+                                    <br><br>
+                                    Pelin sisällä halusin, että jokaisessa raketin moottorissa on oma scripti, joka tuottaa voimaa aluksen liikkumiselle kun se 
+                                    on päällä (tämä oli ennen kuin luovutin realistisesta fysiikasta). Tämä menetelmä ei ollut mahdollista, koska mallinnoin
+                                    aluksen yhtenä kappaleena.
+                                    <br><br>
+                                    Ongelman ratkaisemiseksi päädyin leikkaamaan aluksen osiin, jotta niitä voidaan referoida editorissa. Mallin paloittelu helpotti
+                                    myös mallintamista, koska sen jälkeen minun ei tarvinut UV-unwrapata koko mallia tehdäkseni muutoksia ja pystyin kopioida useasti
+                                    käytettyjä osia ja tehdä kaikkiin muutoksia muokkaamalla vain yhtä.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelaajan syötteet</span>
+                                </summary>
+                                <p>
+                                    <p class="content-block">
+                                        Pelaajan syötteen lukemiseen käytettiin Unityn uutta syötesysteemiä, mutta hiiren X ja Y syötteiden
+                                        lukemisen kanssa ilmeni ongelmia, joita en saanut korjattua. Ratkaisuja etsimässä löysin paljon posteja,
+                                        joissa kerrotaan samoista ongelmista, mutta mikään löytämäni ratkaisu ei toiminut minun tapauksessani.
+                                        Päädyin lopuksi käyttämään vanhaa systeemiä hiiren syötteiden lukemiseen pelaajalta.
+                                        <!--
+                                            https://discussions.unity.com/t/new-input-system-how-to-read-mouse-movement-as-x-and-y-axes/807529/4
+                                            https://discussions.unity.com/t/get-mouse-axis-like-the-old-input-system/788935/5
+                                            https://discussions.unity.com/t/mouse-position-with-new-input-system/776798/26
+                                        -->
+                                        <hr>
+                                    </p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+// Read keyboard input
+float horizontal = actions.Horizontal.ReadValue&ltfloat&gt();
+float vertical = actions.Vertical.ReadValue&ltfloat&gt();
+Move(horizontal);
 
-                    <p>Kuvataan kaikki keskeiset ongelmat, joita projektin aikana on ollut ja niiden ratkaisut. Muista, että kirjaat näitä ylös jo projektin aikana, sillä lopuksi saattaa tuntua siltä, että mitään ongelmia ei ollut. Jos löysit ratkaisuja kirjoista, niin maininnat niistä. Myös kirjoista, joihin tutustuit projektin aikana. Internet ratkaisusta laitetaan mahdollinen tuloste liitesivuksi. Internet-osoite on aina mainittava, kuten ohjeissa on kuvattu. Kaikki lähteet on siis mainittava. </p>
-                    <h3>Näyttökuvat ja valokuvat</h3>
-                    <p>Esitellään projektin/tehtävän keskeiset ruutukaappaukset ja mahdollisesti tilanteista ja laitteista otettuja valokuvia. Esimerkiksi joku ulkoinen laite jota ohjelmoidaan, niin kuva ja selostus myös tästä laitteesta (ominaisuudet). Tai muuta esimerkkiä projektin tuotoksista. </p>
-                    <h3>Testausdokumentit</h3>
-                    <p>Mikäli ohjelmistolle/pelille on suoritettu testaukset, liitteenä pitää olla hyväksytyt testausdokumentit ja virheraportit (dokumentointiohjeet löytyvät Marko Orakselta). Muissa kuin ohjelmistoprojekteissa, yhteenveto mahdollisista palautteista yms </p>
-                    <h3>Gameplay video tuotteesta</h3>
-                    <p>Tähän kohtaan liität gameplay videoita tuotteesta, ominaisuuksista ja omasta tekemisestä.</p>
-                    <!-- <p><iframe src="https://www.youtube.com/embed/UfTqvHzUo7Y" width="560" height="315" frameborder="0" allowfullscreen=""></iframe> </p> -->
+// Read mouse input
+float steerX = Input.GetAxis("Mouse X");
+float steerY = Input.GetAxis("Mouse Y");
+Steer(steerX, steerY, vertical);
+                                        </code></pre>
+                                    </div>
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3>Näyttökuvat ja valokuvat</h3>
+                        <div id="Pictures">
+                            <div class="picture">
+                                <img src="./images/image1.png">
+                                <div class="picture-label">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="picture">
+                                <img src="./images/image2.png">
+                                <div class="picture-label">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="picture">
+                                <img src="./images/image3.png">
+                                <div class="picture-label">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div class="picture">
+                                <img src="./images/image4.png">
+                                <div class="picture-label">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3>Gameplay</h3>
+                        <p>
+                            <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason -->
+                            <iframe hidden></iframe>
+                            <iframe src="https://www.youtube.com/embed/pHaaWbnOPbk" width="560" height="315" title="Spaceship Project Gameplay" frameborder="0" allowfullscreen></iframe>
+                        </p>
+                    </div>
                 </div>   
             </div>
         </div>

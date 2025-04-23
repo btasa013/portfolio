@@ -73,6 +73,7 @@ html, body {
 .memberName {
     font-size: 24px;
     margin: 10px 0;
+    max-width: 50%;
 }
 
 .memberRole {
@@ -80,7 +81,7 @@ html, body {
     font-style: oblique;
     font-size: 12px;
     margin: 10px 0;
-    width: 80%;
+    max-width: 50%;
 }
 
 #ProjImages {
@@ -97,7 +98,7 @@ html, body {
 
 .content-block {
     width: 70%;
-    line-height: 21px;
+    line-height: 23px;
 }
 
 .vline {
@@ -137,7 +138,7 @@ html, body {
 }
 
 hr {
-    background: linear-gradient(90deg, var(--white), var(--black) 70%);
+    background: linear-gradient(90deg, var(--white), transparent 70%);
     height: 2px;
     border: 0;
 }
@@ -216,4 +217,30 @@ li {
 
 .side-image > img {
     height: 10vw;
+    border-radius: 5px;
+}
+
+#Pictures {
+    display: grid;
+    grid-template-columns: auto auto;
+    max-width: min-content;
+    gap: 5px;
+}
+
+.picture {
+    max-width: 33vw;
+}
+
+.picture > img {
+    max-width: inherit;
+    height: 90%;
+    border-radius: 5px 5px 5px 0;
+}
+
+.picture-label {
+    font-size: max(8px, min(0.75vw, 14px));
+    line-height: 0px;
+    position: relative;
+    /* clips img at small resolutions */
+    bottom: 12px;
 }
