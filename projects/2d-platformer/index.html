@@ -26,7 +26,7 @@
                             <div class="vline"></div>
                             <div>
                                 <p class="memberName">Daniel Sarin</p>
-                                <p class="memberRole">Koodari, suunnittelija, muuta</p>
+                                <p class="memberRole">Koodari, suunnittelija</p>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="side-image">
                             <img src="images/gameplay2.png">
-                            <span>KUVA2</span>
+                            <span></span>
                         </div>                            
                     </div>
                 </div>
@@ -47,11 +47,21 @@
                     <h2>Projektin kuvaus</h2>
                     <p class="content-block">
                         Toteutettu peli on 2D tasohyppelypeli, joka on tehty Unity pelimoottorilla.
-                        Pelin tavoitteena on suorittaa tasot ja kerätä keräilyesineitä, joita löytyy
-                        pelimaailmasta. Peli on jaettu huoneisiin, joissa pelaajan pitää hyppiä, kiivetä ja
-                        liitää päästäkseen esteiden ohi ja edistyä pelissä eteenpäin.
+                        Peli ottaa inspiraatiota Celeste -pelistä.
+                        <br><br>
+                        Pelissä pelaat nuorena pöllönä, joka on juuri lähtenyt pesästään seikkailemaan
+                        maailmaa.
+                        <br><br>
+                        Peli on jaettu 'huoneisiin', jotka pelaajan pitää päästä läpi, ohittaen piikkejä
+                        ja muita vaaroja, hyppimällä tai liitämällä niiden ohi, sekä kiivetä seiniä
+                        pitkin päästäkseen huoneen toiselle puolelle.
+                        <br><br>
+                        Pelin päätavoitteena on päihittää peli pääsemällä läpi kaikista tasoista
+                        ja kuolla mahdollisimman vähän.
+                        Lisäksi pelaaja pystyy löytämään valinnaisia keräilyesineitä, joita on
+                        piilotettu pelimaailmaan.
                     </p>
-                    <hr>
+                    <!--<hr>
                     <ul>
                         <li>Toteutettiinko peli, sovellus vai mikä?</li>
                         <li>Mitä oli tarkoitus toteuttaa ja kenelle?</li>
@@ -60,9 +70,7 @@
                         <li>Miten työ jatkuu?</li>
                         <li>Miten työ jakautui?</li>
                         <li>Millaisella aikataululla työtä toteutettiin?</li>
-                    </ul>
-                    <hr>
-                    <h3>Tarina</h3>
+                    </ul>-->
                     <hr>
                     <div>
                         <h3>Keskeiset funktiot</h3>
@@ -132,7 +140,7 @@ public class PlayerState : MonoBehaviour
                                     </div>
                                     <p class="content-block">
                                         <span class="theme-atom-one-dark code-single hljs hljs-title">Player</span>
-                                        on pelaajan pääscripti ja hallinnoi pelaajan toimintoja. Pääscripti muun muassa lukee framen aikana
+                                        on pelaajan pääscripti ja hallinnoi pelaajan toimintoja. Scripti muun muassa lukee framen aikana
                                         saadut syötteet pelaajalta ja hakee pelaajan kollisiot ja antaa ne pelaajan tilalle, joka hoitaa
                                         tarvittavat toiminnot. Pelaajascripti sisältää myös yleisiä funktioita, jotka eivät ole
                                         tilakohtaisia, kuten
@@ -426,10 +434,10 @@ public class RoomManager : MonoBehaviour
                             </details>
                             <details open="" class="detail-block">
                                 <summary class="details-summary">
-                                    <span class="details-title">Pelaajascriptit</span>
+                                    <span class="details-title">Title</span>
                                 </summary>
                                 <p>
-                                    This is test text.
+                                    ...
                                 </p>
                             </details>
                         </div>
@@ -444,7 +452,7 @@ public class RoomManager : MonoBehaviour
                                 </summary>
                                 <p class="content-block">
                                     Yksi suurimmista ongelmista, johon törmäsin pelin aikana, oli pelaajan kollisio ja sitä
-                                    käyttävät toiminnot, kuten seinähyppääminen.
+                                    käyttävät toiminnot ja kyvyt, kuten seinähyppääminen.
                                     <br><br>
                                     Projektin alussa aloitin käyttämällä Tilemap-komponenttia, jolla pystyin luoda pelin tasoja. Ensimmäinen
                                     ideani oli käyttää prefab-objekteja, joissa oli scripti, joka havaitsi, kun pelaaja osui siihen.
@@ -456,52 +464,108 @@ public class RoomManager : MonoBehaviour
                                     pienen aikavälin, jonka aikana pelaajaa ei rekisteröity olevan kummankaan objektin päällä, eikä pelaaja pystynyt
                                     silloin hyppäämään. Ongelma aiheutti myös sen, että pelaaja jäi usein jumiin seiniin.
                                     <br><br>
-                                    Kollisioiden kanssa tappelun jälkeen löysin, että Tilemap-komponentissa voi käyttää Tilemap Collider ja Composite Collider
-                                    yhdistelmää luodakseen yhtenäiset kolliderit pelin maalle ja seinille. Tämä tuotti kuitenkin omia reunatapauksiaan, kuten
-                                    ongelman, jossa pelaaja ei pystynyt hyppäämään vaikka olisi maassa, jos hän hyppäsi maan reunan ohi oikealla tavalla.
+                                    Ongelman pähkäilyn jälkeen löysin, että Tilemap-komponentissa voi käyttää Tilemap Collider ja Composite Collider
+                                    komponenttiyhdistelmää luodakseen yhtenäiset kolliderit pelin maalle ja seinille. Tämä tuotti kuitenkin omia reunatapauksiaan,
+                                    kuten ongelman, jossa pelaaja ei pystynyt hyppäämään vaikka olisi maassa, jos hän hyppäsi maan reunan ohi oikealla tavalla.
                                     <br><br>
-                                    Lopuksi päädyin käyttämään Tilemap Collider ja Composite Collider yhdistelmää perusliikkumiseen, mutta
-                                    raycastia nähdäkseen missä suunnassa pelaajalla on kollisioita. Suurin osa liikkumiseen liittyvistä
+                                    Lopuksi päädyin käyttämään Tilemap Collider ja Composite Collider komponentteja liikkumiseen,
+                                    mutta raycastia nähdäkseen missä suunnassa pelaajalla on kollisioita. Suurin osa liikkumiseen liittyvistä
                                     ongelmista ratkaistiin tällä ja pystyin myös lisäämään raycastien etäisyyttä, jotta pelaaja pystyy
                                     hyppäämään vaikka olisikin juuri astunut reunan ohi, joka teki pelistä enemmän anteeksiantavan.
                                 </p>
                             </details>
                             <details open="" class="detail-block">
                                 <summary class="details-summary">
-                                    <span class="details-title">Kamera & resoluutio</span>
+                                    <span class="details-title">Pelin resoluutio</span>
                                 </summary>
                                 <p class="content-block">
-                                    Tämä peli ottaa inspiraatiota Celeste tasohyppely- ja seikkailupelistä, jonka resoluutio on 320x180.
-                                    Pelini käyttää 8x8 pikseligrafiikkaa, joka tekisi näytöstä 40x22.5 laattaa, joka teki pelistä oudon
-                                    näköisen, koska se ei pystysuorasti mennyt tasan ja yhdestä laatasta jäi näkyviin vain puolet.
-                                    Lopuksi päädyin muuttamaan pelin resoluution 640x360 eli 80x45 laattaa, joka teki pelin tasoista
-                                    paljon isompia.
+                                    Peli käyttää 320x180 resoluutiota ja 8x8 pikseligrafiikkaa, joka teki
+                                    näytöstä 40x22.5 tileä. Resoluutio ei jaa tasan käyttämäni assettien
+                                    resoluution kanssa, joka johti siihen, että pelissä näkyi ylimmästä
+                                    tilestä vain puolet. Minä en löytänyt hyviä tapoja korjata tätä, koska
+                                    resoluution oli pakko pystyä skaalaamaan 1920x1080 resoluutioon.
                                     <br><br>
+                                    Minä testasin eri resoluutioita, kuten 640x360, joka tekisi pelin huoneista
+                                    kaksi kertaa suurempia, mutta jakaisi tasan. Päädyin kuitenkin myöhemmin
+                                    palaamaan takaisin alkuperäiseen resoluutioon, koska halusin pitää pelin
+                                    huoneet pieninä.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelimaailman rakentaminen</span>
+                                </summary>
+                                <p class="content-block">
+                                    Pelini on rakennettu huoneittain, jotka ovat prefabeja. Se on tuottanut,
+                                    minulle ongelmia, koska en pysty katsoa miten huoneet liittyvät ja
+                                    miltä peli näyttää kokonaisuudessa.
+                                    <br><br>
+                                    Olen testannut erilaisia level editoreja, kuten Tiled ja LDtk, jotta
+                                    pystyisin rakentamaan huoneita tehokkaammin, mutta en tiedä vielä, aionko
+                                    käyttää kumpaakaan tulevaisuudessa. Tiled on mielestäni liian monimutkainen
+                                    ja sen opettelu kestäisi liian kauan. Itse tykkäsin LDtk editorista, koska
+                                    se on yksinkertaisempi, mutta sillä rakennettuja leveleitä ei ole helppoa
+                                    importata Unityyn.
+                                    <br><br>
+                                    Olen väliaikaisesti ratkaissut ongelman laittamalla kaikki huoneet sceneen,
+                                    jotta pystyn katsella kuinka ne tulee yhteen, mutta otan ne pois päältä, kun
+                                    testaan peliä, koska peli lataa huoneita suoritusaikaisesti, joka ei toimi,
+                                    jos huoneista on duplikaatteja scenessä.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Tiling</span>
+                                </summary>
+                                <p class="content-block">
+                                    Projektin alkupuolella aloitin rakentamalla huoneet käyttämällä
+                                    yksittäisiä tilejä, joita minun piti manuaalisesti vaihtaa, jos
+                                    halusin muun tyyppisen tilen paikalle. Myöhemmin löysin, että Unityssä
+                                    on Rule Tile komponentti, joka automaattisesti tileaa tilet oikein,
+                                    käyttäen naapurisääntöjä.
+
+                                    <!-- Kuva rule tile komponentista -->
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Title</span>
+                                </summary>
+                                <p class="content-block">
+                                    ...
                                 </p>
                             </details>
                         </div>
                     </div>
-
                     <hr>
-                    <h3>Näyttökuvat ja valokuvat</h3>
+                    <div>
+                        <h3>Näyttökuvat ja valokuvat</h3>
+                        <div id="Pictures">
+                            <!--<div class="picture">
+                                <img src="./images/image1.png">
+                                <div class="picture-label">
+                                    <hr>
+                                    <p></p>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
                     <hr>
-                    <h3>Gameplay video</h3>
-                    <hr>
-
+                    <div>
+                        <h3>Gameplay</h3>
+                        <p>
+                            <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason -->
+                            <iframe hidden></iframe>
+                            <!--
+                                <iframe src="https://www.youtube.com/embed/pHaaWbnOPbk" width="560" height="315" title="Spaceship Project Gameplay" frameborder="0" allowfullscreen></iframe>
+                            -->
+                        </p>
+                    </div>
                     <!--<h3>Funktioiden kuvaukset</h3>
                     <p>Tässä kohdassa kuvataan projektin KESKEISET funktiot, eli lyhyt kuvaus keskeisistä funktioista. Jos kyseessä muu kuin ohjelmointitehtävä, kuvataan keskeiset työt.</p>
                     <h3>Ongelmat ja ratkaisut</h3>
                     <p>Kuvataan kaikki keskeiset ongelmat, joita projektin aikana on ollut ja niiden ratkaisut. Muista, että kirjaat näitä ylös jo projektin aikana, sillä lopuksi saattaa tuntua siltä, että mitään ongelmia ei ollut. Jos löysit ratkaisuja kirjoista, niin maininnat niistä. Myös kirjoista, joihin tutustuit projektin aikana. Internet ratkaisusta laitetaan mahdollinen tuloste liitesivuksi. Internet-osoite on aina mainittava, kuten ohjeissa on kuvattu. Kaikki lähteet on siis mainittava. </p>
-                    
-                    <h3>Näyttökuvat ja valokuvat</h3>
-                    <p>Esitellään projektin/tehtävän keskeiset ruutukaappaukset ja mahdollisesti tilanteista ja laitteista otettuja valokuvia. Esimerkiksi joku ulkoinen laite jota ohjelmoidaan, niin kuva ja selostus myös tästä laitteesta (ominaisuudet). Tai muuta esimerkkiä projektin tuotoksista. </p>
-                    
-                        <h3>Testausdokumentit</h3>
-                        <p>Mikäli ohjelmistolle/pelille on suoritettu testaukset, liitteenä pitää olla hyväksytyt testausdokumentit ja virheraportit (dokumentointiohjeet löytyvät Marko Orakselta). Muissa kuin ohjelmistoprojekteissa, yhteenveto mahdollisista palautteista yms </p>
-
-                    <h3>Gameplay video tuotteesta</h3>
-                    <p>Tähän kohtaan liität gameplay videoita tuotteesta, ominaisuuksista ja omasta tekemisestä.</p>
-                    <p><iframe src="https://www.youtube.com/embed/UfTqvHzUo7Y" width="560" height="315" frameborder="0" allowfullscreen=""></iframe> </p> -->
+                    -->
                 </div>   
             </div>
         </div>

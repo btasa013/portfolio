@@ -1,6 +1,8 @@
 :root {
     --black: #030303;
     --white: #ffffec;
+    
+    --detail-background: rgb(30, 30, 30);
 }
 
 html, body {
@@ -8,6 +10,10 @@ html, body {
     width: 100vw;
     margin: 0;
     font-family: 'Inter', Arial, sans-serif;
+}
+
+a {
+    color: lightcyan;
 }
 
 #PageWrapper {
@@ -186,7 +192,7 @@ hr {
 }
 
 .detail-block {
-    background: rgb(255, 255, 255, 0.03);
+    background: var(--detail-background);
     position: relative;
     padding: 1rem;
     border-radius: 15px;
@@ -194,6 +200,7 @@ hr {
 }
 
 .detail-block[open] {
+    background: linear-gradient(90deg, var(--detail-background) 50%, transparent 100%);
     width: 100%;
 }
 
