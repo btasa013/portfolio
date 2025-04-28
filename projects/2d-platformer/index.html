@@ -33,11 +33,11 @@
                     
                     <div id="ProjImages">
                         <div class="side-image">
-                            <img src="images/gameplay.png">
+                            <img src="images/room0.png">
                             <span>Kuva pelin ensimmäisestä levelistä.</span>
                         </div>
                         <div class="side-image">
-                            <img src="images/gameplay2.png">
+                            <img src="images/room1.png">
                             <span></span>
                         </div>                            
                     </div>
@@ -485,7 +485,7 @@ public class RoomManager : MonoBehaviour
                                     tilestä vain puolet. Minä en löytänyt hyviä tapoja korjata tätä, koska
                                     resoluution oli pakko pystyä skaalaamaan 1920x1080 resoluutioon.
                                     <br><br>
-                                    Minä testasin eri resoluutioita, kuten 640x360, joka tekisi pelin huoneista
+                                    Testasin eri resoluutioita, kuten 640x360, joka tekisi pelin huoneista
                                     kaksi kertaa suurempia, mutta jakaisi tasan. Päädyin kuitenkin myöhemmin
                                     palaamaan takaisin alkuperäiseen resoluutioon, koska halusin pitää pelin
                                     huoneet pieninä.
@@ -496,7 +496,7 @@ public class RoomManager : MonoBehaviour
                                     <span class="details-title">Pelimaailman rakentaminen</span>
                                 </summary>
                                 <p class="content-block">
-                                    Pelini on rakennettu huoneittain, jotka ovat prefabeja. Se on tuottanut,
+                                    Peli on rakennettu huoneittain, jotka ovat prefabeja. Se on tuottanut,
                                     minulle ongelmia, koska en pysty katsoa miten huoneet liittyvät ja
                                     miltä peli näyttää kokonaisuudessa.
                                     <br><br>
@@ -507,7 +507,7 @@ public class RoomManager : MonoBehaviour
                                     se on yksinkertaisempi, mutta sillä rakennettuja leveleitä ei ole helppoa
                                     importata Unityyn.
                                     <br><br>
-                                    Olen väliaikaisesti ratkaissut ongelman laittamalla kaikki huoneet sceneen,
+                                    Sain väliaikaisesti ratkaistua ongelman laittamalla kaikki huoneet sceneen,
                                     jotta pystyn katsella kuinka ne tulee yhteen, mutta otan ne pois päältä, kun
                                     testaan peliä, koska peli lataa huoneita suoritusaikaisesti, joka ei toimi,
                                     jos huoneista on duplikaatteja scenessä.
@@ -524,7 +524,10 @@ public class RoomManager : MonoBehaviour
                                     on Rule Tile komponentti, joka automaattisesti tileaa tilet oikein,
                                     käyttäen naapurisääntöjä.
 
-                                    <!-- Kuva rule tile komponentista -->
+                                    <div class="picture">
+                                        <img src="./images/ruletile.png">
+                                        <p class="m0">Kuva Unityn Rule Tile komponentista.</p>
+                                    </div>
                                 </p>
                             </details>
                             <details open="" class="detail-block">
@@ -538,27 +541,50 @@ public class RoomManager : MonoBehaviour
                         </div>
                     </div>
                     <hr>
-                    <div>
-                        <h3>Näyttökuvat ja valokuvat</h3>
-                        <div id="Pictures">
-                            <!--<div class="picture">
-                                <img src="./images/image1.png">
-                                <div class="picture-label">
-                                    <hr>
-                                    <p></p>
+                    <details open="" class="detail-block">
+                        <summary class="details-summary">
+                            <span class="details-title">Näyttökuvat ja valokuvat</span>
+                        </summary>
+                        <p class="content-block">
+                            <div id="Pictures">
+                                <div class="picture">
+                                    <img src="./images/room2.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
                                 </div>
-                            </div>-->
-                        </div>
-                    </div>
+                                <div class="picture">
+                                    <img src="./images/room4.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="./images/room5.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="./images/room6.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                    </details>
                     <hr>
                     <div>
                         <h3>Gameplay</h3>
                         <p>
                             <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason -->
                             <iframe hidden></iframe>
-                            <!--
-                                <iframe src="https://www.youtube.com/embed/pHaaWbnOPbk" width="560" height="315" title="Spaceship Project Gameplay" frameborder="0" allowfullscreen></iframe>
-                            -->
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/be6f0ggEUuE" title="2D Platformer Gameplay" frameborder="0" allowfullscreen></iframe>
                         </p>
                     </div>
                     <!--<h3>Funktioiden kuvaukset</h3>
