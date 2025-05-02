@@ -2,7 +2,7 @@
     --black: #030303;
     --white: #ffffec;
     
-    --detail-background: rgb(15, 15, 15);
+    --detail-background: rgb(20, 20, 20);
 }
 
 html, body {
@@ -103,7 +103,7 @@ a {
 }
 
 .content-block {
-    width: 70%;
+    width: 60%;
     line-height: 23px;
 }
 
@@ -200,7 +200,7 @@ hr {
 }
 
 .detail-block[open] {
-    background: linear-gradient(90deg, var(--detail-background) 50%, transparent 100%);
+    background: linear-gradient(90deg, var(--detail-background) 70%, transparent 90%);
     width: 100%;
 }
 
