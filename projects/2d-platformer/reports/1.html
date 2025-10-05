@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <title>2D Platformer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../../styles.css">
+        <link rel="stylesheet" href="../css/styles.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    </head>
+    <body>
+        <div id="PageWrapper">
+            <div id="HeaderWrapper">
+                <div id="NavWrapper">
+                </div>
+            </div>
+            <div id="ContentWrapper">
+                <div id="Sidebar">
+                    <div>
+                        <h1>Tiimi</h1>
+                        <div id="Team">
+                            <div class="vline"></div>
+                            <div>
+                                <p class="memberName">Daniel Sarin</p>
+                                <p class="memberRole">Koodari, 2D artisti</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="ProjImages">
+                        <div class="side-image">
+                            <img src="../images/room0.png">
+                            <span>Kuvankaappaus pelin ensimmäisestä huoneesta.</span>
+                        </div>
+                        <div class="side-image">
+                            <img src="../images/room1.png">
+                            <span>Kuvankaappaus pelin toisesta huoneesta.</span>
+                        </div>                            
+                    </div>
+                </div>
+                <div id="Article">
+                    <h1 id="Title">2D Platformer</h1>
+                    <h2>Projektin kuvaus</h2>
+                    <p class="content-block">
+                        Projekti on 2D tasohyppely- ja seikkailupeli, joka on tehty Unity pelimoottorilla.
+                        Peli ottaa inspiraatiota pelistä Celeste.
+                        <br><br>
+                        Pelin päätavoitteena on päihittää peli pääsemällä läpi kaikista tasoista
+                        ja kuolla mahdollisimman vähän. Lisäksi pelaaja pystyy löytämään valinnaisia
+                        keräilyesineitä, jotka ovat piilotettu pelimaailmaan.
+                        <br><br>
+                        Peli on jaettu huoneisiin, jotka pelaajan pitää päästä läpi, ohittaen piikkejä
+                        ja muita vaaroja, hyppimällä tai liitämällä niiden ohi, sekä kiivetä seiniä
+                        pitkin päästäkseen huoneen läpi.
+                    </p>
+                    <!--<hr>
+                    <ul>
+                        <li>Toteutettiinko peli, sovellus vai mikä?</li>
+                        <li>Mitä oli tarkoitus toteuttaa ja kenelle?</li>
+                        <li>Miten suunniteltiin?</li>
+                        <li>Mitä on saatu valmiiksi?</li>
+                        <li>Miten työ jatkuu?</li>
+                        <li>Miten työ jakautui?</li>
+                        <li>Millaisella aikataululla työtä toteutettiin?</li>
+                    </ul>-->
+                    <hr>
+                    <div>
+                        <h3>Keskeiset funktiot</h3>
+                        <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelaajascriptit</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+class Player : MonoBehaviour
+{
+    // Simple container for all player states.
+    public PlayerStateMachine States;
+    // Data that is passed to the state.
+    private PlayerStateData state;
+
+    private void FixedUpdate()
+    {
+        state.frame = input.RequestNextFrame();
+        state.collision = GetCollisionData();
+    
+        state.currentState.OnFrameTick(state);
+    }
+
+    ...
+}
+
+// This is defined in a different file
+// but is shown here for readability.
+public struct PlayerStateData
+{
+    public InputFrame frame;
+    public CollisionData collision;
+    public PlayerState currentState;
+}
+                                        </code></pre>
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+public class PlayerState : MonoBehaviour
+{
+    private Player player;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private new BoxCollider2D collider;
+
+    public Player Player { get => player; }
+    public Rigidbody2D Rb { get => rb; }
+    public Animator Animator { get => animator; }
+    public BoxCollider2D Collider { get => collider; }
+    public PlayerStateMachine States { get => player.States; }
+    
+    private void Awake() { ... }
+
+    // Return whether this state can be entered.
+    public virtual bool CanEnter(PlayerStateData data) => true;
+    // Called when the player enters this state.
+    public virtual void Enter(PlayerStateData data) { }
+    // Called when the player exits this state.
+    public virtual void Exit(PlayerStateData data) { }
+    // Special function that can be called to reset the state.
+    public virtual void Reset() { }
+    // Called on every frame and runs the state logic.
+    public virtual void OnFrameTick(PlayerStateData data) { }
+}
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        Player on pelaajan pääscripti ja hallinnoi pelaajan toimintoja. Scripti muun muassa lukee framen aikana
+                                        saadut syötteet pelaajalta ja hakee pelaajan kollisiot ja antaa ne pelaajan tilalle, joka hoitaa
+                                        tarvittavat toiminnot. Pelaajascripti sisältää myös yleisiä funktioita, jotka eivät ole
+                                        tilakohtaisia, kuten Move ja Jump funktiot, joita voidaan kutsua useammasta eri tilasta.
+
+                                        <br><br>
+                                        PlayerState on kantaluokka, josta muut pelaajatilat periytyvät. Kantaluokka sisältää pelaajan komponentteja sekä
+                                        virtuaalifunktioita, joita tilat voivat implementoida. Tila sisältää Enter ja Exit funktiot, joissa
+                                        voidaan käynnistää animaatioita tai tehdä muita muutoksia, kun pelaaja siirtyy tilaan tai tilasta pois.
+                                        Lisäksi tilassa on OnFrameTick funktio, joka kutsutaan joka frame pelaajan antamilla syötteillä ja sisältää tilan logiikan.
+
+                                        <p class="m0">Pelaajalla on tällä hetkellä kuusi mahdollista tilaa, jossa se voi olla:</p>
+                                        <div class="detail-flex">
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">IdleState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila kun pelaaja on paikoillaan ja maassa.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Tässä tilassa pelaaja pystyy hypätä ja aloittaa kävelyn.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tästä tilasta voi siirtyä Walk ja Air tiloihin.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">WalkState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila kun pelaaja liikkuu ja on maassa.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Tässä tilassa pelaaja pystyy liikkua ja hypätä.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tästä tilasta voi siirtyä Idle ja Air tiloihin.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">GlideState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila kun pelaaja liitää.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Pelaaja pystyy olla tässä tilassa vain liikkuessaan. Pelaaja voi liitää vain tietyn aikamäärän, jonka jälkeen tila vaihtuu ilmatilaan ja pelaaja putoaa.
+                                                            Kun pelaaja on tässä tilassa, pelaajan kollideri kääntyy 90 astetta.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tästä tilasta voi siirtyä Idle, Walk, Air ja Climb tiloihin.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">AirState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila kun pelaaja on ilmassa.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Pelaaja pystyy liikkumaan tässä tilassa.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tästä tilasta voi siirtyä Idle, Walk, Glide ja Climb tiloihin.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">ClimbState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila kun pelaaja osuu seinään eikä ole maassa.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Pelissä ei ole kiipeämismekaniikkaa, mutta tilassa pelaaja pystyy hyppäämään seinistä, joka antaa
+                                                            pelaajalle nopeutta ylöspäin sekä hyppäämään suuntaan.
+                                                            Jos pelaajan putoamisnopeus on suuri, tila vähentää sitä kunnes se on tietyssä arvossa.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tästä tilasta voi siirtyä Idle, Walk, Air ja Glide tiloihin.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                            <details name="State">
+                                                <summary class="hljs-summary">
+                                                    <span class="theme-atom-one-dark code-single hljs hljs-title">DeadState</span>
+                                                </summary>
+                                                <p class="mb0">
+                                                    Tila, johon pelaaja siirtyy kuollessaan.
+                                                    <ul>
+                                                        <li class="content-block">
+                                                            Pelaaja ei pysty tehdä mitään tilan aikana. Tila toistaa kuolema-animaation sekä häivyttää ruudun mustaksi, jonka jälkeen pelaaja respawnaa.
+                                                        </li>
+                                                        <li class="content-block">
+                                                            Tämä tila overridaa pelaajan edellisen tilan, eikä siitä suoraan siirrytä muihin tiloihin. Kun pelaaja respawnaa checkpointille,
+                                                            pelaaja tulee olemaan Idle tilassa.
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </details>
+                                        </div>
+                                    </p>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelaajan syötteet</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+public class PlayerInput : MonoBehaviour
+{
+    // Automatically generated class by InputSystem.
+    private PlayerControls controls;
+    // Contains player's input data for the current frame.
+    private InputFrame currentFrame;
+
+    private void Start()
+    {
+        controls = new PlayerControls();
+        controls.Enable();
+    }
+
+    private void Update()
+    {
+        UpdateFrame();
+    }
+
+    private void UpdateFrame()
+    {
+        bool isMoving = controls.Player.Move.IsInProgress();
+        bool isGliding = controls.Player.Glide.IsInProgress();
+        bool jumped = controls.Player.Jump.WasPressedThisFrame();
+
+        currentFrame.isMoving |= isMoving;
+        currentFrame.isGliding |= isGliding;
+        currentFrame.jumped |= jumped;
+
+        if (isMoving)
+        {
+            currentFrame.movementInput = controls.Player.Move.ReadValue&ltfloat&gt();
+        }
+    }
+
+    public InputFrame RequestNextFrame()
+    {
+        InputFrame frame = currentFrame;
+        currentFrame = new InputFrame();
+        UpdateFrame();
+        return frame;
+    }
+}
+
+public struct InputFrame
+{
+    public bool isMoving;
+    public bool isGliding;
+    public bool jumped;
+    public float movementInput;
+}
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        Suurin osa pelaajan logiikasta tapahtuu FixedUpdate funktiossa, jotta pelin fysiikka toimii. Pelaajan syötteet luetaan joka frame Update
+                                        funktiossa ja niillä päivitetään pelin tämänhetkistä syöte-framea. Framen voi pyytää käyttämällä RequestNextFrame funktiota, joka palauttaa
+                                        viimeisimmän framen ja luo uuden.
+                                    </p>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelimanageri ja level systeemi</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+// GameManager is a persistent singleton object.
+public class GameManager : MonoSingleton&ltGameManager&gt
+{
+    [SerializeField] private int checkpointId = 0;
+    [SerializeField] private int roomId = 0;
+    [SerializeField] ScrollCamera scrollCamera;
+
+    private RoomManager roomManager;
+    private Player player;
+    private int checkpointRoomId;
+
+    public int CheckpointId { get => checkpointId; }
+    public int RoomId { get => roomId; }
+    public Room CurrentRoom { get => roomManager.CurrentRoom; }
+
+    private void Start() { ... }
+
+    private new void Awake()
+    {
+        // Time scale is set to zero to avoid player
+        // falling through the world before level is loaded.
+        Time.timeScale = 0.0f;
+        base.Awake();
+    }
+
+    // Called at the start of the game and loads the first room.
+    public void StartGame()
+    {
+        LoadRoom(roomId);
+        Time.timeScale = 1.0f;
+    }
+
+    public void LoadRoom(int roomId)
+    {
+        this.roomId = roomId;
+        roomManager.LoadRoom(roomId);
+        scrollCamera.UpdateRoomBounds(CurrentRoom);
+    }
+
+    public void Respawn()
+    {
+        if (roomId != checkpointRoomId)
+        {
+            LoadRoom(checkpointRoomId);
+        }
+
+        CurrentRoom.Reset();
+        CurrentRoom.Respawn(checkpointId);
+    }
+
+    ...
+}
+
+
+
+                                        </code></pre>
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+// Directive that is used to switch between modes.
+#define KEEP_ROOMS
+
+public class RoomManager : MonoBehaviour
+{
+    [SerializeField] private Room[] roomPrefabs;
+    private Room currentRoom;
+    
+    public Room CurrentRoom { get => currentRoom; }
+
+#if KEEP_ROOMS
+    private Room[] rooms;
+
+    private void Start()
+    {
+        rooms = new Room[roomPrefabs.Length];
+    }
+#endif
+
+    public void LoadRoom(int roomId)
+    {
+        // Set room inactive or destroy it.
+        if (currentRoom != null)
+        {
+#if KEEP_ROOMS
+            currentRoom.gameObject.SetActive(false);
+#else
+            Destroy(currentRoom.gameObject);
+#endif
+        }
+
+#if KEEP_ROOMS
+        // Get room if it exists or instantiate it.
+        currentRoom = rooms[roomId];
+        if (currentRoom == null)
+        {
+            currentRoom = InstantiateRoom(roomId);
+            rooms[roomId] = currentRoom;
+        }
+        currentRoom.gameObject.SetActive(true);
+#else
+        currentRoom = InstantiateRoom(roomId);
+#endif
+    }
+
+    // Helper function with bounds check.
+    private Room InstantiateRoom(int roomId)
+    {
+        if (roomPrefabs.Length > roomId)
+            return Instantiate(roomPrefabs[roomId], transform);
+        else
+            throw new System.Exception($"invalid room id ${roomId}");
+    }
+}
+
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        GameManager on pysyvä objekti, joka hoitaa pelin scene-vaihtumat ja muut tallennettavat tiedot, kuten
+                                        pelaajan checkpointin ja huoneen tunnisteet. Scripti sisältää funktioita uuteen huoneeseen
+                                        siirtymiseen ja pelaajan respawnaamiseen.
+                                        <br><br>
+                                        Tällä hetkellä projektissa ei ole scene-vaihtumia, koska ne refaktoroitiin pois, mutta pelissä tulee
+                                        olemaan tulevaisuudessa useampia scenejä, joita pelimanageri tulee hallitsemaan. Pelin tallennus ja
+                                        lataus tulevat tapahtumaan scriptin kautta kun ne implementoidaan.
+                                        <br><br>
+                                        RoomManager hallinnoi pelin huoneita,
+                                        eli instantioi uusia huoneita, kun niitä pyydetään, ja tuhoaa huoneita, joita ei enää tarvita. Minä kokeilin
+                                        eri implementaatioita huonemanagerille ja sitä pystyy vaihtamaan käyttämällä KEEP_ROOMS directiiviä.
+                                        Ensimmäinen implementaatio instantioi huoneen kun pelaaja siirtyy siihen ja tuhoaa edellisen huoneen.
+                                        Toinen implementaatio ei tuhoa edellisiä huoneita vaan pitää ne muistissa siltä varalta, että pelaaja
+                                        menee takaisin edellisiin huoneisiin.
+                                    </p>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Keräilyesineiden manageri</span>
+                                </summary>
+                                <p>
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block"><code class="language-csharp code-block">
+public class CollectibleManager : MonoSingleton&ltCollectibleManager&gt
+{
+    private Dictionary&ltint, CollectibleData&gt collectibles = new();
+    private int count = 0;
+
+    // Contains collectible object's persistent data.
+    private struct CollectibleData
+    {
+        public bool collected;
+    }
+
+    // Called in Awake of Collectible instance to register it to the manager.
+    public void Register(Collectible collectible)
+    {
+        bool success = collectibles.TryGetValue(collectible.id, out CollectibleData data);
+
+        // Destroy collectible if it has already been collected.
+        if (success && data.collected)
+        {
+            Destroy(collectible.gameObject);
+        }
+
+        // If not in dictionary yet, add a new entry for it.
+        else if (!success)
+        {
+            CollectibleData entry = new CollectibleData
+            {
+                collected = false
+            };
+
+            collectibles.Add(collectible.id, entry);
+        }
+    }
+
+    // Collect a collectible.
+    public void Collect(Collectible collectible)
+    {
+        bool success = collectibles.TryGetValue(collectible.id, out CollectibleData data);
+        if (!success || data.collected)
+        {
+            throw new System.Exception("collectible is not registered or is already collected");
+        }
+
+        count += 1;
+        data.collected = true;
+
+        // Data needs to be removed and re-added for it to be updated.
+        collectibles.Remove(collectible.id);
+        collectibles.Add(collectible.id, data);
+
+        Destroy(collectible.gameObject);
+    }
+}
+                                        </code></pre>
+                                    </div>
+                                    <p class="content-block">
+                                        CollectibleManager säilyttää tietoa pelin kerättävistä esineistä ja onko pelaaja kerännyt ne.
+                                        mitkä keräilyesineet pelaaja on kerännyt ja tuhoaa ne, kun scene on latautunut uudelleen.
+                                        <br><br>
+                                        Tietoja ei tällä hetkellä säilytetä pelikerran jälkeen, mutta tulevaisuudessa ne tallennetaan
+                                        käyttämällä PlayerPrefs luokkaa.
+                                    </p>
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+                    <hr>
+                    <div>
+                        <h3>Keskeiset ongelmat</h3>
+                        <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Kollisiot</span>
+                                </summary>
+                                <p class="content-block">
+                                    Yksi suurimmista ongelmista, johon törmäsin pelin aikana, oli pelaajan kollisio ja sitä
+                                    käyttävät toiminnot ja kyvyt, kuten seinähyppääminen.
+                                    <br><br>
+                                    Projektin alussa aloitin käyttämällä Tilemap-komponenttia, jolla pystyin luoda pelin tasoja. Ensimmäinen
+                                    ideani oli käyttää prefab-objekteja, joissa oli scripti, joka havaitsi, kun pelaaja osui siihen.
+                                    Löysin, että tämä lähestymistapa aiheutti ongelmia, koska pelin maaperä on tehty useammasta objektista,
+                                    joka seurasi siihen, että funktiota kutsuttiin monta kertaa vaikka pelaaja oli maassa.
+                                    <br><br>
+                                    Käytin scriptiä myös selvittääkseni pystyykö pelaaja käyttämään joitain kykyjään, kuten hypätä tai liitää.
+                                    Koska maaperä oli tehty useammassa prefab-objektista, joilla oli oma kollideri, niiden välillä liikkuminen aiheutti
+                                    pienen aikavälin, jonka aikana pelaajaa ei rekisteröity olevan kummankaan objektin päällä, eikä pelaaja pystynyt
+                                    silloin hyppäämään. Ongelma aiheutti myös sen, että pelaaja jäi usein jumiin seiniin.
+                                    <br><br>
+                                    Ongelman pähkäilyn jälkeen löysin, että Tilemap-komponentissa voi käyttää Tilemap Collider ja Composite Collider
+                                    komponenttiyhdistelmää luodakseen yhtenäiset kolliderit pelin maalle ja seinille. Tämä tuotti kuitenkin omia reunatapauksiaan,
+                                    kuten ongelman, jossa pelaaja ei pystynyt hyppäämään vaikka olisi maassa, jos hän hyppäsi maan reunan ohi oikealla tavalla.
+                                    <br><br>
+                                    Lopuksi päädyin käyttämään Tilemap Collider ja Composite Collider komponentteja liikkumiseen,
+                                    mutta raycastia nähdäkseen missä suunnassa pelaajalla on kollisioita. Suurin osa liikkumiseen liittyvistä
+                                    ongelmista ratkaistiin tällä ja pystyin myös lisäämään raycastien etäisyyttä, jotta pelaaja pystyy
+                                    hyppäämään vaikka olisikin juuri astunut reunan ohi, joka teki pelistä enemmän anteeksiantavan.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pelin resoluutio</span>
+                                </summary>
+                                <p class="content-block">
+                                    Peli käyttää 320x180 resoluutiota ja 8x8 pikseligrafiikkaa, joka teki
+                                    näytöstä 40x22.5 tileä. Resoluutio ei jaa tasan käyttämäni assettien
+                                    resoluution kanssa, joka johti siihen, että pelissä näkyi ylimmästä
+                                    tilestä vain puolet. En löytänyt hyvää tapaa korjata ongelmaa, koska
+                                    resoluution pitää pystyä skaalaantumaan 1920x1080 resoluutioon.
+                                    <br><br>
+                                    Testasin eri resoluutioita, kuten 640x360, joka tekisi pelin huoneista
+                                    kaksi kertaa suurempia, mutta jakautuisi tasan. Päädyin kuitenkin myöhemmin
+                                    muuttamaan resoluution takaisin 320x180, koska halusin pitää pelin huoneet pieninä.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Pikseligrafiikka</span>
+                                </summary>
+                                <p class="content-block">
+                                    Pelissä käytetään Unityn Pixel Perfect kameraa optiolla Render Upscale Texture, joka renderöi
+                                    objektit todellisella resoluutiolla, joka on 320x180, ja skaalaa lopputuloksen ruudun resoluutioon.
+                                    Lopputuloksena on pikselinen effekti, jota käytän ruohon liikkumiseen.
+                                    <br><br>
+                                    Ongelmana effektin kanssa on, että kamerassa ei voi valita mihin objekteihin effekti vaikuttaa.
+                                    Seurauksena pelaajan liikkumisesta tuli epätasaista, koska pelaajan sprite snappautuu läheisimpään
+                                    pikseliin, joka on huomattavaa pelin pienen resoluution takia.
+                                    <br><br>
+                                    Ratkaisin ongelman käyttämällä renderitekstuuria, johon toinen kamera renderöi pelkästään ruohon
+                                    Render Upscale Texture option kanssa, ja toinen kamera, joka renderöi pelaajan ja maailman sekä
+                                    renderitekstuurin, jonka avulla sain effektin samalla kuin pelaaja pystyy liikkua pikselien välillä.
+                                    <br><br>
+                                    Ratkaisu toi myös uuden ongelman, joka vaikutti pelin valaistukseen. En saanut renderitekstuuria
+                                    renderöimään pelin valoja, joten minun on pitänyt keksiä uusia ratkaisuja. Yksi ratkaisu, jota
+                                    olen testannut, mutta en ole implementoinut vielä on shaderin käyttäminen luomaan samankaltaisen
+                                    effektin.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Levelien luominen ja editointi</span>
+                                </summary>
+                                <p class="content-block">
+                                    Pelin tasot ovat suunniteltu prefabeina, jotka instantioidaan, kun
+                                    pelaaja vaihtaa huonetta. Tämä on tuottanut minulle vaikeuksia visualisoida
+                                    kuinka huoneet liittyvät toisiinsa.
+                                    <br><br>
+                                    Sain väliaikaisesti ratkaistua ongelman laittamalla kaikki huoneet sceneen,
+                                    jotta pystyn katsella kaikkia huoneita, mutta käyttämäni kamerasysteemin
+                                    takia ne eivät renderöidy oikein scene-näkymässä.
+                                    
+                                    Tulevaisuudessa saatan muuttamaan pelin huonejärjestelmää, jotta pelimaailmaa
+                                    pystyy katselemaan, tai aloittaa käyttämään ulkoista level editoria.
+                                    <br><br>
+                                    Olen testannut kahta level editoria, jotka ovat luotu 2D levelien luomiseen.
+                                    Ensimmäinen niistä on Tiled, jossa on paljon ominaisuuksia, mutta oli
+                                    monimutkaista käyttää. Testasin myös LDtk level editoria, jota oli helpompi
+                                    käyttää, mutta on uudempi. Rakennettuja leveleitä oli hankalaa importata Unityyn
+                                    LDtk editorilla, koska minun piti käyttää epävirallista LDtk to Unity -pakkausta
+                                    ja tehdä muutoksia importatuihin leveleihin, jotta ne toimivat, kuten halusin.
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary">
+                                    <span class="details-title">Laatoitus</span>
+                                </summary>
+                                <p class="content-block">
+                                    Projektin alkupuolella aloitin rakentamalla huoneita käyttämällä
+                                    yksittäisiä laattoja, joita minun piti vaihtaa manuaalisesti, jos
+                                    halusin toisen tyyppisen laatan paikalle, kuten reunalaatan.
+                                    <br><br>
+                                    Löysin myöhemmin Unityn Rule Tile komponentin, joka vaihtaa
+                                    laattatyyppiä automaattisesti sen naapurien perusteella.
+                                    <div class="picture">
+                                        <img src="../images/ruletile.png">
+                                        <p class="m0">Kuva Unityn Rule Tile komponentista.</p>
+                                    </div>
+                                </p>
+                            </details>
+                        </div>
+                    </div>
+                    <hr>
+                    <details open="" class="detail-block">
+                        <summary class="details-summary">
+                            <span class="details-title">Näyttökuvat ja valokuvat</span>
+                        </summary>
+                        <p class="content-block">
+                            <div id="Pictures">
+                                <div class="picture">
+                                    <img src="../images/room2.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../images/room4.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../images/room5.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../images/room6.png">
+                                    <div class="picture-label">
+                                        <hr>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </p>
+                    </details>
+                    <hr>
+                    <div>
+                        <h3>Gameplay</h3>
+                        <p>
+                            <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason -->
+                            <iframe hidden></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/be6f0ggEUuE" title="2D Platformer Gameplay" frameborder="0" allowfullscreen></iframe>
+                        </p>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </body>
+    <script>hljs.highlightAll();</script>
+</html>
