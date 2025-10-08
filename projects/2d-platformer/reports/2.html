@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi">
+<html lang="en">
     <head>
         <title>2D Platformer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +11,12 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+        <style>
+            #HeaderWrapper::before, #HeaderWrapper::after {
+                background-image: url("../assets/banner_new.png");
+            }
+        </style>
     </head>
     <body>
         <div id="PageWrapper">
@@ -21,82 +27,342 @@
             <div id="ContentWrapper">
                 <div id="Sidebar">
                     <div>
-                        <h1>Tiimi</h1>
+                        <h2>Team</h2>
                         <div id="Team">
                             <div class="vline"></div>
                             <div>
                                 <p class="memberName">Daniel Sarin</p>
-                                <p class="memberRole">Koodari, 2D artisti</p>
+                                <p class="memberRole">Programmer, 2D Artist</p>
                             </div>
                         </div>
                     </div>
                     
                     <div id="ProjImages">
-                        <!-- <div class="side-image">
-                            <img src="images/room0.png">
-                            <span>Kuvankaappaus pelin ensimmäisestä huoneesta.</span>
-                        </div>
                         <div class="side-image">
-                            <img src="images/room1.png">
-                            <span>Kuvankaappaus pelin toisesta huoneesta.</span>
-                        </div> -->                           
+                            <img src="../assets/improved_room0.png" class="pixelated">
+                            <!-- <span></span> -->
+                        </div>
+                        <!-- <div class="side-image">
+                            <img src="assets/room1.png">
+                            <span></span>
+                        </div> -->                       
                     </div>
                 </div>
                 <div id="Article">
                     <h1 id="Title">2D Platformer</h1>
-                    <h2>Projektin kuvaus</h2>
+                    <br>
                     <p class="content-block">
-                        Projekti on 2D tasohyppely- ja seikkailupeli, joka on tehty Unity pelimoottorilla.
-                        Peli ottaa inspiraatiota pelistä Celeste.
-                        <br><br>
-                        Pelin päätavoitteena on päihittää peli pääsemällä läpi kaikista tasoista
-                        ja kuolla mahdollisimman vähän. Lisäksi pelaaja pystyy löytämään valinnaisia
-                        keräilyesineitä, jotka ovat piilotettu pelimaailmaan.
-                        <br><br>
-                        Peli on jaettu huoneisiin, jotka pelaajan pitää päästä läpi, ohittaen piikkejä
-                        ja muita vaaroja, hyppimällä tai liitämällä niiden ohi, sekä kiivetä seiniä
-                        pitkin päästäkseen huoneen läpi.
+                        <p>
+                            [2D Platformer] is a 2D platformer and adventure game created in Unity.
+                        </p>
+                        <p class="content-block">
+                            The goal of the game is to beat all levels and die as few times as possible.
+                            Additionally, the player can find collectibles that are scattered throughout
+                            the game world.
+                        </p>
                     </p>
-                    <!--<hr>
-                    <ul>
-                        <li>Toteutettiinko peli, sovellus vai mikä?</li>
-                        <li>Mitä oli tarkoitus toteuttaa ja kenelle?</li>
-                        <li>Miten suunniteltiin?</li>
-                        <li>Mitä on saatu valmiiksi?</li>
-                        <li>Miten työ jatkuu?</li>
-                        <li>Miten työ jakautui?</li>
-                        <li>Millaisella aikataululla työtä toteutettiin?</li>
-                    </ul>-->
+                    <!--
+                        <ul>
+                            <li>Toteutettiinko peli, sovellus vai mikä?</li>
+                            <li>Mitä oli tarkoitus toteuttaa ja kenelle?</li>
+                            <li>Miten suunniteltiin?</li>
+                            <li>Mitä on saatu valmiiksi?</li>
+                            <li>Miten työ jatkuu?</li>
+                            <li>Miten työ jakautui?</li>
+                            <li>Millaisella aikataululla työtä toteutettiin?</li>
+                        </ul>
+                    -->
                     <hr>
                     <div>
-                        <h3>Keskeiset funktiot</h3>
+                        <h3>Functions</h3>
                         <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Interfaces
+                                </summary>
+                                <p class="content-block">
+                                    <div class="flex-code-block">
+                                        <div>
+                                            <pre class="theme-atom-one-dark code-block">
+                                                <code class="language-csharp code-block">
+// An interface for objects that are reset
+// after the player dies or a room is reloaded.
+public interface IResettable
+{
+    void Reset();
+}
+                                                </code>
+                                            </pre>
+                                            <pre class="theme-atom-one-dark code-block">
+                                                <code class="language-csharp code-block">
+// An interface for objects with ids.
+public interface IIdentifier
+{
+    int Id { get; }
+}
+                                                </code>
+                                            </pre>
+                                        </div>
+                                        <pre class="theme-atom-one-dark code-block">
+                                            <code class="language-csharp code-block">// Room.cs
+
+private void Init()
+{
+    // Gather all objects in the room.
+    MonoBehaviour[] objects = GetComponentsInChildren&ltMonoBehaviour&gt(true);
+
+    // Add checkpoints and room triggers to a dictionary.
+    checkpoints.AddEnumerable(objects.OfType&ltCheckpoint&gt());
+    roomTriggers.AddEnumerable(objects.OfType&ltRoomTrigger&gt());
+
+    // Get all resettable objects.
+    resettables = objects.OfType&ltIResettable&gt().ToArray();
+}
+
+public void Reset()
+{
+    // Reset all resettable objects.
+    foreach (IResettable obj in resettables)
+        obj.Reset();
+}
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <p class="content-block">
+                                        The original Room script had separate arrays for different objects which I would have to add new objects to manually.
+                                        The updated scripts use interfaces to fetch all needed objects at runtime, so now the only thing I need
+                                        to do is implement IResettable on the object and it will automatically be fetched when the room is instantiated
+                                        and reset when needed.
+                                    </p>
+                                    <p class="content-block">
+                                        The original Room script had separate arrays for different objects which I would have to add new objects to manually.
+                                        The updated scripts use interfaces to fetch all needed objects at runtime, so now the only thing I need
+                                        to do is implement IResettable on the object and it will automatically be fetched when the room is instantiated
+                                        and reset when needed.
+                                    </p>
+                                    <div class="single-code-block">
+                                        <pre class="theme-atom-one-dark code-block">
+                                            <code class="language-csharp code-block">// Recharge.cs
+
+public class Recharge : MonoBehaviour, IResettable
+{
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite activeSprite;
+    [SerializeField] private Sprite inactiveSprite;
+
+    private bool used = false;
+
+    public void Reset()
+    {
+        used = false;
+        spriteRenderer.sprite = activeSprite;
+    }
+
+    ...
+}
+                                            </code>
+                                        </pre>
+                                    </div>
+                                    <p class="content-block m0">
+                                        Example of IResettable being implemented on an object. The Recharge object allows the player to
+                                        jump and recharge their abilities. When the room is reloaded or the player dies, it is reset
+                                        and can be used again.
+                                    </p>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Custom Rule Tile Script
+                                </summary>
+                                <p class="content-block">
+                                    <div class="flex-code-block">
+                                        <pre class="theme-atom-one-dark code-block">
+                                            <code class="language-csharp code-block">
+[CreateAssetMenu(menuName = "Tiles/GroundRuleTile")]
+public class GroundRuleTile : RuleTile&ltGroundRuleTile.Neighbor&gt
+{
+    // The tile spritesheet
+    public Texture2D spriteSheet;
+
+    // The individual tiles
+    [SerializeField, HideInInspector] private Sprite[] sprites;
+
+    private void OnValidate()
+    {
+#if UNITY_EDITOR
+        if (spriteSheet != null)
+        {
+            string path = UnityEditor.AssetDatabase.GetAssetPath(spriteSheet);
+
+            // Load all sprites in ascending order.
+            sprites = UnityEditor.AssetDatabase
+                .LoadAllAssetsAtPath(path)
+                .OfType&ltSprite&gt()
+                .OrderBy(s => int.Parse(s.name.Split("_").Last()))
+                .ToArray();
+
+            UnityEditor.EditorUtility.SetDirty(this);
+        }
+#endif
+    }
+
+    ...
+}
+                                            </code>
+                                        </pre>
+                                        <div class="content-picture">
+                                            <img src="../assets/custom_ruletile.png">
+                                        </div>
+                                    </div>
+                                    <p class="content-block">
+                                        GroundRuleTile is a script that takes a spritesheet and generates the correct
+                                        tiling rules automatically. The tiling rules are hard-coded in the script
+                                        which means the spritesheets need to follow a predefined layout, but the custom
+                                        script saves a bunch of time that would be spent redefining each tiling rule for
+                                        every ground tile type.
+                                    </p>
+                                </p>
+                            </details>
                         </div>
                     </div>
                     <hr>
                     <div>
-                        <h3>Keskeiset ongelmat</h3>
+                        <h3>Problems</h3>
                         <div class="detail-flex">
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Custom Shader Graph
+                                </summary>
+                                <p>
+                                    <p class="content-block">
+                                        The game has swaying grass tiles, which I implemented by
+                                        creating a script that changed the rotation of the tile.
+                                        
+                                        I wasn't entirely happy with the effect since it felt out of place for
+                                        the grass to sway smoothly so I started looking into created a custom
+                                        Shader Graphs to add a pixelation effect on the swaying grass.
+                                    </p>
+                                    <p class="content-block">
+                                        Creating the shader was more difficult than I had anticipated. It was made harder by me
+                                        not being able to find any examples of pixelation shader graphs that I could look at to
+                                        see how its done.
+                                    </p>
+                                    <p class="content-block">
+                                        The game uses spritesheets that contain multiple different tiles, which gave me trouble
+                                        when creating the shader, because as it turns out, the shader graph uses the underlying
+                                        texture regardless of what is assigned to the material. That meant that I had to add tiling
+                                        and calculate the right offsets to the UV texture to sample only the correct tile.
+                                    </p>
+                                    <div class="content-picture">
+                                        <img src="../assets/grass_shader_isolate.png">
+                                        <p class="content-picture-label">
+                                            A part of the shader which uses two step nodes
+                                            to isolate the correct tile.
+                                        </p>
+                                    </div>
+                                    <p class="content-block">
+                                        The current implementation has an issue where a moving tile is clipped when it goes out of bounds.
+                                        I haven't been able to fix it because increasing the bounds will cause other textures to be sampled
+                                        alongside the grass tile.
+                                    </p>
+                                    <div class="content-picture">
+                                        <img src="../assets/grass_swaying.gif" class="pixelated">
+                                        <p class="content-picture-label">
+                                            Swaying grass with a custom shader graph.
+                                        </p>
+                                    </div>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Player Sprites
+                                </summary>
+                                <p>
+                                    <p class="content-block">
+                                        I'm not very good at drawing which is partly why I chose a pixelated style
+                                        with a low resolution.
+
+                                        The player sprites in particular were hard because I was focusing on making
+                                        certain parts stand out from the rest of the sprite, like the eyes, which I
+                                        tried to make big and round.
+                                    </p>
+                                    <div class="content-picture">
+                                        <img src="../assets/player_sprites.png" style="width: 9rem" class="pixelated">
+                                        <p class="content-picture-label">Improved player sprites.</p>
+                                    </div>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Player Animations
+                                </summary>
+                                <p>
+                                    <p class="content-block">
+                                        The player animations were straight forward because of my player state machine but I still ran
+                                        into a couple issues because the animation transitions had exit times and transition durations.
+                                        The animations are instant so they broke the transitions.
+                                    </p>
+                                    <div class="content-picture">
+                                        <img src="../assets/player_animator.png">
+                                        <p class="content-picture-label">
+                                            Player animation transitions.
+                                        </p>
+                                    </div>
+                                </p>
+                            </details>
+                            <details open="" class="detail-block">
+                                <summary class="details-summary details-title">
+                                    Camera scrolling
+                                </summary>
+                                <p>
+                                    <p class="content-block">
+                                        
+                                    </p>
+                                </p>
+                            </details>
                         </div>
                     </div>
                     <hr>
                     <details open="" class="detail-block">
-                        <summary class="details-summary">
-                            <span class="details-title">Näyttökuvat ja valokuvat</span>
+                        <summary class="details-summary details-title">
+                            Screenshots
                         </summary>
                         <p class="content-block">
                             <div id="Pictures">
+                                <div class="picture">
+                                    <img src="../assets/gameplay_screenshot0.png" class="pixelated">
+                                    <div class="picture-label">
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../assets/gameplay_screenshot1.png" class="pixelated">
+                                    <div class="picture-label">
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../assets/gameplay_screenshot2.png" class="pixelated">
+                                    <div class="picture-label">
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="picture">
+                                    <img src="../assets/gameplay_screenshot3.png" class="pixelated">
+                                    <div class="picture-label">
+                                        <hr>
+                                    </div>
+                                </div>
                             </div>
                         </p>
                     </details>
                     <hr>
                     <div>
-                        <h3>Gameplay</h3>
+                        <h3>Gameplay Video</h3>
                         <p>
-                            <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason
+                            <!-- Second iframe is needed so the video isn't blocked on Firefox for some reason -->
                             <iframe hidden></iframe>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/be6f0ggEUuE" title="2D Platformer Gameplay" frameborder="0" allowfullscreen></iframe>
-                            -->
+                            <iframe width="711" height="400" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="2D Platformer Gameplay" frameborder="0" allowfullscreen></iframe>
                         </p>
                     </div>
                 </div>   

@@ -83,11 +83,9 @@ a {
 }
 
 .memberRole {
-    font-variant-caps: unicase;
     font-style: oblique;
     font-size: 12px;
     margin: 10px 0;
-    max-width: 50%;
 }
 
 #ProjImages {
@@ -103,7 +101,7 @@ a {
 }
 
 .content-block {
-    width: 60%;
+    width: calc(min(50%, 42rem));
     line-height: 23px;
 }
 
@@ -119,7 +117,9 @@ a {
 
 .flex-code-block {
     display: flex;
+    flex-wrap: wrap;
     column-gap: 2rem;
+    row-gap: 2rem;
 }
 
 @media (max-width: 800px) {
@@ -131,7 +131,6 @@ a {
 .code-block {
     width: fit-content;
     font-size: max(8px, min(0.75vw, 14px));
-    padding-bottom: 0.5rem;
     border-radius: 15px;
     margin: 0;
 }
@@ -239,19 +238,38 @@ li {
 }
 
 .picture {
-    max-width: 33vw;
+    width: min-content;
+    max-width: 25vw;
 }
 
 .picture > img {
     max-width: inherit;
     height: 90%;
-    border-radius: 5px 5px 5px 0;
+    border-radius: 10px;
 }
 
 .picture-label {
-    font-size: max(8px, min(0.75vw, 14px));
+    font-size: max(8px, min(0.75vw, 16px));
     line-height: 0px;
     position: relative;
     /* clips img at small resolutions */
     bottom: 12px;
+}
+
+.content-picture {
+    width: min-content;
+    max-width: 25vw;
+    margin: 1.5rem 0;
+}
+
+.content-picture > img {
+    max-width: inherit;
+    height: 90%;
+    border-radius: 10px;
+}
+
+.content-picture-label {
+    font-size: 85%;
+    position: relative;
+    bottom: 0.5rem;
 }
