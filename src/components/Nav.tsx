@@ -71,7 +71,7 @@ interface MainNavButtonProps {
 
 export function MainNavButton({ title, icon, selected, ref }: MainNavButtonProps) {
   return (
-    <ScrollButton selected={selected || false} id={title} ref={ref}>
+    <ScrollButton selected={selected ?? false} id={title} ref={ref}>
       <img alt="" src={usePath(icon ?? "icons/file.svg")} className="w-1/10 aspect-square"/>
       <p className="px-4 font-mplus uppercase text-sm text-nowrap">{title}</p>
     </ScrollButton>

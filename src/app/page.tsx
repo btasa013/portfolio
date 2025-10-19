@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
 import { DEFAULT_NAV } from '@/components/Nav';
@@ -8,7 +8,7 @@ import { usePath } from '@/scripts/path';
 
 export default function Home() {
 
-  const aboutMeRef = useRef(null);
+  const aboutMeRef: React.RefObject<HTMLElement | null> = useRef(null);
   const skillsRef = useRef(null);
   const projectsRef = useRef(null);
   const contactRef = useRef(null);
@@ -19,6 +19,15 @@ export default function Home() {
   nav[1].ref = skillsRef;
   nav[2].ref = projectsRef;
   nav[3].ref = contactRef;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (window.scrollY == 0) {
+        aboutMeRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <Page navItems={nav}>
@@ -54,7 +63,7 @@ export default function Home() {
                   experience in programming different kinds of apps.
                 </p>
                 
-                <div className="flex flex-wrap gap-4 text-sm my-4">
+                <div className="flex flex-wrap gap-4 text-sm mt-12 my-4">
                   <div className="p-1 bg-secondary-bg rounded-xl">
                     <p className="text-green-400 font-semibold mx-2">C#</p>
                   </div>
