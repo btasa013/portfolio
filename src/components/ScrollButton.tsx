@@ -1,4 +1,4 @@
-import { getPath } from '@/scripts/path';
+import { usePath } from '@/scripts/path';
 
 interface ScrollButtonProps {
     selected: boolean;
@@ -10,7 +10,7 @@ interface ScrollButtonProps {
 export default function ScrollButton({ selected, id, ref, children }: ScrollButtonProps) {
   return (
     <a
-      href={getPath(`#${id}`)}
+      href={usePath(`#${id}`)}
       onClick={e => {
         if (ref != undefined) {
           e.preventDefault();

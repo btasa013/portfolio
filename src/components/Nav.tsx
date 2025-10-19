@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import ScrollButton from "@/components/ScrollButton";
-import { getPath } from "@/scripts/path";
+import { usePath } from "@/scripts/path";
 
 export interface NavItem {
   title: string;
@@ -72,7 +72,7 @@ interface MainNavButtonProps {
 export function MainNavButton({ title, icon, selected, ref }: MainNavButtonProps) {
   return (
     <ScrollButton selected={selected || false} id={title} ref={ref}>
-      <img alt="" src={getPath(icon ?? "icons/file.svg")} className="w-1/10 aspect-square"/>
+      <img alt="" src={usePath(icon ?? "icons/file.svg")} className="w-1/10 aspect-square"/>
       <p className="px-4 font-mplus uppercase text-sm text-nowrap">{title}</p>
     </ScrollButton>
   );
