@@ -3,7 +3,9 @@ import Page from '@/components/Page';
 export default function Project() {
   return (
     <Page>
-      <div></div>
+      <div className="p-4">
+        todo
+      </div>
     </Page>
   );
 }

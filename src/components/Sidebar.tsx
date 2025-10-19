@@ -18,7 +18,7 @@ export default function Sidebar({ nav }: SidebarProps) {
                     <h2 className="text-xl leading-none font-extralight">Sarin</h2>
                 </div>
             </div>
-            <div className="flex justify-between items-center p-2">
+            <div className="flex justify-between items-center px-4 py-1">
               <div className="flex gap-2">
                 <RoundButton link="https://www.linkedin.com/in/daniel-sarin-7aa7132b6/">
                   <img alt="" width="28" height="28" src={usePath("icons/linkedin.svg")} className="aspect-square opacity-75 rounded-md" />

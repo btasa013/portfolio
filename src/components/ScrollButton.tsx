@@ -20,10 +20,10 @@ export default function ScrollButton({ selected, id, ref, children }: ScrollButt
       className={`
         p-2 rounded-4xl duration-200 font-bold
         hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125
-        ${selected ? "bg-neutral-800" : ""}
+        ${selected ? "bg-green-800" : ""}
       `}
     >
-      <div className="flex items-center text-justify px-4">
+      <div className="opacity-100 flex items-center text-justify px-4">
         {children}
       </div>
     </a>

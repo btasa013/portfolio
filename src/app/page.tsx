@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
 import { DEFAULT_NAV } from '@/components/Nav';
+import { usePath } from '@/scripts/path';
 
 export default function Home() {
 
@@ -21,29 +22,129 @@ export default function Home() {
 
   return (
     <Page navItems={nav}>
-      <div className="w-full h-64 aspect-video">
-        <iframe></iframe>
-      </div>
       <div className="flex flex-col divide-y divide-neutral-800 *:min-h-64">
-        <Section ref={aboutMeRef} title="About Me">
-          <p>
-            Hello, my name is Daniel Sarin and I am a game developer based in Finland.
-          </p>
-          <p>
-            I am a game technology student at <abbr title="South-Eastern Finland University of Applied Sciences">XAMK</abbr>.
-          </p>
+        <div className="max-h-[860px] overflow-hidden">
+          <video className="opacity-75 [image-rendering:pixelated]" width="100%" height="auto" preload="true" autoPlay loop muted>
+              <source src={usePath("assets/ProjectShowcase.mp4")} type="video/mp4" /> 
+          </video>
+        </div>
+        <Section id="About Me" ref={aboutMeRef} title="Hello!">
+          <div>
+            <p>
+              I'm an aspiring game developer from Finland who is passionate
+              about programming and all things games.
+            </p>
+            <br/>
+            <p>
+              I'm second year a student of Game Technology at <abbr
+                className="underline-offset-2"
+                title="South-Eastern Finland University of Applied Sciences">
+                  XAMK
+              </abbr>.
+            </p>
+          </div>
         </Section>
-        <Section ref={skillsRef} title="Skills">
+        <Section id="Skills" ref={skillsRef} title="Skills">
+          <div>
+            <div className="grid grid-cols-2 divide-x divide-neutral-800">
+              <div className="flex flex-col">
+                <p className="mr-4">
+                  I have multiple years of experience in game development and using
+                  different game engines to create games. I also have several years of
+                  experience in programming different kinds of apps.
+                </p>
+                
+                <div className="flex flex-wrap gap-4 text-sm my-4">
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-green-400 font-semibold mx-2">C#</p>
+                  </div>
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-slate-300 font-semibold mx-2">C / C++</p>
+                  </div>
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-amber-500 font-semibold mx-2">Rust</p>
+                  </div>
 
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-yellow-300 font-semibold mx-2">Javascript</p>
+                  </div>
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-orange-500 font-semibold mx-2">HTML</p>
+                  </div>
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-sky-300 font-semibold mx-2">CSS</p>
+                  </div>
+
+                  <div className="p-1 bg-secondary-bg rounded-xl">
+                    <p className="text-blue-300 font-semibold mx-2">Python</p>
+                  </div>
+                </div>
+
+              </div>
+              <div className="flex flex-col gap-8">
+                <div className="mx-8">
+                  <h1 className="font-semibold text-lg mb-2">Game Engines</h1>
+                  <div className="flex flex-wrap gap-x-8">
+                    <div className="flex flex-col">
+                      <div className="flex gap-x-2 items-center">
+                        <img width="31px" src={usePath("icons/devicon_unity.svg")}></img>
+                        <div className="text-nowrap">Unity</div>
+                      </div>
+                      <div className="text-xs ml-10">
+                        2 years
+                      </div>
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex gap-x-2 items-center">
+                        <img width="32px" src={usePath("icons/mdi_unreal.svg")}></img>
+                        <div className="relative right-[1px] text-nowrap">Unreal Engine</div>
+                      </div>
+                      <div className="text-xs ml-10">
+                        2 years
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/*<div className="mx-8">
+                  <h1 className="font-semibold text-lg mb-2">Tools</h1>
+                  <div className="flex flex-wrap gap-x-8">
+                    <div className="flex flex-col">
+                      <div className="flex gap-x-2 items-center">
+                        <img width="31px" src={usePath("icons/devicon_unity.svg")}></img>
+                        <div className="text-nowrap">Unity</div>
+                      </div>
+                      <div className="text-xs ml-10">
+                        2 years
+                      </div>
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex gap-x-2 items-center">
+                        <img width="32px" src={usePath("icons/mdi_unreal.svg")}></img>
+                        <div className="relative right-[1px] text-nowrap">Unreal Engine</div>
+                      </div>
+                      <div className="text-xs ml-10">
+                        2 years
+                      </div>
+                    </div>
+                  </div>
+                </div>*/}
+              </div>
+            </div>
+          </div>
         </Section>
-        <Section ref={projectsRef} title="Projects">
+        <Section id="Projects" ref={projectsRef} title="Projects">
           <div className="flex flex-wrap gap-8 my-16">
             <ProjectPanel title="2D Platformer" slug="2d-platformer" description="A fast-paced platformer built in Unity." />
           </div>
         </Section>
-        <Section ref={contactRef} title="Contact">
-          <div className="flex flex-col py-8 mb-64">
-            <p>Email address: btasa013@edu.xamk.fi</p>
+        <Section id="Contact" ref={contactRef} title="Contact">
+          <div className="flex flex-col py-8 mb-96">
+            <div className="flex items-center gap-2">
+              <p>Email address</p>
+              <div className="bg-secondary-bg rounded-xl w-fit">
+                <p className="py-1 px-2 text-sm">btasa013@edu.xamk.fi</p>
+              </div>
+            </div>
           </div>
         </Section>
       </div>
@@ -52,18 +153,17 @@ export default function Home() {
 }
 
 interface SectionProps {
+  id: string;
   title: string;
   ref?: React.RefObject<HTMLElement | null>;
   children?: React.ReactNode;
 }
 
-function Section({ ref, title, children }: SectionProps) {
+function Section({ id, title, ref, children }: SectionProps) {
   return (
-    <section id={title} ref={ref} className="scroll-my-64 p-8 shadow-xs shadow-black">
-      <h1 className="font-semibold text-2xl font-mplus">{title}</h1>
-      <div className="font-inter mt-4">
-        {children}
-      </div>
+    <section id={id} ref={ref} className="scroll-my-32 p-8 font-inter shadow-xs shadow-black">
+      <h1 className="font-semibold text-2xl font-mplus mb-8">{title}</h1>
+      {children}
     </section>
   )
 }
