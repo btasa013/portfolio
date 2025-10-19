@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import ScrollButton from "@/components/ScrollButton";
+import { getPath } from "@/scripts/path";
 
 export interface NavItem {
   title: string;
@@ -55,10 +56,10 @@ export default function Nav({ nav }: NavProps) {
 }
 
 export const DEFAULT_NAV: NavItem[] = [
-  { title: "About Me", icon: "/icons/description.svg", component: MainNavButton },
-  { title: "Skills", icon: "/icons/profile.svg", component: MainNavButton },
-  { title: "Projects", icon: "/icons/catalog.svg", component: MainNavButton },
-  { title: "Contact", icon: "/icons/mail.svg", component: MainNavButton }
+  { title: "About Me", icon: "icons/description.svg", component: MainNavButton },
+  { title: "Skills", icon: "icons/profile.svg", component: MainNavButton },
+  { title: "Projects", icon: "icons/catalog.svg", component: MainNavButton },
+  { title: "Contact", icon: "icons/mail.svg", component: MainNavButton }
 ];
 
 interface MainNavButtonProps {
@@ -71,7 +72,7 @@ interface MainNavButtonProps {
 export function MainNavButton({ title, icon, selected, ref }: MainNavButtonProps) {
   return (
     <ScrollButton selected={selected || false} id={title} ref={ref}>
-      <img alt="" src={icon ?? "/icons/file.svg"} className="w-1/10 aspect-square"/>
+      <img alt="" src={getPath(icon ?? "icons/file.svg")} className="w-1/10 aspect-square"/>
       <p className="px-4 font-mplus uppercase text-sm text-nowrap">{title}</p>
     </ScrollButton>
   );
