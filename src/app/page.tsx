@@ -53,7 +53,7 @@ export default function Home() {
 
 interface SectionProps {
   title: string;
-  ref?: React.RefObject<any>;
+  ref?: React.RefObject<HTMLElement | null>;
   children?: React.ReactNode;
 }
 

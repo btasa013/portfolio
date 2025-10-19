@@ -23,8 +23,6 @@ export default function ScrollButton({ selected, id, ref, children }: ScrollButt
     >
       <div className="flex items-center text-justify px-4">
         {children}
-          {/*<img src={icon ?? "icons/file.svg"} className="w-1/10 aspect-square"/>
-          <p className="px-4 font-mplus uppercase text-sm text-nowrap">{title}</p> */}
       </div>
     </a>
   );

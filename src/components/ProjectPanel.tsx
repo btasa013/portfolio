@@ -1,7 +1,7 @@
 interface ProjectPanelProps {
-    title: string;
-    slug: string;
-    description: string;
+  title: string;
+  slug: string;
+  description: string;
 }
 
 export default function ProjectPanel({ title, slug, description }: ProjectPanelProps) {
@@ -26,6 +26,7 @@ export default function ProjectPanel({ title, slug, description }: ProjectPanelP
 function ProjectPanelBanner({ slug }: { slug: string }) {
   return (
     <img
+      alt=""
       src={`assets/${slug}/banner.png`}
       className="
         object-cover rounded-2xl brightness-75 duration-500
