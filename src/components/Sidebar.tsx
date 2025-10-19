@@ -11,7 +11,7 @@ export default function Sidebar({ nav }: SidebarProps) {
       <div className="flex flex-col h-screen justify-between">
         <div className="h-full flex flex-col divide-y divide-neutral-800">
             <div className="flex items-center justify-center p-4">
-                <img alt="" width="128" height="128" src="/icons/user.svg" className="p-4 aspect-square rounded-full" />
+                <img alt="" width="128" height="128" src="icons/user.svg" className="p-4 aspect-square rounded-full" />
                 <div className="pr-4">
                     <h1 className="text-2xl leading-none font-light">Daniel</h1>
                     <h2 className="text-xl leading-none font-extralight">Sarin</h2>
