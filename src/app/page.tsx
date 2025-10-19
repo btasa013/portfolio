@@ -38,7 +38,7 @@ export default function Home() {
           </video>
         </div>
         <Section id="About Me" ref={aboutMeRef} title="Hello!">
-          <div>
+          <div className="min-h-32">
             <p>
               I&apos;m an aspiring game developer from Finland who is passionate
               about programming and all things games.
@@ -170,7 +170,7 @@ interface SectionProps {
 
 function Section({ id, title, ref, children }: SectionProps) {
   return (
-    <section id={id} ref={ref} className="scroll-my-32 p-8 font-inter shadow-xs shadow-black">
+    <section id={id} ref={ref} className="scroll-my-64 p-8 font-inter shadow-xs shadow-black">
       <h1 className="font-semibold text-2xl font-mplus mb-8">{title}</h1>
       {children}
     </section>
