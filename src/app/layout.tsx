@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 };
 
 const isProd = process.env.NODE_ENV === 'production';
+const basePath = <base href="/new-portfolio/" />;
 
 export default function RootLayout({
   children,
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <base href={isProd ? "/new-portfolio/" : ""}/>
+        {isProd ? basePath : null}
       </head>
       <body className={`
         ${geistSans.variable} ${geistMono.variable} ${Mplus1p.variable} ${inter.variable}
