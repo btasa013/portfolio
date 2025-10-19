@@ -31,12 +31,12 @@ export default function Home() {
         <Section id="About Me" ref={aboutMeRef} title="Hello!">
           <div>
             <p>
-              I'm an aspiring game developer from Finland who is passionate
+              I&apos;m an aspiring game developer from Finland who is passionate
               about programming and all things games.
             </p>
             <br/>
             <p>
-              I'm second year a student of Game Technology at <abbr
+              I&apos;m second year a student of Game Technology at <abbr
                 className="underline-offset-2"
                 title="South-Eastern Finland University of Applied Sciences">
                   XAMK
