@@ -1,5 +1,3 @@
-import { usePathname } from 'next/navigation';
-
 /**
  *
  * @param path Path that is appended at the end.
@@ -10,5 +8,5 @@ export function usePath(path?: string): string {
   const isProd = process.env.NODE_ENV === 'production';
   const basePath = isProd ? "/new-portfolio/" : "/";
   
-  return `${usePathname() === '/' ? basePath : ''}${path ?? ''}`;
+  return `${basePath}${path ?? ''}`;
 }
