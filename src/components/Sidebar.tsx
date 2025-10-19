@@ -20,7 +20,7 @@ export default function Sidebar({ nav }: SidebarProps) {
             <div className="flex justify-between items-center p-2">
               <div className="flex gap-2">
                 <RoundButton link="https://www.linkedin.com/in/daniel-sarin-7aa7132b6/">
-                  <img alt="" width="28" height="28" src="/icons/linkedin.svg" className="aspect-square opacity-75 rounded-md" />
+                  <img alt="" width="28" height="28" src="icons/linkedin.svg" className="aspect-square opacity-75 rounded-md" />
                 </RoundButton>
                 <RoundButton link="https://www.facebook.com/daniel.sarin.58/">
                   <img alt="" width="28" height="28" src="/icons/facebook.svg" className="aspect-square opacity-75 rounded-md" />
