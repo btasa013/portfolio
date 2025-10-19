@@ -1,40 +1,53 @@
 "use client";
 
 import React, { useRef } from 'react';
-import Sidebar from './components/Sidebar';
+import Page from '@/components/Page';
+import ProjectPanel from '@/components/ProjectPanel';
+import { DEFAULT_NAV } from '@/components/Nav';
 
 export default function Home() {
 
-  const sections: Map<string, React.RefObject<HTMLElement | null>> = new Map([
-    ["About Me", useRef(null)],
-    ["Skills", useRef(null)],
-    ["Projects", useRef(null)],
-    ["Contact", useRef(null)],
-  ]);
+  const aboutMeRef = useRef(null);
+  const skillsRef = useRef(null);
+  const projectsRef = useRef(null);
+  const contactRef = useRef(null);
 
-  const list = sections.entries().map(entry => ({ title: entry[0], ref: entry[1] })).toArray();
+  const nav = DEFAULT_NAV;
+
+  nav[0].ref = aboutMeRef;
+  nav[1].ref = skillsRef;
+  nav[2].ref = projectsRef;
+  nav[3].ref = contactRef;
 
   return (
-    <main className="flex">
-      <Sidebar sections = {list}></Sidebar>
-      <div className="grid grid-rows-4 w-full divide-y divide-neutral-800 *:shadow-xs *:shadow-black">
-        <section className="w-full aspect-video">
-          
-        </section>
-        <Section ref={sections.get("About Me")} title="About Me">
-          <h2 className="justify-self-center">Hello!</h2>
+    <Page navItems={nav}>
+      <div className="w-full h-64 aspect-video">
+        <iframe></iframe>
+      </div>
+      <div className="flex flex-col divide-y divide-neutral-800 *:min-h-64">
+        <Section ref={aboutMeRef} title="About Me">
+          <p>
+            Hello, my name is Daniel Sarin and I am a game developer based in Finland.
+          </p>
+          <p>
+            I am a game technology student at <abbr title="South-Eastern Finland University of Applied Sciences">XAMK</abbr>.
+          </p>
         </Section>
-        <Section ref={sections.get("Skills")} title="Skills">
+        <Section ref={skillsRef} title="Skills">
 
         </Section>
-        <Section ref={sections.get("Projects")} title="Projects">
-
+        <Section ref={projectsRef} title="Projects">
+          <div className="flex flex-wrap gap-8 my-16">
+            <ProjectPanel title="2D Platformer" slug="2d-platformer" description="A fast-paced platformer built in Unity." />
+          </div>
         </Section>
-        <Section ref={sections.get("Contact")} title="Contact">
-
+        <Section ref={contactRef} title="Contact">
+          <div className="flex flex-col py-8 mb-64">
+            <p>Email address: btasa013@edu.xamk.fi</p>
+          </div>
         </Section>
       </div>
-    </main>
+    </Page>
   );
 }
 
@@ -46,9 +59,11 @@ interface SectionProps {
 
 function Section({ ref, title, children }: SectionProps) {
   return (
-    <section id={title} ref={ref} className="scroll-m-16">
-      <h1 className="p-8 font-semibold text-2xl font-mplus">{title}</h1>
-      <div className="font-inter">{children}</div>
+    <section id={title} ref={ref} className="scroll-my-64 p-8 shadow-xs shadow-black">
+      <h1 className="font-semibold text-2xl font-mplus">{title}</h1>
+      <div className="font-inter mt-4">
+        {children}
+      </div>
     </section>
   )
 }
