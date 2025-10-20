@@ -37,12 +37,17 @@ export default function Home() {
     const bg = bgRef.current;
     const fg = fgRef.current;
 
-    fg?.addEventListener("play", () => bg?.play());
-    fg?.addEventListener("pause", () => bg?.pause());
+    if (!bg || !fg) return;
+
+    bg.currentTime = 0;
+    fg.currentTime = 0;
+
+    fg.addEventListener("play", () => bg.play());
+    fg.addEventListener("pause", () => bg.pause());
 
     return () => {
-      fg?.removeEventListener("play", () => bg?.play());
-      fg?.removeEventListener("pause", () => bg?.pause());
+      fg.removeEventListener("play", () => bg.play());
+      fg.removeEventListener("pause", () => bg.pause());
     };
   }, []);
 
@@ -53,8 +58,8 @@ export default function Home() {
         <div className="relative overflow-hidden bg-black">
           <div className="w-full h-[700px] flex items-center justify-center opacity-75">
             <video
-              className="absolute inset-0 w-full h-full object-cover filter scale-110"
-              preload="true"
+              className="absolute inset-0 w-full h-full object-cover"
+              preload="none"
               autoPlay
               muted
               loop
@@ -66,7 +71,7 @@ export default function Home() {
 
             <video
               className="relative z-10 max-h-full w-auto object-contain [image-rendering:pixelated]"
-              preload="true"
+              preload="none"
               autoPlay
               muted
               loop
