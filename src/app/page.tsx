@@ -8,10 +8,10 @@ import { usePath } from '@/scripts/path';
 
 export default function Home() {
 
-  const aboutMeRef: React.RefObject<HTMLElement | null> = useRef(null);
-  const skillsRef = useRef(null);
-  const projectsRef = useRef(null);
-  const contactRef = useRef(null);
+  const aboutMeRef = useRef<HTMLElement>(null);
+  const skillsRef = useRef<HTMLElement>(null);
+  const projectsRef = useRef<HTMLElement>(null);
+  const contactRef = useRef<HTMLElement>(null);
 
   const nav = DEFAULT_NAV;
 
@@ -29,16 +29,57 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  const bgRef = useRef<HTMLVideoElement>(null);
+  const fgRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+
+    const bg = bgRef.current;
+    const fg = fgRef.current;
+
+    fg?.addEventListener("play", () => bg?.play());
+    fg?.addEventListener("pause", () => bg?.pause());
+
+    return () => {
+      fg?.removeEventListener("play", () => bg?.play());
+      fg?.removeEventListener("pause", () => bg?.pause());
+    };
+  }, []);
+
   return (
     <Page navItems={nav}>
       <div className="flex flex-col divide-y divide-neutral-800 *:min-h-64">
-        <div className="max-h-[860px] overflow-hidden">
-          <video className="opacity-75 [image-rendering:pixelated]" width="100%" height="auto" preload="true" autoPlay loop muted>
-              <source src={usePath("assets/ProjectShowcase.mp4")} type="video/mp4" /> 
-          </video>
+
+        <div className="relative overflow-hidden bg-black">
+          <div className="w-full h-[700px] flex items-center justify-center opacity-75">
+            <video
+              className="absolute inset-0 w-full h-full object-cover filter scale-110"
+              preload="true"
+              autoPlay
+              muted
+              loop
+              playsInline
+              ref={bgRef}
+            >
+              <source src={usePath("assets/ProjectShowcase_Blur.mp4")} type="video/mp4" />
+            </video>
+
+            <video
+              className="relative z-10 max-h-full w-auto object-contain [image-rendering:pixelated]"
+              preload="true"
+              autoPlay
+              muted
+              loop
+              playsInline
+              ref={fgRef}
+            >
+              <source src={usePath("assets/ProjectShowcase.mp4")} type="video/mp4" />
+            </video>
+          </div>
         </div>
+
         <Section id="About Me" ref={aboutMeRef} title="Hello!">
-          <div className="min-h-32">
+          <div>
             <p>
               I&apos;m an aspiring game developer from Finland who is passionate
               about programming and all things games.
