@@ -22,6 +22,11 @@ export default function Home() {
   nav[3].ref = contactRef;
 
   useEffect(() => {
+
+    if (window.scrollY != 0) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       if (window.scrollY == 0) {
         aboutMeRef.current?.scrollIntoView({ behavior: "smooth" });
