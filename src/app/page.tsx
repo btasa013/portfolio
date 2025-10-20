@@ -49,7 +49,7 @@ export default function Home() {
     const syncVideos = () => {
       if (!bg.paused && !fg.paused) {
         const diff = Math.abs(bg.currentTime - fg.currentTime);
-        if (diff > 0.05) {
+        if (diff > 0.03) {
           bg.currentTime = fg.currentTime;
         }
       }
@@ -72,7 +72,7 @@ export default function Home() {
         <div className="relative overflow-hidden bg-black">
           <div className="w-full h-[700px] flex items-center justify-center">
             <video
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover brightness-15"
               autoPlay
               muted
               loop
