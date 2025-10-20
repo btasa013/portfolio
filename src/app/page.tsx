@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
 import { DEFAULT_NAV } from '@/components/Nav';
-import { usePath } from '@/scripts/path';
+import { getPath } from '@/scripts/path';
 
 export default function Home() {
 
@@ -75,7 +75,7 @@ export default function Home() {
               disablePictureInPicture
               ref={bgRef}
             >
-              <source src={usePath("assets/ProjectShowcase_Blur.mp4")} type="video/mp4" />
+              <source src={getPath("assets/ProjectShowcase_Blur.mp4")} type="video/mp4" />
             </video>
 
             <video
@@ -87,7 +87,7 @@ export default function Home() {
               disablePictureInPicture
               ref={fgRef}
             >
-              <source src={usePath("assets/ProjectShowcase.mp4")} type="video/mp4" />
+              <source src={getPath("assets/ProjectShowcase.mp4")} type="video/mp4" />
             </video>
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function Home() {
                   <div className="flex flex-wrap gap-x-8">
                     <div className="flex flex-col">
                       <div className="flex gap-x-2 items-center">
-                        <img width="31px" src={usePath("icons/devicon_unity.svg")}></img>
+                        <img width="31px" src={getPath("icons/devicon_unity.svg")}></img>
                         <div className="text-nowrap">Unity</div>
                       </div>
                       <div className="text-xs ml-10">
@@ -160,7 +160,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex gap-x-2 items-center">
-                        <img width="32px" src={usePath("icons/mdi_unreal.svg")}></img>
+                        <img width="32px" src={getPath("icons/mdi_unreal.svg")}></img>
                         <div className="relative right-[1px] text-nowrap">Unreal Engine</div>
                       </div>
                       <div className="text-xs ml-10">
@@ -174,7 +174,7 @@ export default function Home() {
                   <div className="flex flex-wrap gap-x-8">
                     <div className="flex flex-col">
                       <div className="flex gap-x-2 items-center">
-                        <img width="31px" src={usePath("icons/devicon_unity.svg")}></img>
+                        <img width="31px" src={getPath("icons/devicon_unity.svg")}></img>
                         <div className="text-nowrap">Unity</div>
                       </div>
                       <div className="text-xs ml-10">
@@ -183,7 +183,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col">
                       <div className="flex gap-x-2 items-center">
-                        <img width="32px" src={usePath("icons/mdi_unreal.svg")}></img>
+                        <img width="32px" src={getPath("icons/mdi_unreal.svg")}></img>
                         <div className="relative right-[1px] text-nowrap">Unreal Engine</div>
                       </div>
                       <div className="text-xs ml-10">

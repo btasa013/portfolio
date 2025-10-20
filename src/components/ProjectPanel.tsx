@@ -1,4 +1,4 @@
-import { usePath } from "@/scripts/path";
+import { getPath } from "@/scripts/path";
 
 interface ProjectPanelProps {
   title: string;
@@ -29,7 +29,7 @@ function ProjectPanelBanner({ slug }: { slug: string }) {
   return (
     <img
       alt=""
-      src={usePath(`assets/${slug}/banner.png`)}
+      src={getPath(`assets/${slug}/banner.png`)}
       className="
         object-cover rounded-2xl brightness-75 duration-500
         group-hover:brightness-100 group-hover:scale-125
