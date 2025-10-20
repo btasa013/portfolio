@@ -27,6 +27,7 @@ export default function Home() {
         aboutMeRef.current?.scrollIntoView({ behavior: "smooth" });
       }
     }, 10000);
+
     return () => clearTimeout(timer);
   }, []);
 

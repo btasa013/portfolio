@@ -19,23 +19,47 @@ export default function Nav({ nav }: NavProps) {
   const [active, setActive] = useState("");
 
   useEffect(() => {
+
     const handleScroll = () => {
+
       const scrollPos = window.scrollY + window.innerHeight / 2;
-      nav?.forEach(entry => {
+
+      let minEntry = null;
+      let minValue = Number.MAX_SAFE_INTEGER;
+
+      for (let entry of nav) {
+
         const el = entry.ref?.current;
-        if (el) {
-          const offsetTop = el.offsetTop;
-          const offsetBottom = offsetTop + el.offsetHeight;
-          if (scrollPos >= offsetTop && scrollPos < offsetBottom) {
-            setActive(el.id);
-          }
+        if (!el) {
+          continue;
         }
-      });
+
+        const offsetTop = el.offsetTop;
+        const offsetBottom = offsetTop + el.offsetHeight * 0.75;
+
+        const distTop = Math.abs(scrollPos - offsetTop);
+        const distBottom = Math.abs(scrollPos - offsetBottom);
+
+        const dist = Math.min(distTop, distBottom);
+
+        if (minValue > dist) {
+          minValue = dist;
+          minEntry = entry;
+        }
+      }
+
+      if (minEntry) {
+        setActive(minEntry.ref?.current?.id ?? "");
+      }
     };
+
+    if (window.location.pathname === usePath() && window.scrollY != 0) {
+      handleScroll();
+    }
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [nav]);
 
   return (
     <nav className="flex flex-col my-2 *:mb-2">
