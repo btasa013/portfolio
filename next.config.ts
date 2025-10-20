@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath: isProd ? '/portfolio' : undefined,
   assetPrefix: isProd ? '/portfolio/' : undefined,
+  images: { unoptimized: true }
 };
 
 export default nextConfig;
