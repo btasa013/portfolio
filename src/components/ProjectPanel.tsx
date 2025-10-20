@@ -9,7 +9,7 @@ interface ProjectPanelProps {
 export default function ProjectPanel({ title, slug, description }: ProjectPanelProps) {
   return (
     <a
-      href={`projects/${slug}`}
+      href={getPath(`projects/${slug}`)}
       className="group w-1/4 overflow-hidden"
     >
       <div className="flex flex-col bg-secondary-bg rounded-2xl border-1 border-neutral-800">
