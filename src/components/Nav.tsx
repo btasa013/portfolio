@@ -27,7 +27,7 @@ export default function Nav({ nav }: NavProps) {
       let minEntry = null;
       let minValue = Number.MAX_SAFE_INTEGER;
 
-      for (let entry of nav) {
+      for (const entry of nav) {
 
         const el = entry.ref?.current;
         if (!el) {
