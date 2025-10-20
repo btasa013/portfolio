@@ -12,6 +12,7 @@ export default function Home() {
   const skillsRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
+  const animationFrameRef = useRef<number>(null);
 
   const nav = DEFAULT_NAV;
 
@@ -39,15 +40,22 @@ export default function Home() {
 
     if (!bg || !fg) return;
 
-    bg.currentTime = 0;
-    fg.currentTime = 0;
+    const syncVideos = () => {
+      if (!bg.paused && !fg.paused) {
+        const diff = Math.abs(bg.currentTime - fg.currentTime);
+        if (diff > 0.05) {
+          bg.currentTime = fg.currentTime;
+        }
+      }
+      animationFrameRef.current = requestAnimationFrame(syncVideos);
+    };
 
-    fg.addEventListener("play", () => bg.play());
-    fg.addEventListener("pause", () => bg.pause());
+    animationFrameRef.current = requestAnimationFrame(syncVideos);
 
     return () => {
-      fg.removeEventListener("play", () => bg.play());
-      fg.removeEventListener("pause", () => bg.pause());
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
   }, []);
 
@@ -56,26 +64,26 @@ export default function Home() {
       <div className="flex flex-col divide-y divide-neutral-800 *:min-h-64">
 
         <div className="relative overflow-hidden bg-black">
-          <div className="w-full h-[700px] flex items-center justify-center opacity-75">
+          <div className="w-full h-[700px] flex items-center justify-center">
             <video
               className="absolute inset-0 w-full h-full object-cover"
-              preload="none"
               autoPlay
               muted
               loop
               playsInline
+              disablePictureInPicture
               ref={bgRef}
             >
               <source src={usePath("assets/ProjectShowcase_Blur.mp4")} type="video/mp4" />
             </video>
 
             <video
-              className="relative z-10 max-h-full w-auto object-contain [image-rendering:pixelated]"
-              preload="none"
+              className="relative z-10 max-h-full w-auto object-contain"
               autoPlay
               muted
               loop
               playsInline
+              disablePictureInPicture
               ref={fgRef}
             >
               <source src={usePath("assets/ProjectShowcase.mp4")} type="video/mp4" />
