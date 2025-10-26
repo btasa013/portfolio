@@ -8,7 +8,7 @@ interface SidebarProps {
 
 export default function Sidebar({ nav }: SidebarProps) {
   return (
-    <aside className="font-inter min-w-fit xl:w-1/5 h-full sticky top-0 bg-secondary-bg border-1 border-neutral-800 shadow-md shadow-black">
+    <aside className="font-inter min-w-fit xl:w-1/5 h-full sticky top-0 bg-bg-secondary border-1 border-neutral-800 shadow-md shadow-black">
       <div className="flex flex-col h-screen justify-between">
         <div className="h-full flex flex-col divide-y divide-neutral-800">
             <div className="flex items-center justify-center p-4">
@@ -28,7 +28,7 @@ export default function Sidebar({ nav }: SidebarProps) {
                 </RoundButton>
               </div>
               <div className="flex justify-end">
-                <RoundButton link={getPath("cv")} color="#212121af">
+                <RoundButton link={getPath("cv")} color="#a0a0a020">
                   <p className="font-semibold p-2">CV</p>
                 </RoundButton>
               </div>

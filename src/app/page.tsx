@@ -123,29 +123,32 @@ export default function Home() {
                   experience in programming different kinds of apps.
                 </p>
                 
-                <div className="flex flex-wrap gap-4 text-sm mt-12 my-4">
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-green-400 font-semibold mx-2">C#</p>
+                <div className="
+                  flex flex-wrap gap-4 text-sm mt-12 my-4 font-semibold
+                  *:bg-bg-secondary *:p-1 *:rounded-xl *:*:mx-2
+                ">
+                  <div>
+                    <p className="text-green-400">C#</p>
                   </div>
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-slate-300 font-semibold mx-2">C / C++</p>
+                  <div>
+                    <p className="text-slate-300">C / C++</p>
                   </div>
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-amber-500 font-semibold mx-2">Rust</p>
-                  </div>
-
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-yellow-300 font-semibold mx-2">Javascript</p>
-                  </div>
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-orange-500 font-semibold mx-2">HTML</p>
-                  </div>
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-sky-300 font-semibold mx-2">CSS</p>
+                  <div>
+                    <p className="text-amber-500">Rust</p>
                   </div>
 
-                  <div className="p-1 bg-secondary-bg rounded-xl">
-                    <p className="text-blue-300 font-semibold mx-2">Python</p>
+                  <div>
+                    <p className="text-yellow-300">Javascript</p>
+                  </div>
+                  <div>
+                    <p className="text-orange-500">HTML</p>
+                  </div>
+                  <div>
+                    <p className="text-sky-300">CSS</p>
+                  </div>
+
+                  <div>
+                    <p className="text-blue-300">Python</p>
                   </div>
                 </div>
 
@@ -210,7 +213,7 @@ export default function Home() {
           <div className="flex flex-col py-8 mb-96">
             <div className="flex items-center gap-2">
               <p>Email address</p>
-              <div className="bg-secondary-bg rounded-xl w-fit">
+              <div className="bg-bg-secondary rounded-xl w-fit">
                 <p className="py-1 px-2 text-sm">btasa013@edu.xamk.fi</p>
               </div>
             </div>

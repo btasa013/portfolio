@@ -12,7 +12,7 @@ export default function ProjectPanel({ title, slug, description }: ProjectPanelP
       href={getPath(`projects/${slug}`)}
       className="group w-1/4 overflow-hidden"
     >
-      <div className="flex flex-col bg-secondary-bg rounded-2xl border-1 border-neutral-800">
+      <div className="flex flex-col bg-bg-secondary rounded-2xl border-1 border-neutral-800">
           <div className="flex aspect-[3/2] bg-neutral-950 rounded-2xl overflow-hidden">
             <ProjectPanelBanner slug={slug} />
           </div>

@@ -13,7 +13,7 @@ export default function RoundButton({ link, color, children }: RoundButtonProps)
         hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-150
         flex justify-center items-center text-center
       "
-      style={{ background: color ?? "transparent" }}
+      style={{ backgroundColor: color ?? "transparent" }}
     >
       {children}
     </a>
