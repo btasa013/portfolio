@@ -72,7 +72,7 @@ export default function Nav({ nav }: NavProps) {
           const Component = item.component ?? MainNavButton;
           return <Component
             key={item.title}
-            selected={active == item.id}
+            selected={active == (item.id ?? item.title)}
             title={item.title}
             icon={item.icon}
             ref={item.ref}
