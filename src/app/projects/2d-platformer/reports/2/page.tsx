@@ -3,8 +3,12 @@
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
 import CodeBlock from '@/components/CodeBlock';
 import ContentPicture from '@/components/ContentPicture';
-import { TITLE, SLUG, DESCRIPTION, asset, TEAM } from '@/app/projects/2d-platformer/page';
+import { TITLE, SLUG, DESCRIPTION, ASSETS_PATH, TEAM } from '@/app/projects/2d-platformer/page';
 import { useRef } from 'react';
+
+function asset(name: string): string {
+  return ASSETS_PATH + name;
+}
 
 const interfaces = <div className="*:my-8">
   <div className="flex flex-wrap gap-4">

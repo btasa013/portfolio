@@ -17,7 +17,7 @@ export const DESCRIPTION = `
 `;
 
 export const ASSETS_PATH = getPath(`assets/${SLUG}/`);
-export function asset(name: string): string {
+function asset(name: string): string {
   return ASSETS_PATH + name;
 }
 
