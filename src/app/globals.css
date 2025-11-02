@@ -10,6 +10,20 @@
   --bg-secondary: #111313;
 }
 
+/* By Phrogz, https://stackoverflow.com/a/8888964 */
+.pixelated {
+  image-rendering: optimizeSpeed;             /* Legal fallback */
+  image-rendering: -moz-crisp-edges;          /* Firefox        */
+  image-rendering: -o-crisp-edges;            /* Opera          */
+  image-rendering: -webkit-optimize-contrast; /* Safari         */
+  image-rendering: -webkit-crisp-edges;       /* Safari/WebKit  */
+  image-rendering: -webkit-pixelated;         /* Safari 17+, Chrome 124+ */
+  image-rendering: optimize-contrast;         /* CSS3 Proposed  */
+  image-rendering: crisp-edges;               /* CSS4 Proposed  */
+  image-rendering: pixelated;                 /* CSS4 Proposed  */
+  -ms-interpolation-mode: nearest-neighbor;   /* IE8+           */
+}
+
 @theme inline {
 
   --color-text-primary: var(--text-primary);
@@ -22,6 +36,8 @@
 
   --font-mplus: var(--font-mplus-1p);
   --font-inter: var(--font-inter);
+
+  --pixelated: var(--pixelated);
 }
 
 body {

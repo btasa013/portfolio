@@ -3,8 +3,9 @@
 import React, { useRef, useEffect } from 'react';
 import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
-import { DEFAULT_NAV } from '@/components/Nav';
+import Nav, { DEFAULT_NAV } from '@/components/Nav';
 import { getPath } from '@/scripts/path';
+import { DEFAULT_SIDEBAR_ITEMS, NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
 
 export default function Home() {
 
@@ -65,8 +66,10 @@ export default function Home() {
     };
   }, []);
 
+  const sidebarItems = [PERSONAL_ICON, NETWORKING_BUTTONS, <Nav key="nav" nav={nav}/>];
+
   return (
-    <Page navItems={nav}>
+    <Page sidebarItems={sidebarItems}>
       <div className="flex flex-col divide-y divide-neutral-800 *:min-h-64">
 
         <div className="relative overflow-hidden bg-black">
@@ -206,7 +209,12 @@ export default function Home() {
         </Section>
         <Section id="Projects" ref={projectsRef} title="Projects">
           <div className="flex flex-wrap gap-8 my-16">
-            <ProjectPanel title="2D Platformer" slug="2d-platformer" description="A fast-paced platformer built in Unity." />
+            <ProjectPanel
+              title="2D Platformer"
+              slug="2d-platformer"
+              description="A fast-paced platformer built in Unity."
+              additionalBannerStyles="pixelated"
+            />
           </div>
         </Section>
         <Section id="Contact" ref={contactRef} title="Contact">

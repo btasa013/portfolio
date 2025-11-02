@@ -5,6 +5,7 @@ import { getPath } from "@/scripts/path";
 
 export interface NavItem {
   title: string;
+  id?: string;
   icon?: string;
   ref?: React.RefObject<HTMLElement | null>,
   component?: React.ElementType;
@@ -49,6 +50,7 @@ export default function Nav({ nav }: NavProps) {
       }
 
       if (minEntry) {
+        console.log(minEntry, minEntry.ref?.current?.id);
         setActive(minEntry.ref?.current?.id ?? "");
       }
     };
@@ -62,13 +64,13 @@ export default function Nav({ nav }: NavProps) {
   }, [nav]);
 
   return (
-    <nav className="flex flex-col my-2 *:mb-2">
+    <nav className="flex flex-col my-2 *:mb-2 p-4">
       {
         nav?.map(item => {
           const Component = item.component ?? MainNavButton;
           return <Component
             key={item.title}
-            selected={active == item.title}
+            selected={active == item.id}
             title={item.title}
             icon={item.icon}
             ref={item.ref}
@@ -85,6 +87,20 @@ export const DEFAULT_NAV: NavItem[] = [
   { title: "Projects", icon: "icons/catalog.svg", component: MainNavButton },
   { title: "Contact", icon: "icons/mail.svg", component: MainNavButton }
 ];
+
+interface NavButtonProps {
+  title: string;
+  selected?: boolean;
+  ref?: React.RefObject<HTMLElement | null>;
+}
+
+export function NavButton({ title, selected, ref }: NavButtonProps) {
+  return (
+    <ScrollButton selected={selected ?? false} id={title} ref={ref}>
+      <p className="mr-8 font-mplus uppercase text-sm text-nowrap">{title}</p>
+    </ScrollButton>
+  );
+}
 
 interface MainNavButtonProps {
   title: string;

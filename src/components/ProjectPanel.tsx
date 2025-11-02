@@ -4,9 +4,10 @@ interface ProjectPanelProps {
   title: string;
   slug: string;
   description: string;
+  additionalBannerStyles?: string;
 }
 
-export default function ProjectPanel({ title, slug, description }: ProjectPanelProps) {
+export default function ProjectPanel({ title, slug, description, additionalBannerStyles }: ProjectPanelProps) {
   return (
     <a
       href={getPath(`projects/${slug}`)}
@@ -14,7 +15,7 @@ export default function ProjectPanel({ title, slug, description }: ProjectPanelP
     >
       <div className="flex flex-col bg-bg-secondary rounded-2xl border-1 border-neutral-800">
           <div className="flex aspect-[3/2] bg-neutral-950 rounded-2xl overflow-hidden">
-            <ProjectPanelBanner slug={slug} />
+            <ProjectPanelBanner slug={slug} className={additionalBannerStyles}/>
           </div>
           <div className="p-4 text-center">
             <p className="font-mplus uppercase text-xl font-bold duration-200 group-hover:scale-110">{title}</p>
@@ -25,15 +26,16 @@ export default function ProjectPanel({ title, slug, description }: ProjectPanelP
   );
 }
 
-function ProjectPanelBanner({ slug }: { slug: string }) {
+function ProjectPanelBanner({ slug, className }: { slug: string, className?: string }) {
   return (
     <img
       alt=""
       src={getPath(`assets/${slug}/banner.png`)}
-      className="
+      className={`
         object-cover rounded-2xl brightness-75 duration-500
-        group-hover:brightness-100 group-hover:scale-125
-      "
+        group-hover:brightness-100 group-hover:scale-105
+        ${className}
+      `}
     />
   );
 }

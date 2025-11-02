@@ -1,18 +1,17 @@
 "use client";
 
-import Sidebar from '@/components/Sidebar';
-import { DEFAULT_NAV, NavItem } from '@/components/Nav';
+import Sidebar, { DEFAULT_SIDEBAR_ITEMS } from '@/components/Sidebar';
 
 interface PageProps {
-  navItems?: NavItem[];
+  sidebarItems?: React.ReactNode[];
   children?: React.ReactNode;
 }
 
-export default function Page({ navItems, children }: PageProps) {
+export default function Page({ sidebarItems, children }: PageProps) {
   return (
     <div className="flex">
-      <Sidebar nav = {navItems ?? DEFAULT_NAV}></Sidebar>
-      <main>{children}</main>
+      <Sidebar items={sidebarItems ?? DEFAULT_SIDEBAR_ITEMS} />
+      <main className="w-full h-full">{children}</main>
     </div>
   );
 }

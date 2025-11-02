@@ -14,7 +14,7 @@ export default function ScrollButton({ selected, id, ref, children }: ScrollButt
       onClick={e => {
         if (ref != undefined) {
           e.preventDefault();
-          ref.current?.scrollIntoView({ behavior: "smooth" })
+          ref.current?.scrollIntoView({ behavior: "smooth", inline: 'center' })
         }
       }}
       className={`
