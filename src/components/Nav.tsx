@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import React from "react";
 import ScrollButton from "@/components/ScrollButton";

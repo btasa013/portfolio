@@ -1,10 +1,8 @@
-"use client";
-
 import Page from '@/components/Page';
 import { getPath } from '@/scripts/path';
-import React, { useRef } from 'react';
+import React from 'react';
 import DetailBlock from './DetailBlock';
-import Nav, { NavButton, NavItem } from './Nav';
+import Nav, { NavButton } from './Nav';
 
 export interface ProjectPageProps {
   title: string;
@@ -22,6 +20,7 @@ export interface TeamMember {
 export interface ProjectSectionProps {
   title: string;
   navButton?: { title: string };
+  ref?: React.RefObject<HTMLElement | null>;
   content: ProjectSubsectionProps[] | React.ReactNode;
 }
 
@@ -33,11 +32,6 @@ export interface ProjectSubsectionProps {
 export default function Project(props: ProjectPageProps) {
 
   const { title, slug, team, description, sections } = props;
-
-  const sectionRefs: React.RefObject<HTMLElement | null>[] = [];
-  for (let i = 0; i < sections.length; i++) {
-    sectionRefs.push(useRef(null));
-  }
 
   const teamMembers = <div key="team" className="px-4 py-8">
     <h1 className="text-xl">Team</h1>
@@ -57,7 +51,7 @@ export default function Project(props: ProjectPageProps) {
       return {
         title: s.navButton!.title,
         id: s.title,
-        ref: sectionRefs[i],
+        ref: s.ref,
         component: NavButton
       };
     });
@@ -91,7 +85,7 @@ export default function Project(props: ProjectPageProps) {
         {/* Sections */}
         {[...sections.entries()].map(([i, s]) =>
           <Section
-            ref={sectionRefs[i]}
+            ref={s.ref}
             key={s.title}
             id={s.title}
             title={s.title}

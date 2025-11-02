@@ -1,8 +1,10 @@
+"use client";
 
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
 import CodeBlock from '@/components/CodeBlock';
 import ContentPicture from '@/components/ContentPicture';
 import { TITLE, SLUG, DESCRIPTION, asset, TEAM } from '@/app/projects/2d-platformer/page';
+import { useRef } from 'react';
 
 const interfaces = <div className="*:my-8">
   <div className="flex flex-wrap gap-4">
@@ -328,6 +330,7 @@ export default function Project() {
   const sections: ProjectSectionProps[] = [
     {
       title: "Functions",
+      ref: useRef(null),
       navButton: { title: "Functions" },
       content: [
         { title: "Interfaces", content: interfaces },
@@ -338,6 +341,7 @@ export default function Project() {
     },
     {
       title: "Problems",
+      ref: useRef(null),
       navButton: { title: "Problems" },
       content: [
         { title: "Custom Shader Graph", content: customShaderGraph },
@@ -348,6 +352,7 @@ export default function Project() {
     },
     {
       title: "Screenshots",
+      ref: useRef(null),
       navButton: { title: "Screenshots" },
       content: <div className="
           grid grid-cols-2 gap-2 w-fit divide-y-1 divide-neutral-400
@@ -362,6 +367,7 @@ export default function Project() {
     },
     {
       title: "Gameplay Video",
+      ref: useRef(null),
       navButton: { title: "Gameplay" },
       content: <div>
         {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
