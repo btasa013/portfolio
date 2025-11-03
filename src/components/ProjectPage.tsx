@@ -2,7 +2,7 @@ import Page from '@/components/Page';
 import { getPath } from '@/scripts/path';
 import React from 'react';
 import DetailBlock from './DetailBlock';
-import Nav, { NavItem, NavBackButton, NavButton } from '@/components/Nav';
+import Nav, { NavItem, SmallNavButton, NavButton } from '@/components/Nav';
 
 export interface ProjectPageProps {
   title: string;
@@ -46,26 +46,23 @@ export default function Project(props: ProjectPageProps) {
     </div>
   </div>;
 
-  const back: NavItem = {
-    title: "Back",
-    href: isMainPage ? '#Projects' : `projects/${slug}#Reports`,
-    component: NavBackButton
-  };
-
-  const navItems = [back];
-
-  sections
+  const navItems = sections
     .filter(s => s.navButton !== undefined)
-    .forEach(s => {
-      navItems.push({
+    .map(s => {
+      return {
         title: s.navButton!.title,
         id: s.title,
         ref: s.ref,
         component: NavButton
-      });
+      };
     });
 
-  const sidebarItems = [teamMembers, <Nav key="nav" nav={navItems} />];
+  const backButton = <div key="back" className="flex py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center">
+    <SmallNavButton title="Back" icon={getPath("icons/back.svg")} href={isMainPage ? '#Projects' : `projects/${slug}#Reports`} />
+    { isMainPage ? <div></div> : <SmallNavButton title="Projects" href={'#Projects'} /> }
+  </div>;
+
+  const sidebarItems = [teamMembers, backButton, <Nav key="nav" nav={navItems} />];
 
   return (
     <Page sidebarItems={sidebarItems}>

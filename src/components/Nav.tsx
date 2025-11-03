@@ -103,28 +103,28 @@ interface NavButtonProps {
 export function NavButton({ title, id, selected, ref }: NavButtonProps) {
   return (
     <ScrollButton selected={selected} href={`#${id ?? title}`} ref={ref}>
-      <p className="mr-8 font-mplus uppercase text-sm text-nowrap">{title}</p>
+      <p className="mr-12 font-mplus uppercase text-sm text-nowrap">{title}</p>
     </ScrollButton>
   );
 }
 
-interface NavBackButtonProps {
+interface SmallNavButtonProps {
   title: string;
-  href?: string;
+  icon?: string;
+  href: string;
 }
 
-export function NavBackButton({ title, href }: NavBackButtonProps) {
+export function SmallNavButton({ title, icon, href }: SmallNavButtonProps) {
   return (
-    <div>
-      <div className="rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
+    <div className="flex items-center h-[50px]">
+      <div className="mx-2.5 p-2.5 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
         <a href={getPath(href)}>
-          <div className="p-2 opacity-100 flex items-center text-justify px-4">
-            { /* <img alt="" src={getPath("icons/file.svg")} className="w-[24px] aspect-square"/> */}
-            <p className="px-2 font-mplus uppercase text-sm text-nowrap">{title}</p>
+          <div className="flex gap-2 h-full opacity-100 items-center text-justify">
+            {icon ? <img alt="" src={icon ?? getPath("icons/back.svg")} className="w-[14px] aspect-square"/> : null}
+            <p className="font-mplus uppercase text-xs text-nowrap">{title}</p>
           </div>
         </a>
       </div>
-      <p className="mb-4"></p>
     </div>
   );
 }
