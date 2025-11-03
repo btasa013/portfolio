@@ -53,7 +53,6 @@ export default function Nav({ nav }: NavProps) {
       }
 
       if (minEntry) {
-        console.log(minEntry, minEntry.ref?.current?.id);
         setActive(minEntry.ref?.current?.id ?? "");
       }
     };
