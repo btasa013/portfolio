@@ -50,6 +50,7 @@ export default function Project() {
       team={TEAM}
       description={DESCRIPTION}
       sections={sections}
+      isMainPage={true}
     >
     </ProjectPage>
   );

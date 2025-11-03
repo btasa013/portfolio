@@ -2,12 +2,13 @@ import Page from '@/components/Page';
 import { getPath } from '@/scripts/path';
 import React from 'react';
 import DetailBlock from './DetailBlock';
-import Nav, { NavButton } from './Nav';
+import Nav, { NavItem, NavBackButton, NavButton } from '@/components/Nav';
 
 export interface ProjectPageProps {
   title: string;
   slug: string;
   team: TeamMember[];
+  isMainPage: boolean;
   description: React.ReactNode;
   sections: ProjectSectionProps[];
 }
@@ -31,7 +32,7 @@ export interface ProjectSubsectionProps {
 
 export default function Project(props: ProjectPageProps) {
 
-  const { title, slug, team, description, sections } = props;
+  const { title, slug, team, description, sections, isMainPage } = props;
 
   const teamMembers = <div key="team" className="px-4 py-8">
     <h1 className="text-xl">Team</h1>
@@ -45,15 +46,23 @@ export default function Project(props: ProjectPageProps) {
     </div>
   </div>;
 
-  const navItems = [...sections.entries()]
-    .filter(([_, s]) => s.navButton !== undefined)
-    .map(([i, s]) => {
-      return {
+  const back: NavItem = {
+    title: "Back",
+    href: isMainPage ? '#Projects' : `projects/${slug}#Reports`,
+    component: NavBackButton
+  };
+
+  const navItems = [back];
+
+  sections
+    .filter(s => s.navButton !== undefined)
+    .forEach(s => {
+      navItems.push({
         title: s.navButton!.title,
         id: s.title,
         ref: s.ref,
         component: NavButton
-      };
+      });
     });
 
   const sidebarItems = [teamMembers, <Nav key="nav" nav={navItems} />];

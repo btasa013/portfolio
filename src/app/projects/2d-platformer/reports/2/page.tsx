@@ -384,6 +384,7 @@ export default function Project() {
       team={TEAM}
       description={DESCRIPTION}
       sections={sections}
+      isMainPage={false}
     >
     </ProjectPage>
   );
