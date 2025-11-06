@@ -19,7 +19,7 @@ export default function ProjectPanel({ title, slug, description, additionalBanne
           </div>
           <div className="p-4 text-center">
             <p className="font-mplus uppercase text-xl font-bold duration-200 group-hover:scale-110">{title}</p>
-            <p className="pt-4 font-mplus font-light text-xs">{description}</p>
+            <p className="pt-4 font-light text-xs">{description}</p>
           </div>
       </div>
     </a>
