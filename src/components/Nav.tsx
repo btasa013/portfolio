@@ -116,14 +116,12 @@ interface SmallNavButtonProps {
 export function SmallNavButton({ title, icon, href }: SmallNavButtonProps) {
   return (
     <div className="flex items-center h-[50px]">
-      <div className="p-2 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
-        <a href={getPath(href)}>
-          <div className="flex gap-2 h-full opacity-100 items-center text-justify">
-            {icon ? <img alt="" src={icon ?? getPath("icons/back.svg")} className="w-[14px] aspect-square"/> : null}
-            <p className="font-mplus uppercase text-xs text-nowrap">{title}</p>
-          </div>
-        </a>
-      </div>
+      <a href={getPath(href)} className="p-2 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
+        <div className="flex gap-2 h-full opacity-100 items-center text-justify">
+          {icon ? <img alt="" src={icon ?? getPath("icons/back.svg")} className="w-[14px] aspect-square"/> : null}
+          <p className="font-mplus uppercase text-xs text-nowrap">{title}</p>
+        </div>
+      </a>
     </div>
   );
 }
