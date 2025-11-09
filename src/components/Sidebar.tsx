@@ -2,15 +2,15 @@ import RoundButton from "@/components/RoundButton";
 import { getPath } from '@/scripts/path';
 import Nav, { DEFAULT_NAV } from "@/components/Nav";
 
-export const PERSONAL_ICON = <div key="personal-icon" className="flex items-center justify-center p-4">
-    <img alt="" width="128" height="128" src={getPath("icons/user.svg")} className="p-4 aspect-square rounded-full" />
-    <div className="pr-4">
+export const PERSONAL_ICON = <div key="personal-icon" className="flex items-center justify-center p-2 py-8">
+    <img alt="" width="128" height="128" src={getPath("icons/user.svg")} className="hidden md:block aspect-square rounded-full" />
+    <div className="px-4">
         <h1 className="text-2xl leading-none font-light">Daniel</h1>
         <h2 className="text-xl leading-none font-extralight">Sarin</h2>
     </div>
 </div>;
 
-export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex justify-between items-center px-4 py-1">
+export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex justify-between items-center px-4 py-1 gap-2">
   <div className="flex gap-2">
     <RoundButton link="https://www.linkedin.com/in/daniel-sarin-7aa7132b6/">
       <img alt="" width="28" height="28" src={getPath("icons/linkedin.svg")} className="aspect-square opacity-75 rounded-md" />
@@ -19,7 +19,7 @@ export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex 
       <img alt="" width="28" height="28" src={getPath("icons/facebook.svg")} className="aspect-square opacity-75 rounded-md" />
     </RoundButton>
   </div>
-  <div className="flex justify-end">
+  <div className="flex justify-end text-xs w-4 h-4 md:w-auto md:h-auto md:text-sm">
     <RoundButton link={getPath("cv")} color="#a0a0a020">
       <p className="font-semibold p-2">CV</p>
     </RoundButton>
@@ -34,12 +34,11 @@ interface SidebarProps {
 
 export default function Sidebar({ items }: SidebarProps) {
   return (
-    <aside className="font-inter min-w-fit h-full sticky top-0 bg-bg-secondary border-1 border-neutral-800 shadow-md shadow-black">
-      <div className="flex flex-col h-screen justify-between">
-        <div className="h-full flex flex-col divide-y divide-neutral-800">
+    <aside className="font-inter h-screen w-[20vw] lg:w-min-fit max-w-[250px] sticky top-0 bg-bg-secondary border-1 border-neutral-800 shadow-md shadow-black">
+      <div className="flex flex-col justify-between">
+        <div className="flex flex-col divide-y divide-neutral-800">
           {items}
         </div>
-        <footer className="h-1/2"></footer>
       </div>
     </aside>
   );

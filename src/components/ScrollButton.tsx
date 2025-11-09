@@ -18,12 +18,12 @@ export default function ScrollButton({ selected, href, ref, children }: ScrollBu
         }
       }}
       className={`
-        p-2 rounded-4xl duration-200 font-bold
+        py-2 md:px-4 rounded-4xl duration-200 font-bold
         hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125
         ${selected ? "bg-highlight-primary" : ""}
       `}
     >
-      <div className="opacity-100 flex items-center text-justify px-4">
+      <div className="opacity-100 text-center md:flex md:text-justify">
         {children}
       </div>
     </a>

@@ -19,19 +19,19 @@ export default function DetailBlock({ title, open, children }: DetailBlockProps)
     }
   }, [title]);
 
-  const handleToggle = (e: React.SyntheticEvent<HTMLDetailsElement>) => {
+  const handleToggle = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
-    const open = !e.currentTarget.open;
+    const open = e.currentTarget.parentElement?.getAttribute("open") !== "";
     window?.localStorage?.setItem(title, open.toString());
     setIsOpen(open);
   };
 
   return (
-    <details id={title} open={isOpen} className="w-fit rounded-xl px-4 relative bg-bg-secondary" onClick={handleToggle}>
-      <summary className="transition-all my-4 duration-200 w-fit cursor-pointer font-bold hover:text-lg">
+    <details id={title} open={isOpen} className="rounded-xl px-4 relative bg-bg-secondary">
+      <summary onClick={handleToggle} className="transition-all my-4 duration-200 w-fit cursor-pointer font-bold hover:text-lg">
         {title}
       </summary>
-      <div className="xl:max-w-[66vw] w-fit text-pretty">
+      <div>
         {children}
       </div>
     </details>

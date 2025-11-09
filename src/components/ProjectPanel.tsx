@@ -11,7 +11,7 @@ export default function ProjectPanel({ title, slug, description, additionalBanne
   return (
     <a
       href={getPath(`projects/${slug}`)}
-      className="group w-1/4 overflow-hidden"
+      className="group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 overflow-hidden"
     >
       <div className="flex flex-col bg-bg-secondary rounded-2xl border-1 border-neutral-800">
           <div className="flex aspect-[3/2] bg-neutral-950 rounded-2xl overflow-hidden">

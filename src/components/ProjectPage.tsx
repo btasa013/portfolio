@@ -40,7 +40,7 @@ export default function Project(props: ProjectPageProps) {
       {[...team.entries()].map(([i, member]) => {
         return <div key={i} className="flex flex-col">
           <h1>{member.name}</h1>
-          <p className="text-xs italic relative right-0.5">{member.roles}</p>
+          <p className="text-xs italic relative mt-1 md:mt-0 right-0.5">{member.roles}</p>
         </div>
       })}
     </div>
@@ -57,12 +57,16 @@ export default function Project(props: ProjectPageProps) {
       };
     });
 
-  const backButton = <div key="back" className="flex py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center">
+  const backButton = <div className="hidden md:block *:justify-center">
     <SmallNavButton title="Back" icon={getPath("icons/back.svg")} href={isMainPage ? '#Projects' : `projects/${slug}#Reports`} />
+  </div>;
+
+  const quickLinks = <div key="back" className={`flex justify-center py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center ${isMainPage ? "hidden md:flex" : ""}`}>
+    { backButton }
     { isMainPage ? <div></div> : <SmallNavButton title="Projects" href={'#Projects'} /> }
   </div>;
 
-  const sidebarItems = [teamMembers, backButton, <Nav key="nav" nav={navItems} />];
+  const sidebarItems = [teamMembers, quickLinks, <Nav key="nav" nav={navItems} />];
 
   return (
     <Page sidebarItems={sidebarItems}>
@@ -85,7 +89,7 @@ export default function Project(props: ProjectPageProps) {
         {/* Project title and description */}
         <section className="p-12 font-inter shadow-xs shadow-black">
           <h1 className="mb-4 font-semibold text-2xl font-mplus">{title}</h1>
-          <div className="whitespace-pre-line w-2/3">{description}</div>
+          <div className="whitespace-pre-line md:w-2/3">{description}</div>
         </section>
 
         {/* Sections */}

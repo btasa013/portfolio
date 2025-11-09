@@ -66,7 +66,7 @@ export default function Nav({ nav }: NavProps) {
   }, [nav]);
 
   return (
-    <nav className="flex flex-col my-2 *:mb-2 p-4">
+    <nav className="flex flex-col gap-2 mt-4 m-0.5 md:p-4">
       {
         nav?.map(item => {
           const Component = item.component ?? MainNavButton;
@@ -102,7 +102,7 @@ interface NavButtonProps {
 export function NavButton({ title, id, selected, ref }: NavButtonProps) {
   return (
     <ScrollButton selected={selected} href={`#${id ?? title}`} ref={ref}>
-      <p className="mr-12 font-mplus uppercase text-sm text-nowrap">{title}</p>
+      <p className="font-mplus uppercase text-xs md:text-sm">{title}</p>
     </ScrollButton>
   );
 }
@@ -116,7 +116,7 @@ interface SmallNavButtonProps {
 export function SmallNavButton({ title, icon, href }: SmallNavButtonProps) {
   return (
     <div className="flex items-center h-[50px]">
-      <div className="mx-2.5 p-2.5 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
+      <div className="p-2 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
         <a href={getPath(href)}>
           <div className="flex gap-2 h-full opacity-100 items-center text-justify">
             {icon ? <img alt="" src={icon ?? getPath("icons/back.svg")} className="w-[14px] aspect-square"/> : null}
@@ -139,8 +139,10 @@ interface MainNavButtonProps {
 export function MainNavButton({ title, id, icon, selected, ref }: MainNavButtonProps) {
   return (
     <ScrollButton selected={selected} href={`#${id ?? title}`} ref={ref}>
-      <img alt="" src={getPath(icon ?? "icons/file.svg")} className="w-1/10 aspect-square"/>
-      <p className="px-4 font-mplus uppercase text-sm text-nowrap">{title}</p>
+      <div className="flex ml-2 gap-2 justify-between">
+        <img alt="" src={getPath(icon ?? "icons/file.svg")} className="hidden md:block w-4 aspect-square"/>
+        <p className="font-mplus uppercase text-sm text-nowrap">{title}</p>
+      </div>
     </ScrollButton>
   );
 }

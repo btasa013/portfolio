@@ -21,8 +21,7 @@ export default function Project() {
       navButton: { title: "Screenshots" },
       ref: useRef(null),
       content: <div className="
-          grid grid-cols-2 gap-2 w-fit divide-y-1 divide-neutral-200
-          *:w-min *:max-w-[25vw]
+          grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
       ">
         <img src={asset("gameplay_screenshot0.png")} className="pixelated" />
         <img src={asset("gameplay_screenshot1.png")} className="pixelated" />
@@ -38,7 +37,7 @@ export default function Project() {
       content: <div>
         {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
         <iframe hidden></iframe>
-        <iframe width="711" height="400" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="2D Platformer Gameplay" allowFullScreen></iframe>
+        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="2D Platformer Gameplay" allowFullScreen></iframe>
       </div>
     }
   ];

@@ -5,7 +5,7 @@ import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
 import Nav, { DEFAULT_NAV } from '@/components/Nav';
 import { getPath } from '@/scripts/path';
-import { DEFAULT_SIDEBAR_ITEMS, NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
+import { NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
 
 export default function Home() {
 
@@ -118,17 +118,20 @@ export default function Home() {
         </Section>
         <Section id="Skills" ref={skillsRef} title="Skills">
           <div>
-            <div className="grid grid-cols-2 divide-x divide-neutral-800">
+            <div className="
+              flex flex-row flex-wrap divide-y divide-neutral-800 gap-4
+              lg:grid lg:grid-cols-2 lg:divide-x lg:divide-y-0
+            ">
               <div className="flex flex-col">
                 <p className="mr-4">
                   I have multiple years of experience in game development and using
                   different game engines to create games. I also have several years of
                   experience in programming different kinds of apps.
                 </p>
-                
                 <div className="
-                  flex flex-wrap gap-4 text-sm mt-12 my-4 font-semibold
+                  flex flex-wrap gap-4 text-sm mt-8 mb-8 font-semibold
                   *:bg-bg-secondary *:p-1 *:rounded-xl *:*:mx-2
+                  lg:mb-0
                 ">
                   <div>
                     <p className="text-green-400">C#</p>
@@ -156,27 +159,25 @@ export default function Home() {
                 </div>
 
               </div>
-              <div className="flex flex-col gap-8">
-                <div className="mx-8">
-                  <h1 className="font-semibold text-lg mb-2">Game Engines</h1>
-                  <div className="flex flex-wrap gap-x-8">
-                    <div className="flex flex-col">
-                      <div className="flex gap-x-2 items-center">
-                        <img width="31px" src={getPath("icons/devicon_unity.svg")}></img>
-                        <div className="text-nowrap">Unity</div>
-                      </div>
-                      <div className="text-xs ml-10">
-                        2 years
-                      </div>
+              <div className="mt-4 lg:mt-0 md:mx-4">
+                <h1 className="font-semibold text-lg mb-4">Game Engines</h1>
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex flex-col">
+                    <div className="flex gap-x-2 items-center">
+                      <img width="31px" src={getPath("icons/devicon_unity.svg")}></img>
+                      <div className="text-nowrap">Unity</div>
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex gap-x-2 items-center">
-                        <img width="32px" src={getPath("icons/mdi_unreal.svg")}></img>
-                        <div className="relative right-[1px] text-nowrap">Unreal Engine</div>
-                      </div>
-                      <div className="text-xs ml-10">
-                        2 years
-                      </div>
+                    <div className="text-xs ml-10">
+                      2 years
+                    </div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex gap-x-2 items-center">
+                      <img width="32px" src={getPath("icons/mdi_unreal.svg")}></img>
+                      <div className="relative right-[1px]">Unreal Engine</div>
+                    </div>
+                    <div className="text-xs ml-10">
+                      2 years
                     </div>
                   </div>
                 </div>
