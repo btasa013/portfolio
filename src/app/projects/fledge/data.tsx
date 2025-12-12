@@ -1,7 +1,8 @@
 import { getPath } from "@/scripts/path";
 
-export const TITLE = "2D Platformer";
-export const SLUG = "2d-platformer";
+export const TITLE = "Fledge";
+export const SLUG = "fledge";
+
 export const TEAM = [
   { name: "Daniel Sarin", roles: "Programmer, 2D Artist" }
 ];

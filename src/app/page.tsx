@@ -209,12 +209,11 @@ export default function Home() {
           </div>
         </Section>
         <Section id="Projects" ref={projectsRef} title="Projects">
-          <div className="flex flex-wrap gap-8 my-16">
+          <div className="gap-8 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
             <ProjectPanel
-              title="2D Platformer"
-              slug="2d-platformer"
-              description="A fast-paced platformer built in Unity."
-              additionalBannerStyles="pixelated"
+              title="Fledge"
+              slug="fledge"
+              description="A fast-paced 2D platformer built in Unity."
             />
           </div>
         </Section>

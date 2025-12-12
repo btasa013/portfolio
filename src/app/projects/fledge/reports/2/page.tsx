@@ -3,7 +3,7 @@
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
 import CodeBlock from '@/components/CodeBlock';
 import ContentPicture from '@/components/ContentPicture';
-import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from '@/app/projects/2d-platformer/data';
+import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from '../../data';
 import { useRef } from 'react';
 
 const interfaces = <div className="*:my-8">
@@ -371,7 +371,7 @@ export default function Project() {
       content: <div>
         {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
         <iframe hidden></iframe>
-        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="2D Platformer Gameplay" allowFullScreen></iframe>
+        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="Fledge Gameplay" allowFullScreen></iframe>
       </div>
     }
   ];
