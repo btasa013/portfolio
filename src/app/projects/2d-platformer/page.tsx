@@ -8,7 +8,7 @@ export default function Redirect() {
     useEffect(() => {
         setTimeout(() => {
             window.location.href = window.location.href + "/../fledge";
-        }, 1000);
+        }, 2000);
     });
 
     return <Page>
