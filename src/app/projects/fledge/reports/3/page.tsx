@@ -14,7 +14,7 @@ const playerMovement = <div className="*:my-8">
 
 const playerCollision = <div className="*:my-8">
   <div className="my-8 md:max-w-2/3">
-    The game's player sprite
+    The game&apos;s player sprite
   </div>
   <div className="flex flex-wrap gap-2 my-8">
     <ContentPicture
