@@ -323,7 +323,7 @@ const colorBanding = <div className="*:my-8">
       additionalImageStyles="pixelated"
     />
   </div>
-</div>
+</div>;
 
 export default function Project() {
 

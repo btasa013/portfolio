@@ -41,7 +41,7 @@ export default function Project() {
       content: <div>
         {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
         <iframe hidden></iframe>
-        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="Fledge Gameplay" allowFullScreen></iframe>
+        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/uErqjzIrJPs" title="Fledge Gameplay" allowFullScreen></iframe>
       </div>
     }
   ];
