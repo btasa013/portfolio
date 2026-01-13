@@ -6,6 +6,21 @@ import ContentPicture from '@/components/ContentPicture';
 import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from '../../data';
 import { useRef } from 'react';
 
+import CustomRuletilePicture from '@/assets/fledge/custom_ruletile.png';
+import ProjectBanner from '@/assets/fledge/banner2.png';
+import RoomEditorPicture from '@/assets/fledge/room_editor.png';
+import GrassShaderPicture from '@/assets/fledge/grass_shader_isolate.png';
+import GrassSwayingGif from '@/assets/fledge/grass_swaying.gif';
+import PlayerAnimatorPicture from '@/assets/fledge/player_animator.png';
+import ColorBandingBeforePicture from '@/assets/fledge/color_banding_before.png';
+import ColorBandingAfterPicture from '@/assets/fledge/color_banding_after.png';
+
+import ShowcaseImage0 from '@/assets/fledge/gameplay_screenshot0.png';
+import ShowcaseImage1 from '@/assets/fledge/gameplay_screenshot1.png';
+import ShowcaseImage2 from '@/assets/fledge/gameplay_screenshot2.png';
+import ShowcaseImage3 from '@/assets/fledge/gameplay_screenshot3.png';
+import Image from 'next/image';
+
 const interfaces = <div className="*:my-8">
   <div className="flex flex-wrap gap-4">
     <CodeBlock>
@@ -114,7 +129,7 @@ const customRuleTileScript = <div className="*:my-8">
       `}
     </CodeBlock>
     <ContentPicture
-      path={asset("custom_ruletile.png")}
+      path={CustomRuletilePicture}
       description="A screenshot of the generated rule tile."
     />
   </div>
@@ -211,7 +226,7 @@ const roomEditor = <div className="*:my-8">
     are connected, they are marked as dirty and the changes are applied to the prefab instance in the script.
   </p>
   <ContentPicture
-    path={asset("room_editor.png")}
+    path={RoomEditorPicture}
     description="Room editor interface that can be used to connect rooms."
   />
   <p className="md:max-w-2/3">
@@ -245,7 +260,7 @@ const customShaderGraph = <div className="*:my-8">
       and calculate the right offsets to the UV texture to sample only the correct tile.
   </p>
   <ContentPicture
-    path={asset("grass_shader_isolate.png")}
+    path={GrassShaderPicture}
     description="A part of the shader which uses two step nodes to isolate the correct tile."
   />
   <p className="md:max-w-2/3">
@@ -254,7 +269,7 @@ const customShaderGraph = <div className="*:my-8">
       alongside the grass tile.
   </p>
   <ContentPicture
-    path={asset("grass_swaying.gif")}
+    path={GrassSwayingGif}
     description="Swaying grass with the custom shader graph."
     additionalImageStyles="pixelated"
   />
@@ -266,7 +281,7 @@ const playerAnimations = <div className="*:my-8">
       them which meant that having a transition duration just delayed the transition.
   </p>
   <ContentPicture
-    path={asset("player_animator.png")}
+    path={PlayerAnimatorPicture}
     description="Player animation transitions."
   />
 </div>;
@@ -313,12 +328,12 @@ const colorBanding = <div className="*:my-8">
   </div>
   <div className="flex flex-wrap gap-2 my-8">
     <ContentPicture
-      path={asset("color_banding_before.png")}
+      path={ColorBandingBeforePicture}
       description="Color banding caused by vignette and lights."
       additionalImageStyles="pixelated"
     />
     <ContentPicture
-      path={asset("color_banding_after.png")}
+      path={ColorBandingAfterPicture}
       description="Background with dithering enabled."
       additionalImageStyles="pixelated"
     />
@@ -357,10 +372,10 @@ export default function Project() {
       content: <div className="
           grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
       ">
-        <img src={asset("gameplay_screenshot0.png")} className="pixelated" />
-        <img src={asset("gameplay_screenshot1.png")} className="pixelated" />
-        <img src={asset("gameplay_screenshot2.png")} className="pixelated" />
-        <img src={asset("gameplay_screenshot3.png")} className="pixelated" />
+        <Image alt="" src={ShowcaseImage0} className="pixelated"/>
+        <Image alt="" src={ShowcaseImage1} className="pixelated"/>
+        <Image alt="" src={ShowcaseImage2} className="pixelated"/>
+        <Image alt="" src={ShowcaseImage3} className="pixelated"/>
         <p></p>
       </div>
     },
@@ -382,6 +397,7 @@ export default function Project() {
       slug={SLUG}
       team={TEAM}
       description={DESCRIPTION}
+      banner={ProjectBanner}
       sections={sections}
       isMainPage={false}
     >

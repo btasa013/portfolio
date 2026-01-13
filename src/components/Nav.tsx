@@ -54,8 +54,8 @@ export default function Nav({ nav }: NavProps) {
         if (scrollPos < offset) maxIndex = i;
       }
 
-      let minDiff = Math.abs(offsets[minIndex] - scrollPos);
-      let maxDiff = Math.abs(offsets[maxIndex] - scrollPos);
+      const minDiff = Math.abs(offsets[minIndex] - scrollPos);
+      const maxDiff = Math.abs(offsets[maxIndex] - scrollPos);
 
       const entry = minDiff > maxDiff ? entries[maxIndex] : entries[minIndex];
       setActive(entry.ref!.current!.id);

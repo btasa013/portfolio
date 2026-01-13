@@ -1,8 +1,8 @@
 import Page from '@/components/Page';
-import { getPath } from '@/scripts/path';
 import React, { useRef } from 'react';
 import DetailBlock from './DetailBlock';
 import Nav, { SmallNavButton, NavButton } from '@/components/Nav';
+import { StaticImageData } from 'next/image';
 
 import BackIcon from '@/assets/icons/back.svg';
 
@@ -11,6 +11,7 @@ export interface ProjectPageProps {
   slug: string;
   team: TeamMember[];
   isMainPage: boolean;
+  banner: StaticImageData | string;
   description: React.ReactNode;
   sections: ProjectSectionProps[];
 }
@@ -34,7 +35,7 @@ export interface ProjectSubsectionProps {
 
 export default function Project(props: ProjectPageProps) {
 
-  const { title, slug, team, description, sections, isMainPage } = props;
+  const { title, slug, team, description, banner, sections, isMainPage } = props;
 
   const teamMembers = <div key="team" className="px-4 py-8">
     <h1 className="text-xl">Team</h1>
@@ -97,7 +98,7 @@ export default function Project(props: ProjectPageProps) {
             after:bg-[image:var(--bg-image)] after:w-full after:h-full after:bg-contain after:bg-center
             after:absolute after:bg-no-repeat after:z-1
           `}
-          style={{"--bg-image": `url(${getPath(`assets/${slug}/banner.png`)})`} as React.CSSProperties}
+          style={{"--bg-image": `url(${typeof banner === 'string' ? banner : banner.src})`} as React.CSSProperties}
         ></div>
 
         {/* Project title and description */}

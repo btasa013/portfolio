@@ -6,10 +6,14 @@ import ProjectPanel from '@/components/ProjectPanel';
 import Nav, { DEFAULT_NAV } from '@/components/Nav';
 import { getPath } from '@/scripts/path';
 import { NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
+import Image from 'next/image';
 
 import FledgePreview from '@/assets/fledge/preview.png';
 import TheBasinPreview from '@/assets/the-basin/preview.png';
 import SpaceshipPreview from '@/assets/space-ship/preview.png';
+
+import UnityIcon from '@/assets/icons/devicon_unity.svg';
+import UnrealIcon from '@/assets/icons/mdi_unreal.svg';
 
 export default function Home() {
 
@@ -168,7 +172,7 @@ export default function Home() {
                 <div className="flex flex-wrap gap-4">
                   <div className="flex flex-col">
                     <div className="flex gap-x-2 items-center">
-                      <img width="31px" src={getPath("icons/devicon_unity.svg")}></img>
+                      <Image alt="Logo of the Unity Engine" width={31} src={UnityIcon}/>
                       <div className="text-nowrap">Unity</div>
                     </div>
                     <div className="text-xs ml-10">
@@ -177,7 +181,7 @@ export default function Home() {
                   </div>
                   <div className="flex flex-col">
                     <div className="flex gap-x-2 items-center">
-                      <img width="32px" src={getPath("icons/mdi_unreal.svg")}></img>
+                      <Image alt="Logo of the Unreal Engine" width={32} src={UnrealIcon}/>
                       <div className="relative right-[1px]">Unreal Engine</div>
                     </div>
                     <div className="text-xs ml-10">

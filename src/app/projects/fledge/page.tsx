@@ -3,6 +3,14 @@
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
 import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from './data';
 import { useRef } from 'react';
+import Image from 'next/image';
+
+import ShowcaseImage0 from '@/assets/fledge/image0.png';
+import ShowcaseImage1 from '@/assets/fledge/image1.png';
+import ShowcaseImage2 from '@/assets/fledge/image2.png';
+import ShowcaseImage3 from '@/assets/fledge/image3.png';
+
+import ProjectBanner from '@/assets/fledge/banner.png';
 
 export default function Project() {
 
@@ -27,10 +35,10 @@ export default function Project() {
       content: <div className="
           grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
       ">
-        <img src={asset("image0.png")}/>
-        <img src={asset("image1.png")}/>
-        <img src={asset("image2.png")}/>
-        <img src={asset("image3.png")}/>
+        <Image alt="" src={ShowcaseImage0}/>
+        <Image alt="" src={ShowcaseImage1}/>
+        <Image alt="" src={ShowcaseImage2}/>
+        <Image alt="" src={ShowcaseImage3}/>
         <p></p>
       </div>
     },
@@ -52,6 +60,7 @@ export default function Project() {
       slug={SLUG}
       team={TEAM}
       description={DESCRIPTION}
+      banner={ProjectBanner}
       sections={sections}
       isMainPage={true}
     >
