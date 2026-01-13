@@ -1,8 +1,10 @@
 import Page from '@/components/Page';
 import { getPath } from '@/scripts/path';
-import React from 'react';
+import React, { useRef } from 'react';
 import DetailBlock from './DetailBlock';
-import Nav, { NavItem, SmallNavButton, NavButton } from '@/components/Nav';
+import Nav, { SmallNavButton, NavButton } from '@/components/Nav';
+
+import BackIcon from '@/assets/icons/back.svg';
 
 export interface ProjectPageProps {
   title: string;
@@ -57,8 +59,20 @@ export default function Project(props: ProjectPageProps) {
       };
     });
 
+  navItems.reverse();
+
+  const descriptionRef = useRef(null);
+  navItems.push({
+    title: "Description",
+    id: "description",
+    ref: descriptionRef,
+    component: NavButton
+  });
+
+  navItems.reverse();
+
   const backButton = <div className="hidden md:block *:justify-center">
-    <SmallNavButton title="Back" icon={getPath("icons/back.svg")} href={isMainPage ? '#Projects' : `projects/${slug}#Reports`} />
+    <SmallNavButton title="Back" icon={BackIcon} href={isMainPage ? '#Projects' : `projects/${slug}#Reports`} />
   </div>;
 
   const quickLinks = <div key="back" className={`flex justify-center py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center ${isMainPage ? "hidden md:flex" : ""}`}>
@@ -75,10 +89,10 @@ export default function Project(props: ProjectPageProps) {
         {/* Project banner */}
         <div
           className={`
-            h-[350px] relative bg-black overflow-hidden pixelated
+            h-[350px] relative bg-black overflow-hidden
 
             before:bg-[image:var(--bg-image)] before:w-full before:h-full before:bg-contain before:bg-center
-            before:absolute before:bg-repeat before:blur-xl before:brightness-33
+            before:absolute before:bg-repeat before:blur-xl before:scale-125 before:brightness-25
 
             after:bg-[image:var(--bg-image)] after:w-full after:h-full after:bg-contain after:bg-center
             after:absolute after:bg-no-repeat after:z-1
@@ -87,7 +101,7 @@ export default function Project(props: ProjectPageProps) {
         ></div>
 
         {/* Project title and description */}
-        <section className="p-12 font-inter shadow-xs shadow-black">
+        <section ref={descriptionRef} id="description" className="p-12 font-inter shadow-xs shadow-black">
           <h1 className="mb-4 font-semibold text-2xl font-mplus">{title}</h1>
           <div className="whitespace-pre-line md:w-2/3">{description}</div>
         </section>

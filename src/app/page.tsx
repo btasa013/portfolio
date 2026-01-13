@@ -7,6 +7,10 @@ import Nav, { DEFAULT_NAV } from '@/components/Nav';
 import { getPath } from '@/scripts/path';
 import { NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
 
+import FledgePreview from '@/assets/fledge/preview.png';
+import TheBasinPreview from '@/assets/the-basin/preview.png';
+import SpaceshipPreview from '@/assets/space-ship/preview.png';
+
 export default function Home() {
 
   const aboutMeRef = useRef<HTMLElement>(null);
@@ -209,20 +213,36 @@ export default function Home() {
           </div>
         </Section>
         <Section id="Projects" ref={projectsRef} title="Projects">
-          <div className="gap-8 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="gap-8 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <ProjectPanel
               title="Fledge"
               slug="fledge"
+              timeframe={{
+                started: new Date(2025, 1-1, 20),
+                ended: undefined
+              }}
               description="A fast-paced 2D platformer"
+              image={FledgePreview}
+              hoverClip={getPath('assets/fledge/preview.mp4')}
             />
             <ProjectPanel
               title="The Basin"
               slug="the-basin"
+              timeframe={{
+                started: new Date(2025, 11-1, 12),
+                ended: new Date(2025, 12-1, 17)
+              }}
+              image={TheBasinPreview}
               description="Short game created as a part of the Level Design and Sound Design courses"
             />
             <ProjectPanel
               title="Spaceship"
               slug="space-ship"
+              timeframe={{
+                started: new Date(2024, 9-1, 4),
+                ended: new Date(2025, 4-1, 23)
+              }}
+              image={SpaceshipPreview}
               description="Unfinished space physics simulation"
             />
           </div>

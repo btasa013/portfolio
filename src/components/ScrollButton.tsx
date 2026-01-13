@@ -12,9 +12,10 @@ export default function ScrollButton({ selected, href, ref, children }: ScrollBu
     <a
       href={getPath(href)}
       onClick={e => {
-        if (ref != undefined) {
+        if (ref != undefined && ref.current != undefined) {
           e.preventDefault();
-          ref.current?.scrollIntoView({ behavior: "smooth", inline: 'center' })
+          //ref.current.scrollBy({ behavior: "smooth" })
+          ref.current.scrollIntoView({ behavior: "smooth", inline: "center" })
         }
       }}
       className={`

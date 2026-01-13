@@ -11,6 +11,20 @@ export default function Project() {
 
   const sections: ProjectSectionProps[] = [
     {
+      title: "Screenshots",
+      navButton: { title: "Screenshots" },
+      ref: useRef(null),
+      content: <div className="
+          grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
+      ">
+        <img src={asset("image0.png")}/>
+        <img src={asset("image1.png")}/>
+        <img src={asset("image2.png")}/>
+        <img src={asset("image3.png")}/>
+        <p></p>
+      </div>
+    },
+    {
       title: "Assets",
       navButton: { title: "Assets" },
       ref: useRef(null),
@@ -71,21 +85,7 @@ export default function Project() {
           </div>
         </ol>
       </div>
-    },
-    {
-      title: "Screenshots",
-      navButton: { title: "Screenshots" },
-      ref: useRef(null),
-      content: <div className="
-          grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
-      ">
-        <img src={asset("image0.png")}/>
-        <img src={asset("image1.png")}/>
-        <img src={asset("image2.png")}/>
-        <img src={asset("image3.png")}/>
-        <p></p>
-      </div>
-    },
+    }
     /*{
       title: "Gameplay Video",
       navButton: { title: "Gameplay" },

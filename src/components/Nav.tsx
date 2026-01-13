@@ -4,12 +4,21 @@ import { useState, useEffect } from "react";
 import React from "react";
 import ScrollButton from "@/components/ScrollButton";
 import { getPath } from "@/scripts/path";
+import { StaticImageData } from "next/image";
+import Image from "next/image";
+
+import DescriptionIcon from '@/assets/icons/description.svg';
+import ProfileIcon from '@/assets/icons/profile.svg';
+import CatalogIcon from '@/assets/icons/catalog.svg';
+import MailIcon from '@/assets/icons/mail.svg';
+import FileIcon from '@/assets/icons/file.svg';
+import BackIcon from '@/assets/icons/back.svg';
 
 export interface NavItem {
   title: string;
   id?: string;
   href?: string;
-  icon?: string;
+  icon?: StaticImageData;
   ref?: React.RefObject<HTMLElement | null>,
   component?: React.ElementType;
 }
@@ -24,37 +33,32 @@ export default function Nav({ nav }: NavProps) {
 
   useEffect(() => {
 
+    const entries = nav.filter(entry => entry.ref != undefined && entry.ref.current != undefined);
+    const offsets = entries.map(item => {
+      const el = item.ref!.current!;
+      return el.offsetTop - el.offsetHeight / 2;
+    });
+
     const handleScroll = () => {
 
-      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const scrollPos = window.scrollY + 50;
 
-      let minEntry = null;
-      let minValue = Number.MAX_SAFE_INTEGER;
+      let minIndex = 0;
+      let maxIndex = offsets.length - 1;
 
-      for (const entry of nav) {
+      while (maxIndex - minIndex > 1) {
+        const i = Math.ceil((minIndex + maxIndex) / 2);
+        const offset = offsets[i];
 
-        const el = entry.ref?.current;
-        if (!el) {
-          continue;
-        }
-
-        const offsetTop = el.offsetTop;
-        const offsetBottom = offsetTop + el.offsetHeight * 0.75;
-
-        const distTop = Math.abs(scrollPos - offsetTop);
-        const distBottom = Math.abs(scrollPos - offsetBottom);
-
-        const dist = Math.min(distTop, distBottom);
-
-        if (minValue > dist) {
-          minValue = dist;
-          minEntry = entry;
-        }
+        if (scrollPos > offset) minIndex = i;
+        if (scrollPos < offset) maxIndex = i;
       }
 
-      if (minEntry) {
-        setActive(minEntry.ref?.current?.id ?? "");
-      }
+      let minDiff = Math.abs(offsets[minIndex] - scrollPos);
+      let maxDiff = Math.abs(offsets[maxIndex] - scrollPos);
+
+      const entry = minDiff > maxDiff ? entries[maxIndex] : entries[minIndex];
+      setActive(entry.ref!.current!.id);
     };
 
     if (window.location.pathname === getPath() && window.scrollY != 0) {
@@ -86,10 +90,10 @@ export default function Nav({ nav }: NavProps) {
 }
 
 export const DEFAULT_NAV: NavItem[] = [
-  { title: "About Me", icon: "icons/description.svg", component: MainNavButton },
-  { title: "Skills", icon: "icons/profile.svg", component: MainNavButton },
-  { title: "Projects", icon: "icons/catalog.svg", component: MainNavButton },
-  { title: "Contact", icon: "icons/mail.svg", component: MainNavButton }
+  { title: "About Me", icon: DescriptionIcon, component: MainNavButton },
+  { title: "Skills", icon: ProfileIcon, component: MainNavButton },
+  { title: "Projects", icon: CatalogIcon, component: MainNavButton },
+  { title: "Contact", icon: MailIcon, component: MainNavButton }
 ];
 
 interface NavButtonProps {
@@ -109,7 +113,7 @@ export function NavButton({ title, id, selected, ref }: NavButtonProps) {
 
 interface SmallNavButtonProps {
   title: string;
-  icon?: string;
+  icon?: StaticImageData;
   href: string;
 }
 
@@ -118,7 +122,7 @@ export function SmallNavButton({ title, icon, href }: SmallNavButtonProps) {
     <div className="flex items-center h-[50px]">
       <a href={getPath(href)} className="p-2 rounded-4xl duration-200 font-bold hover:cursor-pointer hover:shadow-black hover:shadow-xs hover:brightness-125">
         <div className="flex gap-2 h-full opacity-100 items-center text-justify">
-          {icon ? <img alt="" src={icon ?? getPath("icons/back.svg")} className="w-[14px] aspect-square"/> : null}
+          {icon ? <Image alt="" src={icon ?? BackIcon} className="w-[14px] aspect-square"/> : null}
           <p className="font-mplus uppercase text-xs text-nowrap">{title}</p>
         </div>
       </a>
@@ -138,7 +142,7 @@ export function MainNavButton({ title, id, icon, selected, ref }: MainNavButtonP
   return (
     <ScrollButton selected={selected} href={`#${id ?? title}`} ref={ref}>
       <div className="flex ml-2 gap-2 justify-between">
-        <img alt="" src={getPath(icon ?? "icons/file.svg")} className="hidden md:block w-4 aspect-square"/>
+        <Image alt="" src={icon ?? FileIcon} className="hidden md:block w-4 aspect-square"/>
         <p className="font-mplus uppercase text-sm text-nowrap">{title}</p>
       </div>
     </ScrollButton>

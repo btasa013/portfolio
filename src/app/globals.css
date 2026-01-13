@@ -24,6 +24,28 @@
   -ms-interpolation-mode: nearest-neighbor;   /* IE8+           */
 }
 
+@keyframes fade-in {
+  0% { opacity: 0 }
+  50% { opacity: 0 }
+  100% { opacity: 1 }
+}
+
+@keyframes fade-out {
+  0% { opacity: 1 }
+  50% { opacity: 1 }
+  100% {opacity: 0 }
+}
+
+.fade-in  {
+  animation-name: fade-in;
+  animation-duration: 1s;
+}
+
+.fade-out {
+  animation-name: fade-out;
+  animation-duration: 1s;
+}
+
 @theme inline {
 
   --color-text-primary: var(--text-primary);
@@ -38,6 +60,9 @@
   --font-inter: var(--font-inter);
 
   --pixelated: var(--pixelated);
+
+  --fade-in: var(--fade-in);
+  --fade-out: var(--fade-out);
 }
 
 body {
