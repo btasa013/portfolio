@@ -31,6 +31,8 @@ export default function Home() {
   nav[3].ref = contactRef;
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const onMobile = windowWidth <= 768;
+
   useEffect(() => {
     function handleWindowResize() {
       setWindowWidth(window.innerWidth);
