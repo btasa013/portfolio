@@ -9,6 +9,7 @@ import { NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
 import Image from 'next/image';
 
 import FledgePreview from '@/assets/fledge/preview.png';
+
 import TheBasinPreview from '@/assets/the-basin/preview.png';
 import SpaceshipPreview from '@/assets/space-ship/preview.png';
 
@@ -34,9 +35,9 @@ export default function Home() {
 
   useEffect(() => {
     function handleWindowResize() {
-      setOnMobile(window.innerWidth <= 768);
+      setOnMobile(window.innerWidth < 1024);
     }
-    setOnMobile(window.innerWidth <= 768);
+    setOnMobile(window.innerWidth < 1024);
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("reisze", handleWindowResize);
   });
@@ -100,8 +101,10 @@ export default function Home() {
               loop
               playsInline
               disablePictureInPicture
+              preload="auto"
               ref={bgRef}
             >
+              <source src={getPath("assets/ProjectShowcase_Blur.webm")} type="video/webm" />
               <source src={getPath("assets/ProjectShowcase_Blur.mp4")} type="video/mp4" />
             </video>
 
@@ -112,8 +115,10 @@ export default function Home() {
               loop
               playsInline
               disablePictureInPicture
+              preload="auto"
               ref={fgRef}
             >
+              <source src={getPath("assets/ProjectShowcase.webm")} type="video/webm" />
               <source src={getPath("assets/ProjectShowcase.mp4")} type="video/mp4" />
             </video>
           </div>
@@ -239,7 +244,7 @@ export default function Home() {
               onMobile={onMobile}
               description="A fast-paced 2D platformer"
               image={FledgePreview}
-              hoverClip={getPath('assets/fledge/preview.mp4')}
+              clip={"assets/fledge/Preview2.mp4"}
             />
             <ProjectPanel
               title="The Basin"

@@ -9,7 +9,7 @@ interface ProjectPanelProps {
   timeframe: { started: Date, ended?: Date };
   onMobile: boolean;
   image: StaticImageData;
-  hoverClip?: string;
+  clip?: string;
   additionalBannerStyles?: string;
 }
 
@@ -20,7 +20,7 @@ export default function ProjectPanel({
   timeframe,
   onMobile,
   image,
-  hoverClip,
+  clip,
   additionalBannerStyles
 }: ProjectPanelProps) {
 
@@ -34,9 +34,9 @@ export default function ProjectPanel({
     if (onMobile) {
       function handleScroll() {
         if (el == undefined) return;
-        const minScroll = el.offsetTop - el.scrollTop;
+        const minScroll = el.offsetTop - el.scrollTop - 500;
         const maxScroll = minScroll + el.scrollHeight;
-        console.log(title, minScroll, maxScroll, window.scrollY);
+        console.log(title, minScroll, maxScroll, window.scrollY, window.scrollY >= minScroll && maxScroll >= window.scrollY);
         setIsHovering(window.scrollY >= minScroll && maxScroll >= window.scrollY);
       }
       
@@ -60,10 +60,8 @@ export default function ProjectPanel({
           <div className="bg-neutral-950 rounded-[15px_15px_0_0] overflow-hidden">
             <ProjectPanelPreview
               hovering={isHovering}
-              slug={slug}
               image={image}
-              onMobile={onMobile}
-              hoverClip={hoverClip}
+              clip={clip}
               className={additionalBannerStyles}
             />
           </div>
@@ -72,7 +70,7 @@ export default function ProjectPanel({
             lg:motion-safe:rounded-[0_0_15px_15px] group-hover:rounded-none
             -translate-y-[100%] lg:motion-safe:-translate-y-0 group-hover:-translate-y-[100%]
           ">
-            <div className="px-6 py-5 flex items-center justify-center">
+            <div className="px-5 py-5 flex items-center justify-center">
               <hr className="
                 flex-grow border-neutral-300 origin-left transition-all duration-500
                 scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
@@ -82,7 +80,7 @@ export default function ProjectPanel({
                 scale-110 lg:motion-safe:scale-100 lg:group-hover:scale-110
               ">{title}</p>
               <hr className="
-                flex-grow border-neutral-300 origin-left transition-all duration-500
+                flex-grow border-neutral-300 origin-right transition-all duration-500
                 scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
               "></hr>
             </div>
@@ -118,61 +116,23 @@ export default function ProjectPanel({
 }
 
 function ProjectPanelPreview({
-  slug,
   hovering,
   image,
-  onMobile,
-  hoverClip,
+  clip,
   className
 }: {
-  slug: string,
   hovering: boolean,
   image: StaticImageData,
-  onMobile: boolean,
-  hoverClip?: string,
+  clip?: string,
   className?: string
 }) {
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  useEffect(() => {
-
-    const video = videoRef.current;
-    if (video == undefined)
-      return;
-
-    let timeout: NodeJS.Timeout | undefined;
-    const videoPlayback = () => {
-      if (hovering) {
-        if (timeout != undefined) {
-          clearTimeout(timeout);
-          timeout = undefined;
-          video.play();
-        }
-        else if (video.currentTime == 0)
-          video.play();
-      } else {
-        if (video.paused) return;
-        video.pause();
-        timeout = setTimeout(() => {
-          video.currentTime = 0;
-        }, 500);
-      }
-    }
-
-    const interval = setInterval(videoPlayback, 150);
-    return () => clearInterval(interval);
-
-  }, [videoRef, hovering]);
-
-  return hoverClip != undefined
+  return clip != undefined
     ? <div className="grid *:col-1 *:row-1">
         <video
-          ref={videoRef}
           className={`
-            relative top-5 scale-125 z-1 duration-1000 translate-y-[200%]
-            motion-reduce:duration-0 group-hover:translate-y-0
-            ${onMobile ? "translate-y-0" : ""}
+            h-full relative bottom-15 scale-145 z-1 duration-1000
+            motion-reduce:duration-0
+            ${hovering ? "translate-y-0" : "translate-y-[200%]"}
             ${className ?? ""}
           `}
           autoPlay
@@ -180,8 +140,9 @@ function ProjectPanelPreview({
           loop
           playsInline
           disablePictureInPicture
+          preload="metadata"
         >
-          <source src={hoverClip} type="video/mp4"></source>
+          <source src={clip} type="video/mp4"></source>
         </video>
         <div className="z-0 relative bottom-10 lg:motion-safe:bottom-0 group-hover:bottom-10 duration-750">
           <Image
