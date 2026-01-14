@@ -29,17 +29,18 @@ export default function ProjectPanel({
 
   useEffect(() => {
 
-    const el = panelRef.current;
+    const el = panelRef.current!;
 
     if (onMobile) {
-      function handleScroll() {
-        if (el == undefined) return;
 
+      function handleScroll() {
         const scroll = window.scrollY + window.innerHeight;
 
         const minScroll = el.offsetTop + el.scrollHeight - 100;
         const maxScroll = minScroll + el.scrollHeight;
-        setIsHovering(scroll >= minScroll && maxScroll >= scroll);
+
+        const hovering = scroll >= minScroll && maxScroll >= scroll;
+        setIsHovering(hovering);
       }
       
       window.addEventListener("scroll", handleScroll);

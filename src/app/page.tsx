@@ -84,7 +84,7 @@ export default function Home() {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, []);
+  }, [bgRef, fgRef]);
 
   const sidebarItems = [PERSONAL_ICON, NETWORKING_BUTTONS, <Nav key="nav" nav={nav}/>];
 
