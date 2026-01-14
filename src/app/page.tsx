@@ -30,14 +30,13 @@ export default function Home() {
   nav[2].ref = projectsRef;
   nav[3].ref = contactRef;
 
-  const [windowWidth, setWindowWidth] = useState(0);
-  const onMobile = windowWidth <= 768;
+  const [onMobile, setOnMobile] = useState(false);
 
   useEffect(() => {
     function handleWindowResize() {
-      setWindowWidth(window.innerWidth);
+      setOnMobile(window.innerWidth <= 768);
     }
-    setWindowWidth(window.innerWidth);
+    setOnMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("reisze", handleWindowResize);
   });

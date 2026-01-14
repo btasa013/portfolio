@@ -34,8 +34,9 @@ export default function ProjectPanel({
     if (onMobile) {
       function handleScroll() {
         if (el == undefined) return;
-        const minScroll = el.scrollTop;
+        const minScroll = el.offsetTop - el.scrollTop;
         const maxScroll = minScroll + el.scrollHeight;
+        console.log(title, minScroll, maxScroll, window.scrollY);
         setIsHovering(window.scrollY >= minScroll && maxScroll >= window.scrollY);
       }
       
@@ -61,29 +62,28 @@ export default function ProjectPanel({
               hovering={isHovering}
               slug={slug}
               image={image}
+              onMobile={onMobile}
               hoverClip={hoverClip}
               className={additionalBannerStyles}
             />
           </div>
           <div className="
-            z-2 flex flex-col relative
-            bg-bg-secondary motion-safe:rounded-[0_0_15px_15px] group-hover:rounded-none duration-750
-            group-hover:-translate-y-[100%] motion-reduce:-translate-y-[100%]
-            h-30 ease-in-out
+            z-2 flex flex-col relative bg-bg-secondary duration-750 h-30 ease-in-out
+            lg:motion-safe:rounded-[0_0_15px_15px] group-hover:rounded-none
+            -translate-y-[100%] lg:motion-safe:-translate-y-0 group-hover:-translate-y-[100%]
           ">
             <div className="px-6 py-5 flex items-center justify-center">
               <hr className="
-                flex-grow border-neutral-300 origin-left scale-x-0
-                transition-all duration-500 motion-safe:group-hover:scale-x-100
-                motion-reduce:scale-x-100
+                flex-grow border-neutral-300 origin-left transition-all duration-500
+                scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
               "></hr>
               <p className="
-                mx-[10%] font-semibold text-xl duration-500 will-change-transform motion-safe:group-hover:scale-110
+                mx-[10%] font-semibold text-xl duration-500 will-change-transform
+                scale-110 lg:motion-safe:scale-100 lg:group-hover:scale-110
               ">{title}</p>
               <hr className="
-                flex-grow border-neutral-300 origin-right scale-x-0
-                transition-all duration-500 group-hover:scale-x-100
-                motion-reduce:scale-x-100
+                flex-grow border-neutral-300 origin-left transition-all duration-500
+                scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
               "></hr>
             </div>
             <div className="px-4 font-light text-xs">
@@ -121,12 +121,14 @@ function ProjectPanelPreview({
   slug,
   hovering,
   image,
+  onMobile,
   hoverClip,
   className
 }: {
   slug: string,
   hovering: boolean,
   image: StaticImageData,
+  onMobile: boolean,
   hoverClip?: string,
   className?: string
 }) {
@@ -167,7 +169,12 @@ function ProjectPanelPreview({
     ? <div className="grid *:col-1 *:row-1">
         <video
           ref={videoRef}
-          className={`relative top-5 scale-125 z-1 duration-1000 translate-y-[200%] motion-reduce:duration-0 group-hover:translate-y-0 ${className ?? ""}`}
+          className={`
+            relative top-5 scale-125 z-1 duration-1000 translate-y-[200%]
+            motion-reduce:duration-0 group-hover:translate-y-0
+            ${onMobile ? "translate-y-0" : ""}
+            ${className ?? ""}
+          `}
           autoPlay
           muted
           loop
@@ -176,7 +183,7 @@ function ProjectPanelPreview({
         >
           <source src={hoverClip} type="video/mp4"></source>
         </video>
-        <div className="z-0 relative bottom-0 motion-reduce:bottom-10 group-hover:bottom-10 duration-750">
+        <div className="z-0 relative bottom-10 lg:motion-safe:bottom-0 group-hover:bottom-10 duration-750">
           <Image
             alt=""
             src={image}
@@ -193,8 +200,8 @@ function ProjectPanelPreview({
           src={image}
           className={`
             h-full object-cover aspect-square duration-700 will-change-transform relative
-            bottom-0 group-hover:bottom-10 motion-reduce:bottom-10
-            motion-safe:group-hover:scale-110
+            bottom-10 lg:motion-safe:bottom-0 group-hover:bottom-10
+            scale-110 lg:motion-safe:scale-100 lg:motion-safe:group-hover:scale-110
             ${className ?? ""}
           `}
         />
