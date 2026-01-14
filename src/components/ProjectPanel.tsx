@@ -33,8 +33,9 @@ export default function ProjectPanel({
 
     if (onMobile) {
       function handleScroll() {
-        const minScroll = el?.scrollTop;
-        const maxScroll = minScroll + el?.scrollHeight;
+        if (el == undefined) return;
+        const minScroll = el.scrollTop;
+        const maxScroll = minScroll + el.scrollHeight;
         setIsHovering(window.scrollY >= minScroll && maxScroll >= window.scrollY);
       }
       
