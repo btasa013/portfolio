@@ -34,10 +34,12 @@ export default function ProjectPanel({
     if (onMobile) {
       function handleScroll() {
         if (el == undefined) return;
-        const minScroll = el.offsetTop - el.scrollTop - 500;
+
+        const scroll = window.scrollY + window.innerHeight;
+
+        const minScroll = el.offsetTop + el.scrollHeight - 100;
         const maxScroll = minScroll + el.scrollHeight;
-        console.log(title, minScroll, maxScroll, window.scrollY, window.scrollY >= minScroll && maxScroll >= window.scrollY);
-        setIsHovering(window.scrollY >= minScroll && maxScroll >= window.scrollY);
+        setIsHovering(scroll >= minScroll && maxScroll >= scroll);
       }
       
       window.addEventListener("scroll", handleScroll);
@@ -65,24 +67,28 @@ export default function ProjectPanel({
               className={additionalBannerStyles}
             />
           </div>
-          <div className="
+          <div className={`
             z-2 flex flex-col relative bg-bg-secondary duration-750 h-30 ease-in-out
-            lg:motion-safe:rounded-[0_0_15px_15px] group-hover:rounded-none
-            -translate-y-[100%] lg:motion-safe:-translate-y-0 group-hover:-translate-y-[100%]
-          ">
+            ${isHovering ? "-translate-y-[100%] rounded-none" : "rounded-[0_0_15px_15px]"}
+            motion-reduce:-translate-y-[100%]
+            motion-reduce:rounded-none
+          `}>
             <div className="px-5 py-5 flex items-center justify-center">
-              <hr className="
+              <hr className={`
                 flex-grow border-neutral-300 origin-left transition-all duration-500
-                scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
-              "></hr>
-              <p className="
+                ${isHovering ? "scale-x-100" : "scale-x-0"}
+                motion-reduce:scale-x-100
+              `}></hr>
+              <p className={`
                 mx-[10%] font-semibold text-xl duration-500 will-change-transform
-                scale-110 lg:motion-safe:scale-100 lg:group-hover:scale-110
-              ">{title}</p>
-              <hr className="
+                ${isHovering ? "scale-110" : "scale-100"}
+                motion-reduce:scale-100
+              `}>{title}</p>
+              <hr className={`
                 flex-grow border-neutral-300 origin-right transition-all duration-500
-                scale-x-100 lg:scale-x-0 lg:motion-safe:group-hover:scale-x-100
-              "></hr>
+                ${isHovering ? "scale-x-100" : "scale-x-0"}
+                motion-reduce:scale-x-100
+              `}></hr>
             </div>
             <div className="px-4 font-light text-xs">
               <div className="duration-500 will-change-transform text-center">{description}</div>
@@ -144,7 +150,11 @@ function ProjectPanelPreview({
         >
           <source src={clip} type="video/mp4"></source>
         </video>
-        <div className="z-0 relative bottom-10 lg:motion-safe:bottom-0 group-hover:bottom-10 duration-750">
+        <div className={`
+          z-0 relative duration-750
+          ${hovering ? "bottom-10" : "bottom-0"}
+          motion-reduce:bottom-10
+        `}>
           <Image
             alt=""
             src={image}
@@ -161,8 +171,9 @@ function ProjectPanelPreview({
           src={image}
           className={`
             h-full object-cover aspect-square duration-700 will-change-transform relative
-            bottom-10 lg:motion-safe:bottom-0 group-hover:bottom-10
-            scale-110 lg:motion-safe:scale-100 lg:motion-safe:group-hover:scale-110
+            ${hovering ? "bottom-10 scale-110" : "bottom-0 scale-100"}
+            motion-reduce:scale-100;
+            motion-reduce:bottom-10;
             ${className ?? ""}
           `}
         />
