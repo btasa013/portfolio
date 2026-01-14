@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Page from '@/components/Page';
 import ProjectPanel from '@/components/ProjectPanel';
 import Nav, { DEFAULT_NAV } from '@/components/Nav';
@@ -29,6 +29,15 @@ export default function Home() {
   nav[1].ref = skillsRef;
   nav[2].ref = projectsRef;
   nav[3].ref = contactRef;
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("reisze", handleWindowResize);
+  });
 
   useEffect(() => {
 
@@ -225,6 +234,7 @@ export default function Home() {
                 started: new Date(2025, 1-1, 20),
                 ended: undefined
               }}
+              onMobile={onMobile}
               description="A fast-paced 2D platformer"
               image={FledgePreview}
               hoverClip={getPath('assets/fledge/preview.mp4')}
@@ -236,6 +246,7 @@ export default function Home() {
                 started: new Date(2025, 11-1, 12),
                 ended: new Date(2025, 12-1, 17)
               }}
+              onMobile={onMobile}
               image={TheBasinPreview}
               description="Short game created as a part of the Level Design and Sound Design courses"
             />
@@ -246,6 +257,7 @@ export default function Home() {
                 started: new Date(2024, 9-1, 4),
                 ended: new Date(2025, 4-1, 23)
               }}
+              onMobile={onMobile}
               image={SpaceshipPreview}
               description="Unfinished space physics simulation"
             />

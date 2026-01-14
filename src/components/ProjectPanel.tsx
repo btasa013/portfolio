@@ -7,6 +7,7 @@ interface ProjectPanelProps {
   slug: string;
   description: string;
   timeframe: { started: Date, ended?: Date };
+  onMobile: boolean;
   image: StaticImageData;
   hoverClip?: string;
   additionalBannerStyles?: string;
@@ -17,6 +18,7 @@ export default function ProjectPanel({
   slug,
   description,
   timeframe,
+  onMobile,
   image,
   hoverClip,
   additionalBannerStyles
@@ -26,7 +28,20 @@ export default function ProjectPanel({
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+
     const el = panelRef.current;
+
+    if (onMobile) {
+      function handleScroll() {
+        const minScroll = el?.scrollTop;
+        const maxScroll = minScroll + el?.scrollHeight;
+        setIsHovering(window.scrollY >= minScroll && maxScroll >= window.scrollY);
+      }
+      
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+
     const handleMouseOver = () => setIsHovering(true);
     const handleMouseExit = () => setIsHovering(false);
     el?.addEventListener("mouseenter", handleMouseOver);
@@ -35,7 +50,7 @@ export default function ProjectPanel({
       el?.removeEventListener("mouseenter", handleMouseOver);
       el?.removeEventListener("mouseleave", handleMouseExit);
     }
-  }, [panelRef]);
+  }, [onMobile, panelRef]);
 
   return (
     <div ref={panelRef} className="group overflow-hidden">
