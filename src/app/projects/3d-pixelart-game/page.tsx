@@ -5,17 +5,12 @@ import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from './data';
 import { useRef } from 'react';
 import Image from 'next/image';
 
-import ShowcaseImage0 from '@/assets/fledge/image0.png';
-import ShowcaseImage1 from '@/assets/fledge/image1.png';
-import ShowcaseImage2 from '@/assets/fledge/image2.png';
-import ShowcaseImage3 from '@/assets/fledge/image3.png';
-
-import ProjectBanner from '@/assets/fledge/banner.png';
+import ProjectBanner from '@/assets/3d-pixelart-game/banner.png';
 
 export default function Project() {
 
   const sections: ProjectSectionProps[] = [
-    {
+    /*{
       title: "Reports",
       navButton: { title: "Reports" },
       ref: useRef(null),
@@ -47,11 +42,11 @@ export default function Project() {
       navButton: { title: "Gameplay" },
       ref: useRef(null),
       content: <div>
-        {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
+        {/* Second iframe is needed so the video isn't blocked on Firefox for some reason /}
         <iframe hidden></iframe>
         <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/uErqjzIrJPs" title="Fledge Gameplay" allowFullScreen></iframe>
       </div>
-    }
+    }*/
   ];
 
   return (

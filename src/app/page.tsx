@@ -12,6 +12,7 @@ import FledgePreview from '@/assets/fledge/preview.png';
 
 import TheBasinPreview from '@/assets/the-basin/preview.png';
 import SpaceshipPreview from '@/assets/space-ship/preview.png';
+import _3DPixelArtGamePreview from '@/assets/3d-pixelart-game/preview.png';
 
 import UnityIcon from '@/assets/icons/devicon_unity.svg';
 import UnrealIcon from '@/assets/icons/mdi_unreal.svg';
@@ -234,6 +235,17 @@ export default function Home() {
         </Section>
         <Section id="Projects" ref={projectsRef} title="Projects">
           <div className="gap-8 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <ProjectPanel
+              title="3D Pixel Art Game"
+              slug="3d-pixelart-game"
+              timeframe={{
+                started: new Date(2025, 1-1, 26),
+                ended: undefined
+              }}
+              onMobile={onMobile}
+              image={_3DPixelArtGamePreview}
+              description="placeholder"
+            />
             <ProjectPanel
               title="Fledge"
               slug="fledge"
