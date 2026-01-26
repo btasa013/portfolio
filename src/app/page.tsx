@@ -244,7 +244,7 @@ export default function Home() {
               }}
               onMobile={onMobile}
               image={_3DPixelArtGamePreview}
-              description="placeholder"
+              description="A 3D pixel art game"
             />
             <ProjectPanel
               title="Fledge"
