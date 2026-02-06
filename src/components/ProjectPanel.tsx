@@ -9,6 +9,7 @@ interface ProjectPanelProps {
   timeframe: { started: Date, ended?: Date };
   onMobile: boolean;
   image: StaticImageData;
+  icon?: StaticImageData;
   clip?: string;
   additionalBannerStyles?: string;
 }
@@ -20,6 +21,7 @@ export default function ProjectPanel({
   timeframe,
   onMobile,
   image,
+  icon,
   clip,
   additionalBannerStyles
 }: ProjectPanelProps) {
@@ -58,8 +60,9 @@ export default function ProjectPanel({
   }, [onMobile, panelRef]);
 
   return (
-    <div ref={panelRef} className="group overflow-hidden">
-      <div className="h-full flex flex-col bg-bg-secondary rounded-2xl border-1 border-neutral-800">
+    <div ref={panelRef} className="relative group">
+      <ProjectIcon icon={icon}/>
+      <div className="h-full flex flex-col bg-bg-secondary rounded-2xl border-1 border-neutral-800 overflow-hidden">
           <div className="bg-neutral-950 rounded-[15px_15px_0_0] overflow-hidden">
             <ProjectPanelPreview
               hovering={isHovering}
@@ -83,7 +86,7 @@ export default function ProjectPanel({
               <p className={`
                 mx-[10%] font-semibold text-xl duration-500 will-change-transform
                 ${isHovering ? "scale-110" : "scale-100"}
-                motion-reduce:scale-100
+                motion-reduce:scale-100 text-nowrap
               `}>{title}</p>
               <hr className={`
                 flex-grow border-neutral-300 origin-right transition-all duration-500
@@ -117,6 +120,24 @@ export default function ProjectPanel({
               </div>
             </div>
           </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectIcon({ icon }: { icon?: StaticImageData }) {
+
+  if (icon == undefined)
+    return;
+
+  return (
+    <div className="
+      z-2 absolute right-0 border-1 border-neutral-800 bg-bg-secondary rounded-full
+      aspect-square w-10 m-[-12px]
+      duration-500 opacity-0 group-hover:opacity-100
+    ">
+      <div className="flex justify-center relative top-[3px]">
+        <Image alt="" src={icon} className="duration-2000 opacity-0 group-hover:opacity-100 aspect-square w-8 object-contain brightness-150"/>
       </div>
     </div>
   );

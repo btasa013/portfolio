@@ -6,15 +6,20 @@ import Image from 'next/image';
 import LinkedInIcon from '@/assets/icons/linkedin.svg';
 import FacebookIcon from '@/assets/icons/facebook.svg';
 
-import UserIcon from '@/assets/icons/user.svg';
+//import UserIcon from '@/assets/icons/user.svg';
 
-export const PERSONAL_ICON = <div key="personal-icon" className="flex items-center justify-center p-2 py-8">
+export const PERSONAL_ICON = <div key="personal-icon" className="flex flex-wrap py-10 gap-2 items-center justify-center">
+  <h1 className="text-3xl leading-none font-light">Daniel</h1>
+  <h2 className="text-3xl leading-none font-extralight">Sarin</h2>
+</div>;
+
+/*export const PERSONAL_ICON = <div key="personal-icon" className="flex items-center justify-center p-2 py-8">
     <Image alt="" width={128} height={128} src={UserIcon} className="hidden md:block aspect-square rounded-full" />
     <div className="px-4">
         <h1 className="text-2xl leading-none font-light">Daniel</h1>
         <h2 className="text-xl leading-none font-extralight">Sarin</h2>
     </div>
-</div>;
+</div>;*/
 
 export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex justify-between items-center px-4 py-1 gap-2">
   <div className="flex gap-2">
@@ -25,10 +30,10 @@ export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex 
       <Image alt="" width={28} height={28} src={FacebookIcon} className="aspect-square opacity-75 rounded-md" />
     </RoundButton>
   </div>
-  <div className="flex justify-end text-xs w-4 h-4 md:w-auto md:h-auto md:text-sm">
-    <RoundButton link={getPath("cv")} color="#a0a0a020">
+  <div className="flex justify-end text-xs w-4 h-4 md:w-auto md:h-auto md:text-sm p-5">
+    {/*<RoundButton link={getPath("cv")} color="#a0a0a020">
       <p className="font-semibold p-2">CV</p>
-    </RoundButton>
+    </RoundButton>*/}
   </div>
 </div>;
 

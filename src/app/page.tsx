@@ -244,6 +244,7 @@ export default function Home() {
               }}
               onMobile={onMobile}
               image={_3DPixelArtGamePreview}
+              icon={UnityIcon}
               description="A 3D pixel art game"
             />
             <ProjectPanel
@@ -256,6 +257,7 @@ export default function Home() {
               onMobile={onMobile}
               description="A fast-paced 2D platformer"
               image={FledgePreview}
+              icon={UnityIcon}
               clip={"assets/fledge/Preview2.mp4"}
             />
             <ProjectPanel
@@ -267,6 +269,7 @@ export default function Home() {
               }}
               onMobile={onMobile}
               image={TheBasinPreview}
+              icon={UnityIcon}
               description="Short game created as a part of the Level Design and Sound Design courses"
             />
             <ProjectPanel
@@ -278,6 +281,7 @@ export default function Home() {
               }}
               onMobile={onMobile}
               image={SpaceshipPreview}
+              icon={UnityIcon}
               description="Unfinished space physics simulation"
             />
           </div>
