@@ -129,11 +129,11 @@ export default function Home() {
           <div>
             <p>
               I&apos;m an aspiring game developer from Finland who is passionate
-              about programming and all things games.
+              about games and programming.
             </p>
             <br/>
             <p>
-              I&apos;m second year a student of Game Technology at <abbr
+              I&apos;m third year a student of Game Technology at <abbr
                 className="underline-offset-2"
                 title="South-Eastern Finland University of Applied Sciences">
                   XAMK
