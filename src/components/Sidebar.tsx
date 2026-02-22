@@ -1,5 +1,4 @@
 import RoundButton from "@/components/RoundButton";
-import { getPath } from '@/scripts/path';
 import Nav, { DEFAULT_NAV } from "@/components/Nav";
 import Image from 'next/image';
 
@@ -30,10 +29,10 @@ export const NETWORKING_BUTTONS = <div key="networking-buttons" className="flex 
       <Image alt="" width={28} height={28} src={FacebookIcon} className="aspect-square opacity-75 rounded-md" />
     </RoundButton>
   </div>
-  <div className="flex justify-end text-xs w-4 h-4 md:w-auto md:h-auto md:text-sm p-5">
-    {/*<RoundButton link={getPath("cv")} color="#a0a0a020">
+  <div className="flex justify-end text-xs w-4 h-4 md:w-auto md:h-auto md:text-sm">
+    <RoundButton link={"Daniel_Sarin_CV.pdf"} color="#a0a0a020">
       <p className="font-semibold p-2">CV</p>
-    </RoundButton>*/}
+    </RoundButton>
   </div>
 </div>;
 
