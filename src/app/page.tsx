@@ -202,7 +202,7 @@ export default function Home() {
                       <div className="relative right-[1px]">Unreal Engine</div>
                     </div>
                     <div className="text-xs ml-10">
-                      2 years
+                      1 year
                     </div>
                   </div>
                 </div>
