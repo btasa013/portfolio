@@ -7,7 +7,7 @@ export const TEAM = [
   { name: "Daniel Sarin", roles: "Programmer, 3D Artist" }
 ];
 
-export const DESCRIPTION = `${TITLE}`;
+export const DESCRIPTION = `Nothing to see here right now!`;
 
 export const ASSETS_PATH = getPath(`assets/${SLUG}/`);
 export function asset(name: string): string {

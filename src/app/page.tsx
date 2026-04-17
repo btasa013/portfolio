@@ -9,10 +9,10 @@ import { NETWORKING_BUTTONS, PERSONAL_ICON } from '@/components/Sidebar';
 import Image from 'next/image';
 
 import FledgePreview from '@/assets/fledge/preview.png';
-
 import TheBasinPreview from '@/assets/the-basin/preview.png';
 import SpaceshipPreview from '@/assets/space-ship/preview.png';
 import _3DPixelArtGamePreview from '@/assets/3d-pixelart-game/preview.png';
+import GroundLevelPreview from '@/assets/ground-level/preview.png';
 
 import UnityIcon from '@/assets/icons/devicon_unity.svg';
 import UnrealIcon from '@/assets/icons/mdi_unreal.svg';
@@ -236,16 +236,28 @@ export default function Home() {
         <Section id="Projects" ref={projectsRef} title="Projects">
           <div className="gap-8 my-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <ProjectPanel
+              title="Ground Level"
+              slug="ground-level"
+              timeframe={{
+                started: new Date(2026, 4-1, 13),
+                ended: undefined
+              }}
+              onMobile={onMobile}
+              image={GroundLevelPreview}
+              icon={UnityIcon}
+              description="2D shooter with destructible terrain & procedural levels"
+            />
+            <ProjectPanel
               title="3D Pixel Art Game"
               slug="3d-pixelart-game"
               timeframe={{
-                started: new Date(2025, 1-1, 26),
+                started: new Date(2026, 1-1, 26),
                 ended: undefined
               }}
               onMobile={onMobile}
               image={_3DPixelArtGamePreview}
               icon={UnityIcon}
-              description="A 3D pixel art game"
+              description="Exploration game with 3D pixel art graphics"
             />
             <ProjectPanel
               title="Fledge"
@@ -255,7 +267,7 @@ export default function Home() {
                 ended: undefined
               }}
               onMobile={onMobile}
-              description="A fast-paced 2D platformer"
+              description="Fast-paced 2D platforming game"
               image={FledgePreview}
               icon={UnityIcon}
               clip={"assets/fledge/Preview2.mp4"}
@@ -270,7 +282,7 @@ export default function Home() {
               onMobile={onMobile}
               image={TheBasinPreview}
               icon={UnityIcon}
-              description="Short game created as a part of the Level Design and Sound Design courses"
+              description="Short story-based game focusing on level and sound design"
             />
             <ProjectPanel
               title="Spaceship"
@@ -282,7 +294,7 @@ export default function Home() {
               onMobile={onMobile}
               image={SpaceshipPreview}
               icon={UnityIcon}
-              description="Unfinished space physics simulation"
+              description="Simulation of realistic physics in space"
             />
           </div>
         </Section>

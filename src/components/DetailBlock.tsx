@@ -28,7 +28,7 @@ export default function DetailBlock({ title, open, children }: DetailBlockProps)
 
   return (
     <details id={title} open={isOpen} className="rounded-xl px-4 relative bg-bg-secondary">
-      <summary onClick={handleToggle} className="transition-all my-4 duration-200 w-fit cursor-pointer font-bold hover:text-lg">
+      <summary onClick={handleToggle} className="transition-all my-4 duration-200 w-fit cursor-pointer font-bold text-lg">
         {title}
       </summary>
       <div>
