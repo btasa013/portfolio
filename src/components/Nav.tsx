@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import React from "react";
 import ScrollButton from "@/components/ScrollButton";
 import { getPath } from "@/scripts/path";
@@ -30,44 +30,77 @@ export interface NavProps {
 export default function Nav({ nav }: NavProps) {
 
   const [active, setActive] = useState("");
+  const smoothScrollRef = useRef(0);
 
   useEffect(() => {
+    smoothScrollRef.current = window.scrollY;
 
-    const entries = nav.filter(entry => entry.ref != undefined && entry.ref.current != undefined);
+    const entries = nav.filter(entry => entry.ref?.current);
     const offsets = entries.map(item => {
-      const el = item.ref!.current!;
-      return el.offsetTop - el.offsetHeight / 2;
+      const el = item!.ref!.current!;
+      const top = el.offsetTop;
+      const bottom = top + el.offsetHeight;
+
+      return [top, bottom];
     });
 
-    const handleScroll = () => {
+    const interval = setInterval(() => {
 
-      const scrollPos = window.scrollY + 50;
+      const scroll = window.scrollY;
+      const current = smoothScrollRef.current;
+
+      if (Math.abs(scroll - current) < 0.5) return;
+      if (offsets.length === 0) return;
+
+      const acceleration = Math.abs(current > scroll ? current / scroll : scroll / current);
+
+      const speed = Number.isFinite(acceleration) ? 1 / acceleration : 1;
+      console.log(acceleration, speed, current, scroll, current-scroll);
+      const scrollPos =
+        (1.0 - speed) * current + speed * scroll;
+
+      smoothScrollRef.current = scrollPos;
+
+      const viewportAnchor = scrollPos + window.innerHeight / 2;
 
       let minIndex = 0;
       let maxIndex = offsets.length - 1;
 
       while (maxIndex - minIndex > 1) {
-        const i = Math.ceil((minIndex + maxIndex) / 2);
-        const offset = offsets[i];
+        const index = Math.ceil((minIndex + maxIndex) / 2);
+        const [top, bottom] = offsets[index];
 
-        if (scrollPos > offset) minIndex = i;
-        if (scrollPos < offset) maxIndex = i;
+        if (viewportAnchor >= top) minIndex = index;
+        else if (viewportAnchor <= bottom) maxIndex = index;
+        else {
+          minIndex = index;
+          maxIndex = index;
+        }
       }
 
-      const minDiff = Math.abs(offsets[minIndex] - scrollPos);
-      const maxDiff = Math.abs(offsets[maxIndex] - scrollPos);
+      let activeIndex = minIndex;
 
-      const entry = minDiff > maxDiff ? entries[maxIndex] : entries[minIndex];
-      setActive(entry.ref!.current!.id);
-    };
+      const [minTop, minBottom] = offsets[minIndex];
+      const [maxTop, maxBottom] = offsets[maxIndex];
 
-    if (window.location.pathname === getPath() && window.scrollY != 0) {
-      handleScroll();
-    }
+      if (viewportAnchor >= minTop && viewportAnchor <= minBottom) {
+        activeIndex = minIndex;
+      } else if (viewportAnchor >= maxTop && viewportAnchor <= maxBottom) {
+        activeIndex = maxIndex;
+      } else {
+        const minDist = Math.abs(minTop - viewportAnchor);
+        const maxDist = Math.abs(maxTop - viewportAnchor);
+        activeIndex = minDist < maxDist ? minIndex : maxIndex;
+      }
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [nav]);
+      const el = entries[activeIndex]?.ref?.current;
+      if (!el) return;
+
+      setActive(el.id);
+    }, 10);
+
+  return () => clearInterval(interval);
+}, [nav]);
 
   return (
     <nav className="flex flex-col gap-2 mt-4 m-0.5 md:p-4">
