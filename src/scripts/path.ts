@@ -15,7 +15,7 @@ export function getPath(path?: string): string {
     return basePath;
 
   const connect = startsWithAny(path, ["/", "#", "?", "&"]) ? '' : '/';
-  return `/${basePath}${connect}${path}`;
+  return `${basePath}${connect}${path}`;
 }
 
 function startsWithAny(content: string, strings: string[]): boolean {

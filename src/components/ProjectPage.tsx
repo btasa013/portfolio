@@ -73,7 +73,7 @@ export default function Project(props: ProjectPageProps) {
   navItems.reverse();
 
   const backButton = <div className="hidden md:block *:justify-center">
-    <SmallNavButton title="Back" icon={BackIcon} href={isMainPage ? '#Projects' : `projects/${slug}#Reports`} />
+    <SmallNavButton title="Back" icon={BackIcon} href={isMainPage ? '../#Projects' : `projects/${slug}#Reports`} />
   </div>;
 
   const quickLinks = <div key="back" className={`flex justify-center py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center ${isMainPage ? "hidden md:flex" : ""}`}>
