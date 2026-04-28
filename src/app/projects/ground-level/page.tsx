@@ -2,6 +2,7 @@
 
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
 import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from './data';
+import { getPath } from "@/scripts/path";
 import { useRef } from 'react';
 import Image from 'next/image';
 
@@ -20,7 +21,7 @@ export default function Project() {
       navButton: { title: "Reports" },
       ref: useRef(null),
       content: <div className="flex flex-col gap-4">
-        <a className="bg-bg-secondary w-32 text-center p-2 rounded-2xl will-change-transform motion-safe:hover:scale-105 hover:brightness-125 transition-all duration-200" href={`./reports/1`}>Report 1</a>
+        <a className="bg-bg-secondary w-32 text-center p-2 rounded-2xl will-change-transform motion-safe:hover:scale-105 hover:brightness-125 transition-all duration-200" href={getPath(`projects/${SLUG}/reports/1`)}>Report 1</a>
       </div>
     },
     {
