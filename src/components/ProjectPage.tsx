@@ -78,7 +78,7 @@ export default function Project(props: ProjectPageProps) {
 
   const quickLinks = <div key="back" className={`flex justify-center py-2 divide-x-1 divide-neutral-800 *:w-1/2 *:justify-center ${isMainPage ? "hidden md:flex" : ""}`}>
     { backButton }
-    { isMainPage ? <div></div> : <SmallNavButton title="Projects" href={'/#Projects'} /> }
+    { isMainPage ? <div></div> : <SmallNavButton title="Projects" href={'#Projects'} /> }
   </div>;
 
   const sidebarItems = [teamMembers, quickLinks, <Nav key="nav" nav={navItems} />];

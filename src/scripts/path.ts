@@ -9,13 +9,9 @@ import packageJson from '@/../package.json';
 export function getPath(path?: string): string {
 
   const isProd = process.env.NODE_ENV === 'production';
-  const basePath = isProd ? `${packageJson.name}` : "";
+  const basePath = isProd ? `/${packageJson.name}/` : "/";
   
-  if (path == undefined)
-    return basePath;
-
-  const connect = startsWithAny(path, ["/", "#", "?", "&"]) ? '' : '/';
-  return `${basePath}${connect}${path}`;
+  return `${basePath}${path ?? ''}`;
 }
 
 function startsWithAny(content: string, strings: string[]): boolean {
