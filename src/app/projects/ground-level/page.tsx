@@ -15,14 +15,14 @@ import ShowcaseImage3 from '@/assets/ground-level/image3.png';
 export default function Project() {
 
   const sections: ProjectSectionProps[] = [
-    /*{
+    {
       title: "Reports",
       navButton: { title: "Reports" },
       ref: useRef(null),
       content: <div className="flex flex-col gap-4">
-        <div>Nothing to see here as of now!</div>
+        <a className="bg-bg-secondary w-32 text-center p-2 rounded-2xl will-change-transform motion-safe:hover:scale-105 hover:brightness-125 transition-all duration-200" href={`./reports/1`}>Report 1</a>
       </div>
-    },*/
+    },
     {
       title: "Screenshots",
       navButton: { title: "Screenshots" },
@@ -37,14 +37,16 @@ export default function Project() {
         <p></p>
       </div>
     },
-    /*{
+    {
       title: "Gameplay Video",
       navButton: { title: "Gameplay" },
       ref: useRef(null),
       content: <div>
+        {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
         <iframe hidden></iframe>
+        <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/cAFu9xsRNwk" title="Fledge Gameplay" allowFullScreen></iframe>
       </div>
-    }*/
+    }
   ];
 
   return (

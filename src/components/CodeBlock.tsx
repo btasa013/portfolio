@@ -27,7 +27,7 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   const code = reindent(dedent(children));
 
   return (
-    <div className="overflow-auto w-[250px] sm:w-[370px] md:w-[470px] lg:w-[700px]">
+    <div className="overflow-auto w-fit">
       <pre className="theme-atom-one-dark w-fit text-xs">
         <code ref={codeRef} className="language-csharp whitespace-pre rounded-xl">
           {code}
