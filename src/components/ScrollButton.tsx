@@ -14,8 +14,7 @@ export default function ScrollButton({ selected, href, ref, children }: ScrollBu
       onClick={e => {
         if (ref != undefined && ref.current != undefined) {
           e.preventDefault();
-          //ref.current.scrollBy({ behavior: "smooth" })
-          ref.current.scrollIntoView({ behavior: "smooth", inline: "center" })
+          ref.current.scrollIntoView({ behavior: "smooth" })
         }
       }}
       className={`
