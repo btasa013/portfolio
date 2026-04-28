@@ -10,7 +10,7 @@ interface ScrollButtonProps {
 export default function ScrollButton({ selected, href, ref, children }: ScrollButtonProps) {
   return (
     <a
-      href={getPath(href)}
+      href={href}
       onClick={e => {
         if (ref != undefined && ref.current != undefined) {
           e.preventDefault();
