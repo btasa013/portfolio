@@ -9,10 +9,10 @@ import Image from 'next/image';
 
 import ProjectBanner from '@/assets/3d-pixelart-game/banner.png';
 
-import ShowcaseImage0 from '@/assets/3d-pixelart-game/image_001.png';
-import ShowcaseImage1 from '@/assets/3d-pixelart-game/image_002.png';
-import ShowcaseImage2 from '@/assets/3d-pixelart-game/image_003.png';
-import ShowcaseImage3 from '@/assets/3d-pixelart-game/image_004.png';
+import ShowcaseImage0 from '@/assets/3d-pixelart-game/preview.png';
+import ShowcaseImage1 from '@/assets/3d-pixelart-game/preview.png';
+import ShowcaseImage2 from '@/assets/3d-pixelart-game/preview.png';
+import ShowcaseImage3 from '@/assets/3d-pixelart-game/preview.png';
 
 const s = <div className="*:my-8">
   <div className="max-w-2/3">
