@@ -21,7 +21,7 @@ import ShowcaseImage2 from '@/assets/fledge/gameplay_screenshot2.png';
 import ShowcaseImage3 from '@/assets/fledge/gameplay_screenshot3.png';
 import Image from 'next/image';
 
-const interfaces = <div className="*:my-8">
+const interfaces = <div className="*:my-4">
   <div className="flex flex-wrap gap-4">
     <CodeBlock>
         {`
@@ -58,7 +58,7 @@ const interfaces = <div className="*:my-8">
       `}
     </CodeBlock>
   </div>
-  <div className="md:max-w-2/3">
+  <div>
     The original Room script had separate arrays for different objects which I would have to add new objects to manually.
     The updated scripts use interfaces to fetch all needed objects at runtime, so now the only thing I need
     to do is implement IResettable on the object and it will automatically be fetched when the room is instantiated
@@ -85,13 +85,13 @@ const interfaces = <div className="*:my-8">
       }
     `}
   </CodeBlock>
-  <div className="md:max-w-2/3">
+  <div>
     Example of IResettable being implemented on an object. The Recharge object allows the player to
     jump and recharge their abilities midair. When the room is reloaded or the player dies, it is reset
     and can be used again.
   </div>
 </div>;
-const customRuleTileScript = <div className="*:my-8">
+const customRuleTileScript = <div className="*:my-4">
   <div className="flex flex-wrap gap-4">
     <CodeBlock>
       {`
@@ -133,7 +133,7 @@ const customRuleTileScript = <div className="*:my-8">
       description="A screenshot of the generated rule tile."
     />
   </div>
-  <p className="md:max-w-2/3">
+  <p>
     GroundRuleTile is a script that takes a spritesheet and generates the correct
     tiling rules automatically. The tiling rules are hard-coded in the script
     which means the spritesheets need to follow a predefined layout, but the custom
@@ -141,7 +141,7 @@ const customRuleTileScript = <div className="*:my-8">
     every ground tile type.
   </p>
 </div>;
-const cameraScrolling = <div className="*:my-8">
+const cameraScrolling = <div className="*:my-4">
   <CodeBlock>
     {`
       public class ScrollCamera : MonoBehaviour
@@ -201,26 +201,26 @@ const cameraScrolling = <div className="*:my-8">
       }
     `}
   </CodeBlock>
-  <div className="md:max-w-2/3">
+  <div>
     ScrollCamera is a script that controls camera scrolling and smoothly follows the player.
     The script contains a deadzone separated by axis to keep the camera still when moving
     small distances. The script was created to allow the game to have larger levels without
     transitions between each room.
   </div>
-  <div className="md:max-w-2/3">
+  <div>
     The script took a little bit of time to get right and there were various issues like the
     values in the velocity vector becoming NaN after a room transition which I fixed by setting
     the vector to Vector2.zero after transitions.
   </div>
 </div>;
-const roomEditor = <div className="*:my-8">
-  <p className="md:max-w-2/3">
+const roomEditor = <div className="*:my-4">
+  <p>
     Each room in the game is independent but I also needed a way to connect rooms together. What I previously did was
     assign an id to each exit in a room and used the id in room exits. The id system was really brittle and I often forgot
     to update exit ids and assign unique ids to new exits which led to many errors. This is why I chose to create a small
     custom room editor that can be used to connect two exits.
   </p>
-  <p className="md:max-w-2/3">
+  <p>
     The room editor uses Unity&apos;s CustomEditor attribute to handle GUI events when a Room object is selected. The script uses
     HandleUtility.GUIPointToWorldRay to get the mouse&apos;s world position and detects whether an exit was clicked. When two exits
     are connected, they are marked as dirty and the changes are applied to the prefab instance in the script.
@@ -229,18 +229,18 @@ const roomEditor = <div className="*:my-8">
     path={RoomEditorPicture}
     description="Room editor interface that can be used to connect rooms."
   />
-  <p className="md:max-w-2/3">
+  <p>
     Alongside the editor, I added a mask to each room to cut off tiles and sprites that overflow the room bounds to improve the
     visual appearance of the rooms in the scene view.
   </p>
-  <p className="md:max-w-2/3">
+  <p>
     All of the scripts use the UNITY_EDITOR directive to only compile them when the game is running in the editor because
     they&apos;re not necessary at runtime.
   </p>
 </div>
 
-const customShaderGraph = <div className="*:my-8">
-  <p className="md:max-w-2/3">
+const customShaderGraph = <div className="*:my-4">
+  <p>
       The game has swaying grass tiles, which I implemented by
       creating a script that changed the rotation of the tile.
       
@@ -248,12 +248,12 @@ const customShaderGraph = <div className="*:my-8">
       the grass to sway smoothly so I started looking into created a custom
       Shader Graphs to add a pixelation effect on the swaying grass.
   </p>
-  <p className="md:max-w-2/3">
+  <p>
       Creating the shader was more difficult than I had anticipated. It was made harder by me
       not being able to find any examples of pixelation shader graphs that I could look at to
       see how its done.
   </p>
-  <p className="md:max-w-2/3">
+  <p>
       The game uses spritesheets that contain multiple different tiles, which gave me trouble
       when creating the shader, because as it turns out, the shader graph uses the underlying
       texture regardless of what is assigned to the material. That meant that I had to add tiling
@@ -263,7 +263,7 @@ const customShaderGraph = <div className="*:my-8">
     path={GrassShaderPicture}
     description="A part of the shader which uses two step nodes to isolate the correct tile."
   />
-  <p className="md:max-w-2/3">
+  <p>
       The current implementation has an issue where a moving tile is clipped when it goes out of bounds.
       I haven&apos;t been able to fix it because increasing the bounds will cause other textures to be sampled
       alongside the grass tile.
@@ -274,8 +274,8 @@ const customShaderGraph = <div className="*:my-8">
     additionalImageStyles="pixelated"
   />
 </div>;
-const playerAnimations = <div className="*:my-8">
-  <p className="md:max-w-2/3">
+const playerAnimations = <div className="*:my-4">
+  <p>
       The issues I had with player animations were due to exit times and transition durations that
       the animator had. Because my animations are spritesheets, there is no way to transition between
       them which meant that having a transition duration just delayed the transition.
@@ -285,13 +285,13 @@ const playerAnimations = <div className="*:my-8">
     description="Player animation transitions."
   />
 </div>;
-const roomTransitions = <div className="*:my-8">
-  <p className="md:max-w-2/3">
+const roomTransitions = <div className="*:my-4">
+  <p>
     In the game, I implemented room transitions as a trigger which loads the next room and moves the player
     to a position defined in the component. When going upwards, I added a force parameter that would be added
     during the transition to give the player enough momentum to land on a ledge in the next room.
   </p>
-  <p className="md:max-w-2/3">
+  <p>
     When I was playtesting the game, I noticed that a lot of testers were moving to the opposite direction
     during a transition which caused them to counteract the force given and made them fall back into the last
     room. I solved the issue by freezing player controls for a small duration after a transition.
@@ -320,13 +320,13 @@ const roomTransitions = <div className="*:my-8">
     `}
   </CodeBlock>
 </div>;
-const colorBanding = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3">
+const colorBanding = <div className="*:my-4">
+  <div>
     When I added post-processing effects and lights, I saw that the shading was very noticeable. I researched the issue and found
     that Unity has a dithering option on the camera which mitigates the issue by scrambling pixels on the edges.
     There are still smaller lines visible, but a lot less noticeable than without dithering.
   </div>
-  <div className="flex flex-wrap gap-2 my-8">
+  <div className="flex flex-wrap gap-2 my-4">
     <ContentPicture
       path={ColorBandingBeforePicture}
       description="Color banding caused by vignette and lights."

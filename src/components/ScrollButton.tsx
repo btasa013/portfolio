@@ -1,5 +1,3 @@
-import { getPath } from '@/scripts/path';
-
 interface ScrollButtonProps {
     selected: boolean;
     href?: string;

@@ -1,33 +1,46 @@
 "use client";
 
 import ProjectPage, { ProjectSectionProps } from '@/components/ProjectPage';
-import { TITLE, SLUG, TEAM, DESCRIPTION } from './data';
-import { getPath } from "@/scripts/path";
+import CodeBlock from '@/components/CodeBlock';
+import ContentPicture from '@/components/ContentPicture';
+import { TITLE, SLUG, TEAM, DESCRIPTION, asset } from '../../data';
 import { useRef } from 'react';
 import Image from 'next/image';
 
-import ProjectBanner from '@/assets/ground-level/banner.png';
+import ProjectBanner from '@/assets/3d-pixelart-game/banner.png';
 
-import ShowcaseImage0 from '@/assets/ground-level/image_001.png';
-import ShowcaseImage1 from '@/assets/ground-level/image_002.png';
-import ShowcaseImage2 from '@/assets/ground-level/image_003.png';
-import ShowcaseImage3 from '@/assets/ground-level/image_004.png';
+import ShowcaseImage0 from '@/assets/3d-pixelart-game/image_001.png';
+import ShowcaseImage1 from '@/assets/3d-pixelart-game/image_002.png';
+import ShowcaseImage2 from '@/assets/3d-pixelart-game/image_003.png';
+import ShowcaseImage3 from '@/assets/3d-pixelart-game/image_004.png';
+
+const s = <div className="*:my-8">
+  <div className="max-w-2/3">
+
+  </div>
+</div>
 
 export default function Project() {
 
   const sections: ProjectSectionProps[] = [
     {
-      title: "Reports",
-      navButton: { title: "Reports" },
+      title: "Functions",
       ref: useRef(null),
-      content: <div className="flex flex-col gap-4">
-        <a className="bg-bg-secondary w-32 text-center p-2 rounded-2xl will-change-transform motion-safe:hover:scale-105 hover:brightness-125 transition-all duration-200" href={getPath(`projects/${SLUG}/reports/1`)}>Report 1</a>
-      </div>
+      navButton: { title: "Functions" },
+      content: [
+      ],
+    },
+    {
+      title: "Problems",
+      ref: useRef(null),
+      navButton: { title: "Problems" },
+      content: [
+      ]
     },
     {
       title: "Screenshots",
-      navButton: { title: "Screenshots" },
       ref: useRef(null),
+      navButton: { title: "Screenshots" },
       content: <div className="
           grid grid-cols-2 grid-rows-2 gap-2 md:gap-4 *:shadow-bg-black *:shadow-md w-fit
       ">
@@ -39,10 +52,13 @@ export default function Project() {
       </div>
     },
     {
-      title: "Gameplay Video",
-      navButton: { title: "Gameplay" },
+      title: "Showcase Video",
       ref: useRef(null),
+      navButton: { title: "Gameplay" },
       content: <div>
+        <div className="max-w-2/3">
+          There currently isn't much in terms of gameplay but below is a showcase of the project.
+        </div>
         {/* Second iframe is needed so the video isn't blocked on Firefox for some reason */}
         <iframe hidden></iframe>
         <iframe className="aspect-video max-w-[800px]" src="https://www.youtube.com/embed/kStJTdOw_M8" title="Ground Level Gameplay" allowFullScreen></iframe>
@@ -58,7 +74,7 @@ export default function Project() {
       description={DESCRIPTION}
       banner={ProjectBanner}
       sections={sections}
-      isMainPage={true}
+      isMainPage={false}
     >
     </ProjectPage>
   );

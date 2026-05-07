@@ -27,8 +27,16 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   const code = reindent(dedent(children));
 
   return (
-    <div className="overflow-auto w-fit">
-      <pre className="theme-atom-one-dark w-fit text-xs">
+    <div className="
+      overflow-auto
+      [&::-webkit-scrollbar]:h-3
+      [&::-webkit-scrollbar]:bg-[#05090e]
+      [&::-webkit-scrollbar]:rounded-full
+      [&::-webkit-scrollbar-thumb]:bg-[#282c34]
+      [&::-webkit-scrollbar-thumb]:hover:bg-[#3e4350]
+      [&::-webkit-scrollbar-thumb]:rounded-full
+    ">
+      <pre className="theme-atom-one-dark w-fit text-xs mb-2">
         <code ref={codeRef} className="language-csharp whitespace-pre rounded-xl">
           {code}
         </code>

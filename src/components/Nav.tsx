@@ -55,7 +55,6 @@ export default function Nav({ nav }: NavProps) {
       const acceleration = Math.abs(current > scroll ? current / scroll : scroll / current);
 
       const speed = Number.isFinite(acceleration) ? 1 / acceleration : 1;
-      console.log(acceleration, speed, current, scroll, current-scroll);
       const scrollPos =
         (1.0 - speed) * current + speed * scroll;
 

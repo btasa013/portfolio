@@ -18,8 +18,8 @@ import PlayerCollidersPicture from '@/assets/fledge/player_colliders.png';
 import MisalignedBackgrounds from '@/assets/fledge/misaligned_backgrounds.png';
 import CodeBlock from '@/components/CodeBlock';
 
-const playerMovement = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 xl:max-w-3/5 flex flex-col gap-4">
+const playerMovement = <div className="*:my-4">
+  <div className="flex flex-col gap-4">
     <div>
       The player character uses a finite state machine with states such as Idle, Walk and Climb. Each of the states
       used to have their own update loop where the player movement was applied. The change I made was to create
@@ -66,8 +66,8 @@ const playerMovement = <div className="*:my-8">
   </CodeBlock>
 </div>;
 
-const transitionManager = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 xl:max-w-3/5 *:my-4">
+const transitionManager = <div className="*:my-4">
+  <div className="*:my-4">
     <div>
       TransitionManager is a script that handles transitions between rooms. When a room is entered or the
       player dies, the Transition function is called which will load the new room and perform the provided
@@ -132,16 +132,14 @@ const transitionManager = <div className="*:my-8">
   </CodeBlock>
 </div>;
 
-const effectManager = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 xl:max-w-3/5 *:my-4">
-    <div>
-      EffectManager is a singleton component used to control the particle systems in the game.
-      Most particle systems in the game are located in the main scene and activated by script
-      when needed. During a transition to another room or after respawning, some effects may still be
-      active, which is why I created the EffectManager to be able to control the effects globally.
-      When the player dies or goes into a new room, the particle systems are stopped and cleared so they
-      don't stay visible in the next room.
-    </div>
+const effectManager = <div className="*:my-4">
+  <div>
+    EffectManager is a singleton component used to control the particle systems in the game.
+    Most particle systems in the game are located in the main scene and activated by script
+    when needed. During a transition to another room or after respawning, some effects may still be
+    active, which is why I created the EffectManager to be able to control the effects globally.
+    When the player dies or goes into a new room, the particle systems are stopped and cleared so they
+    don't stay visible in the next room.
   </div>
   <CodeBlock>
     {`
@@ -175,15 +173,13 @@ const effectManager = <div className="*:my-8">
   </CodeBlock>
 </div>;
 
-const oneWayPlatforms = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 xl:max-w-3/5 *:my-4">
-    <div>
-      Unity has its own PlatformEffector2D component that can be used for one-way platforms.
-      Unfortunately using the component keeps the sides of the platform collidable so I had
-      to create my own one-way platform implementation. The script uses a raycast to determine
-      whether a platform is underneath the player, and checks its position against the player&apos;s
-      feet to see whether the collision should be ignored.
-    </div>
+const oneWayPlatforms = <div className="*:my-4">
+  <div>
+    Unity has its own PlatformEffector2D component that can be used for one-way platforms.
+    Unfortunately using the component keeps the sides of the platform collidable so I had
+    to create my own one-way platform implementation. The script uses a raycast to determine
+    whether a platform is underneath the player, and checks its position against the player&apos;s
+    feet to see whether the collision should be ignored.
   </div>
   <CodeBlock>
     {`
@@ -239,8 +235,8 @@ const oneWayPlatforms = <div className="*:my-8">
   </CodeBlock>
 </div>;
 
-const playerCollision = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 flex flex-col gap-4">
+const playerCollision = <div className="*:my-4">
+  <div className="flex flex-col gap-4">
     <div>
       This problem relates to the player being able to stand on edges of platforms even when their feet are not touching it.
       In the game, this also allows the player to stand right on the edge of a spike without being killed.
@@ -273,8 +269,8 @@ const playerCollision = <div className="*:my-8">
   </div>
 </div>;
 
-const roomTransitions = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 flex flex-col gap-4">
+const roomTransitions = <div className="*:my-4">
+  <div className="flex flex-col gap-4">
     <div>
       The rooms in the game are implemented as additive scenes that are loaded when the room is
       entered and unloaded when exited. Each entrance to a room has a connection point which is
@@ -323,7 +319,7 @@ const roomTransitions = <div className="*:my-8">
       </div>
     </div>
   </div>
-  <div className="flex flex-wrap gap-2 my-8">
+  <div className="flex flex-wrap gap-2 my-4">
     <ContentPicture
       path={MisalignedBackgrounds}
       description="The backgrounds are slightly misaligned. This is harder to notice when the camera is moving and there are tiles in the way."
@@ -331,8 +327,8 @@ const roomTransitions = <div className="*:my-8">
   </div>
 </div>;
 
-const wallJumping = <div className="*:my-8">
-  <div className="my-8 md:max-w-2/3 flex flex-col gap-4">
+const wallJumping = <div className="*:my-4">
+  <div className="flex flex-col gap-4">
     <div>
       In the game, the player can hold onto a wall and slide down by holding down the movement button
       of the direction to the wall. When wall jumping, this creates an issue where the player has to

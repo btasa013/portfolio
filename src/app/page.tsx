@@ -193,7 +193,7 @@ export default function Home() {
                       <div className="text-nowrap">Unity</div>
                     </div>
                     <div className="text-xs ml-10">
-                      2 years
+                      3 years
                     </div>
                   </div>
                   <div className="flex flex-col">
@@ -202,7 +202,7 @@ export default function Home() {
                       <div className="relative right-[1px]">Unreal Engine</div>
                     </div>
                     <div className="text-xs ml-10">
-                      1 year
+                      2 years
                     </div>
                   </div>
                 </div>
